@@ -1,0 +1,132 @@
+% Article template for Mathematics Magazine
+% Revised 7/2002  Thanks for Greg St. George
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{dot2texi}
+\usetikzlibrary{shapes,arrows}
+\renewcommand{\baselinestretch}{1.2}
+%This is the command that spaces the manuscript for easy reading
+
+
+%todo
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
+\newcommandx{\QUESTION}[2][1=]{\todo[linecolor=none,backgroundcolor=blue!15,bordercolor=none,#1]{\textbf{QUESTION: }#2}}
+
+
+\newtheoremstyle{break}
+  {\topsep}{\topsep}%
+  {\itshape}{}%
+  {\bfseries}{}%
+  {\newline}{}%
+\theoremstyle{break}
+\newtheorem{zeige}{Zeige}
+\newtheorem{definition}{Definition}
+\newtheorem{bsp}{Beispiel}
+
+
+
+\begin{document}
+%\thispagestyle{empty}
+\title{AOTidf Bagger Game}
+\author{Denis Erfurt, Tobias Behrens}
+\maketitle
+
+\section{Formalisierung des Problems}
+
+\begin{definition}
+  Eine Coalitioal Skill Game Signatur \\$\sigma_{CSG}:=\sigma_{Ar}\cup\{Agent_{/1}, Baustelle_{/1}, Supply_{/3}, Demand_{/3}, Budget_{/2}, kosten_{/3\mapsto 1}, M_{/4} \}$. Dabei steht $\sigma_{Ar}$ für die Signatur der Standardarithmetik mit $0,1,+,*\in\sigma_{Ar}$
+    $Agent(x) :\Leftrightarrow\text{ x ist ein Agent}$ \\
+    $Baustelle(x) :\Leftrightarrow\text{ x ist eine Baustelle}$ \\
+    $Supply(t, x, y) :\Leftrightarrow\text{ Agent x besitzt y Einheiten vom typ t}$ \\
+    $Demand(t, x, y) :\Leftrightarrow\text{ Baustelle x benötigt y Einheiten vom typ t}$ \\
+    $Budget(x, n) :\Leftrightarrow$
+    Baustelle x ist maximal bereit einen Gewin von n bei fertigstellung auszuzahlen \\
+    $kosten(t, n, x, y):\Leftrightarrow$ Funktion die die Kosten für einen Agent x für den Transport n Ressourcen t an die Baustelle y berrechnet.\\
+    $M(x, t, n, y, v) :\Leftrightarrow$ Agent x sendet n Ressourcen des Types t an die Baustelle y und bekommt die Vergütung v
+\end{definition}
+
+\begin{bsp}
+  Sei $\mathcal{A}$ eine $\sigma_{CSG}-$Struktur:\\
+  $Agent^\mathcal{A} := \{a_1, a_2, a_3\}$ \\
+  $Baustelle^\mathcal{A} := \{b_1, b_2\}$ \\
+  $Supply^\mathcal{A} := \{
+  (t_1, a_1, 2),
+  (t_2, a_1, 7),
+  (t_1, a_2, 3),
+  (t_2, a_2, 5),
+  (t_1, a_3, 20),
+  (t_2, a_3, 5)
+  \}$ \\
+  $Demand^\mathcal{A} := \{
+  (t_1, b_1, 10),
+  (t_2, b_1, 5),
+  (t_1, b_2, 2),
+  (t_2, b_2, 2)
+  \}$ \\
+  $Budget^\mathcal{A}:= \{
+  (b_1, 10),
+  (b_2, 3)
+  \}$ \\
+  $M := \{
+  (a_1, t_1, 2, b_1),
+  (a_1, t_2, 5, b_1),
+  (a_2, t_1, 3, b_1),
+  (a_3, t_1, 5, b_1),
+  (a_3, t_1, 2, b_2),
+  (a_3, t_2, 2, b_2)
+  \}$
+\end{bsp}
+
+\section{Vorgehen}
+Zunächst werden wir versuchen unterschiedliche optimierungskritärien (utility) zu formulieren wie z.B. Optimierung der Gewinne aller Agenten. Oder optimieren der Gewinne bei gleichzeitiger minimierung der Kosten der Baustellen.
+
+
+\subsection*{Analysekritärien}
+Die Analysetechnik besteht nun darin folgende Fragen zu Formalisieren und gegebene Modelle darauf zu untersuchen:
+
+\begin{enumerate}
+  \item $\varphi_{\text{Optimal}}\Leftrightarrow$ Es exestiert kein Matching, das bez. der optimalitätskritärium besser währe.
+  \item $\varphi_{\text{pareto-effizient}}\Leftrightarrow$ Kein Spieler kann sich durch Manipulation seines Matchings verbessern.
+  \item Existenz von dummy und veto spielern
+  \item eindeutigkeit des optimums
+\end{enumerate}
+
+% \begin{dot2tex}[dot,mathmode]
+% graph G {
+%       splines=false;
+%       node[shape=circle, style=filled]
+%       subgraph cluster_1 {
+%       subgraph cluster_1r {
+%          a12 [label="a"]
+%          b12 [label="b"]
+%          c12 [label="c"]
+%          d12 [label="d"]
+%          e12 [label="e"]
+%          a12--b12--c12--d12--e12 [style=invis]
+%          }
+%       subgraph cluster_1l {
+%          a11 [label="a"]
+%          b11 [label="b"]
+%          c11 [label="c"]
+%          d11 [label="d"]
+%          e11 [label="e"]
+%          a11--b11--c11--d11--e11 [style=invis]
+%          }
+%          c11--a12 [constraint=false]
+%          c11--b12 [constraint=false]
+%          d11--b12 [constraint=false]
+%          e11--a12 [constraint=false]
+%          e11--b12 [constraint=false]
+%      }
+% }
+% \end{dot2tex}
+
+
+\end{document}
