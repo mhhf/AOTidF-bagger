@@ -8,6 +8,7 @@
 \usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage{tikz}
+\usepackage{tikz-cd}
 \usepackage{dot2texi}
 \usetikzlibrary{shapes,arrows}
 \renewcommand{\baselinestretch}{1.2}
@@ -18,7 +19,7 @@
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \usepackage{xargs}                      % Use more than one optional parameter in a new commands
 \newcommandx{\QUESTION}[2][1=]{\todo[linecolor=none,backgroundcolor=blue!15,bordercolor=none,#1]{\textbf{QUESTION: }#2}}
-
+\newcommandx{\TODO}[2][1=]{\todo[inline,linecolor=none,backgroundcolor=blue!15,bordercolor=none,#1]{\textbf{TODO: }#2}}
 
 \newtheoremstyle{break}
   {\topsep} {\topsep}%
@@ -37,59 +38,101 @@
 %\thispagestyle{empty}
 \title{AOTidf Bagger Game}
 \author{Denis Erfurt, Tobias Behrens}
+
+\begin{abstract}
+  In dieser Arbeit zeigen wir, dess es sich bei dem ''Coalition Skill Game'' um ein superadditives Spiel handelt in welcher die große Koalition die notwendigerweise beste Strategie für alle Agenten darstellt um deren gewinn zu maximieren. Hierfür füren wir zunächst formal die begriffe ein und zeigen dass sich jedes CSG bezüglich der strategie equivalent zu einem ist, indem jeder Agent nur über eine Kapazität verfügt. Anschließend zeigen wir die Superadditivitätseigenschaft für das Spiel und geben ein Algorithmus an mit dem sich die optimale Resourcenverteilung aus der sicht der Agenten berechnen lässt.
+\end{abstract}
+
+
+
 \maketitle
+
 
 \section{Voraussetzungen}
 
-\begin{definition}[CSGS]
-  Eine Coalitional Skill Game Setting (CSGS) Signatur\\
-  $\sigma_{CSGS}:=\sigma_{Ar}\cup\{Agent_{/1}, Baustelle_{/1}, supply_{/2}, demand_{/2}, budget_{/1}, kosten_{/3} \}$. Dabei steht $\sigma_{Ar}$ für die Signatur der Standardarithmetik mit $0,1,+,*\in\sigma_{Ar}$ \\
+Um das gegebene Problem strukturell analysieren zu können werden wir hier der Sprache der HOL (Higher Order Logic) bedienen. Zunächst werden wir in (\ref{sigmod}) vier Signaturen einführen mit den dazugehörigen Modellklassen einführen aufdenen das Problem analysiert wird, anschließend werden wir in (\ref{bez}) beziehungen zwischen den Modellklassen betrachten und schließlich in (\ref{supadd}) die Superadditivität des Spiels zu zeigen.
+\TODO{Vereinfachungen - fixes binäres budget}
+ 
+\subsection{Grundlagen}
+
+\TODO{HOL}
   Im weiteren werden Funktionen mit kleinem Anfangsbuchstaben, sowie Relationen mit einem großen Anfangsbuchstaben geschrieben. Ebenfalls sind alle funktionen total und mit 0 initialisiert, falls für eine Struktur und eingabeparameter nicht näher definiert sind.
   Ebenfalls werden wir die Prädikatenschreibweise und die Mengenschreibweise equivalent verwenden: $a\in A \equiv A(a)$
+
+\subsection{Terminologie}
+\label{sigmod}
+
+\subsubsection{Signaturen und Modellklassen}
+
+Wir werden vier verschiedene Signaturen mit den dazugehörigen Modellklassen einführen:
+\begin{enumerate}
+  \item \textbf{CSGS} - Coalition Skill Game Setting
+  \item \textbf{CSG} - Coalition Skill Game
+  \item \textbf{SCSG} - Simple Coalition Skill Game
+  \item \textbf{SCSGS} - Simple Coalition Skill Game Setting
+\end{enumerate}
+
+\begin{definition}[CSGS]
+  Eine Coalitional Skill Game Setting (CSGS) Signatur:\\
+  \begin{eqnarray}
+   \sigma_{CSGS}:= \\
+   \{Agent_{/1}, Baustelle_{/1}, supply_{/2}, demand_{/2}, budget_{/1}, kosten_{/3} \}
+  \end{eqnarray}
     \\ \textbf{Intuition} \\
-    $Agent(x) :\Leftrightarrow\text{ x ist ein Agent}$ \\
-    $Baustelle(x) :\Leftrightarrow\text{ x ist eine Baustelle}$ \\
-    $supply(x, t)\mapsto n :\Leftrightarrow\text{ Agent x besitzt n Einheiten vom typ t}$ \\
-    $demand(x, t)\mapsto n :\Leftrightarrow\text{ Baustelle x benötigt n Einheiten vom typ t}$ \\
-    $budget(x)\mapsto n :\Leftrightarrow$
-    Baustelle x ist maximal bereit einen Gewin von n bei fertigstellung auszuzahlen \\
-    $kosten(t, n, x, y):\Leftrightarrow$ Funktion die die Kosten für einen Agent x für den Transport n Ressourcen t an die Baustelle y berrechnet.
+    \begin{tabular}{lrl}
+    $Agent(x)$&$:\Leftrightarrow$& x ist ein Agent \\
+    $Baustelle(x) $&$:\Leftrightarrow$& x ist eine Baustelle \\
+    $supply(x, t)\mapsto n $&$:\Leftrightarrow$& Agent x besitzt n Einheiten vom typ t \\
+    $demand(x, t)\mapsto n $&$:\Leftrightarrow$& Baustelle x benötigt n Einheiten vom typ t \\
+    $budget(x)\mapsto n $&$:\Leftrightarrow$&
+    Baustelle x ist maximal bereit einen Gewin von n\\&& bei fertigstellung auszuzahlen\\
+    $kosten(t, n, x, y)\mapsto n$&$:\Leftrightarrow$& Kosten für Agent x für den Transport von n Ressourcen t\\&& an die Baustelle y.
+    \end{tabular}
 \end{definition}
 
+Im folgenden werden wir die $\sigma_{CSGS}$-Struktur $\mathcal{S}$ als ein Setting bezeichnen sowie die $M_{CSGS}$ als die Modellklasse aller valider Settings.
+Auf eine formale Definition der validität eines Settings wie z.b. die Forderung des die Menge der Baustelen und Agenten disjunkt ist, wird verzichtet.
+\\
+Intuitiev definiert ein Setting ein gegebenes Szenario:
+
 \begin{bsp}
-  Sei $\mathcal{A}$ eine $\sigma_{CSGS}-$Struktur:\\
-  $Agent^\mathcal{A} := \{a_1, a_2, a_3\}$ \\
-  $Baustelle^\mathcal{A} := \{b_1, b_2\}$ \\
+  Sei $\mathcal{S}$ eine $\sigma_{CSGS}-$Struktur mit:\\
+  $Agent^\mathcal{S} := \{a_1, a_2, a_3\}$ \\
+  $Baustelle^\mathcal{S} := \{b_1, b_2\}$ \\
   $ \\
-  supply^\mathcal{A}(a_1, t_1)\mapsto 2 \\
-  supply^\mathcal{A}(a_1, t_2)\mapsto 7 \\
-  supply^\mathcal{A}(a_2, t_1)\mapsto 3 \\
-  supply^\mathcal{A}(a_2, t_2)\mapsto 5 \\
-  supply^\mathcal{A}(a_3, t_1)\mapsto 20 \\
-  supply^\mathcal{A}(a_3, t_2)\mapsto 5
+  supply^\mathcal{S}(a_1, t_1)\mapsto 2 \\
+  supply^\mathcal{S}(a_1, t_2)\mapsto 7 \\
+  supply^\mathcal{S}(a_2, t_1)\mapsto 3 \\
+  supply^\mathcal{S}(a_2, t_2)\mapsto 5 \\
+  supply^\mathcal{S}(a_3, t_1)\mapsto 20 \\
+  supply^\mathcal{S}(a_3, t_2)\mapsto 5
   $ \\ \\
   $
-  demand^\mathcal{A}(b_1, t_1)\mapsto 10 \\
-  demand^\mathcal{A}(b_1, t_2)\mapsto 5\\
-  demand^\mathcal{A}(b_2, t_1)\mapsto 2\\
-  demand^\mathcal{A}(b_2, t_2)\mapsto 2
+  demand^\mathcal{S}(b_1, t_1)\mapsto 10 \\
+  demand^\mathcal{S}(b_1, t_2)\mapsto 5\\
+  demand^\mathcal{S}(b_2, t_1)\mapsto 2\\
+  demand^\mathcal{S}(b_2, t_2)\mapsto 2
   $ \\ \\
   $
-  budget^\mathcal{A}(b_1)\mapsto 10 \\
-  budget^\mathcal{A}(b_2)\mapsto 3
+  budget^\mathcal{S}(b_1)\mapsto 10 \\
+  budget^\mathcal{S}(b_2)\mapsto 3
   $ \\
 \end{bsp}
 
-\begin{definition}[CSGS]
-  Eine Coalitioal Skill Game Signatur \\$\sigma_{CSG}:=\sigma_{CSGS}\cup\{M_{/4}, v_{/3}\}$.
+
+
+\begin{definition}[CSG]
+  Eine Coalitioal Skill Game Signatur \\$\sigma_{CSG}:=\sigma_{CSGS}\cup\{m_{/3}, v_{/2}\}$.
     \\ \textbf{Intuition} \\
     $m(x, t, y)\mapsto n:\Leftrightarrow$ Agent x sendet n Ressourcen des Types t an die Baustelle y \\
     $v(x,y)\mapsto n:\Leftrightarrow$ Agent x bekommt von Baustelle y eine vergütung von n
 \end{definition}
 
+Wir bezeichnen eine $\sigma_{CSG}$-Struktur als ein Game $\mathcal{G}$. Intuitiv ist ein Game ein valides Setting zusammen mit einer möglichen validen Lösung (e.g. valide verteilung der Ressourcen und Vergütungen).
+Dabei werden wir $M_CSG$ als die Klasse aller valider Games bezeichnen. Hier wird ebenfalls auf eine formale Definition valider kritärien verzichtet. Informell sind die wichtigsten validitätskritärien dass ein Agent nicht mehr ressourcen ausgibt als er besitzt, eine Baustelle nicht mehr Geld ausgibt als sie besitzt und dass eine Baustelle nur geld ausgibt, falls diese vollständig mit benötigten Ressourcen versorgt wird.
 
 \begin{bsp}
-  Sei $\mathcal{A}'$ eine erweiterung der $\mathcal{A}$ Struktur zu einer $\sigma_{CSG}-$Struktur mit:\\
+  Sei $\mathcal{G}$ eine erweiterung der $\mathcal{A}$ Struktur zu einer $\sigma_{CSG}-$Struktur mit:\\
   $
   m(a_1, t_1, b_1) \mapsto 2 \\
   m(a_1, t_2, b_1) \mapsto 5 \\
@@ -97,16 +140,81 @@
   m(a_3, t_1, b_1) \mapsto 5 \\
   m(a_3, t_1, b_2) \mapsto 2 \\
   m(a_3, t_2, b_2) \mapsto 2
-  $ \\
-  Sonst $m(x,t,y)\mapsto 0$
+  $
 \end{bsp}
 
+Wie wir später noch zeigen werden lässt sich jedes Setting und Game zu einem Vereinfachen, bei der jeder Agent nur eine Ressource besitzt. Diese vereinfachung erleichtert uns den Beweis der Superadditivität und die Betrachtung möglicher algorithmen zur verteilungsberechnung. Hierfür benötigen wir jedoch eine neue Relation $AgentOwner_{/2}$ mit der wir die zuteilung der ursprünglichen Agenten zu Ressourcen merken.
 
-\section{Problemstellung}
+\begin{definition}{SCSGS}
+  Eine Simple Coalition Skill Game Setting Signatur:
+  \[ i
+    \sigma_{SCSGS}:= \{AgentOwner_{2}, Agent_{/1}, Baustelle_{/1}, type_{/1}, demand_{/2}, budget_{/1}, kosten_{/3} \}
+  \]
+  \\ \textbf{Intuition} \\
+  \begin{tabular}{lrl}
+    $AgentOwner(a, x)$&$:\Leftrightarrow$& a ''besitzt'' agent x \\
+    $Agent(x)$&$:\Leftrightarrow$& x ist ein Agent \\
+    $Baustelle(x) $&$:\Leftrightarrow$& x ist eine Baustelle \\
+    $type(x)\mapsto t $&$:\Leftrightarrow$& Agent x ist vom typ t \\
+    $demand(x, t)\mapsto n $&$:\Leftrightarrow$& Baustelle x benötigt n Einheiten vom typ t \\
+    $budget(x)\mapsto n $&$:\Leftrightarrow$&
+    Baustelle x ist maximal bereit einen Gewin von n\\&& bei fertigstellung auszuzahlen\\
+    $kosten(t, n, a, y)\mapsto n$&$:\Leftrightarrow$& Kosten für Agentbesitzer x für den Transport von n Agenten des Types t\\&& an die Baustelle y.
+  \end{tabular}
+\end{definition}
 
-Gesucht wird ein Mechanismus der bei eingabe einer $\sigma_{CSGS}$-Struktur eine $\sigma_{CSG}$-Struktur berechnet die bestimmte noch zu definierende Eigenschaften erfüllt.
+Wir bezeichnen hier eine $\sigma_{SCSGS}$-Struktur $\mathcal{SS}$ als ein Simple Setting und die dazugehörige Modellklasse von validen Strukturen $M_{SCSGS}$. Auf die Definition der validitätskritärien wird auch hier verzichtet.
 
-\section{Ergebnisse}
+
+\begin{definition}{SCSG}
+  Eine Simple Coalition Skill Game Signatur:
+  \[ \sigma_{SCSG}:=\sigma_{SCSGS}\cup\{M_{/3}, v_{/2}\} \] 
+  \\ \textbf{Intuition} \\
+  $M(x, y):\Leftrightarrow$ Agent x sendet seine Ressource an die Baustelle y \\
+  $v(x,y)\mapsto n:\Leftrightarrow$ Agent x bekommt von Baustelle y eine vergütung von n
+\end{definition}
+
+Wir bezeichnen eine $\sigma_{SCSG}$-Strutkur $\mathcal{SG}$ als ein Simple Game mit der dazugehörigen validen Modelklasse $M_{SCSG}$. Auf die Definition der validitätskritärien wird verzichtet.
+
+
+\subsection{bez}
+\label{bez}
+
+Bei der gegebenen Aufgabenstellung interessieren wir uns für ein Mechanismus der bei eiem gegebenen Setting ein Game berechnet. Formal gesehen:
+
+\begin{equation}
+  m: M_{CSGS} \leftarrow M_{CSG}
+\end{equation}
+
+Nach welchen Kritärien dieser mechanismus arbeitet und bewertet wird wird vorest offen gelassen.\\
+
+Die nachfolgenden Betrachtungen wollen wir jedoch auf einer vereinfachten Strukturen machen, bei denen jeder Agent nur eine Ressource besitzt. Um dennoch aussagen über CSG machen zu können werden wir zeigen dass jedes Setting bzw. Game zu einem Simple Setting bzw. Simple Game überführen lässt. Dieses erlaubt uns auch die betrachtung von mechanismen die bei einem Simple Setting ein Simple Game berechnen. Formal:
+
+\[
+\begin{tikzcd}[column sep=1in,row sep=1in]
+M_{CSGS} \arrow{d}{\pi} \arrow{r}{\pi'^{-1}\ \circ\  m'\ \circ\ \pi} & M_{CSG} \\
+M_{SCSGS} \arrow{r}{m'} & M_{SCSG} \arrow{u}{\pi'^{-1}}
+\end{tikzcd}
+\]
+
+Dabei müssen folgende Eigenschaften gelten:
+
+
+\begin{eqnarray}
+  \pi &-&\text{total, injektiv} \\
+  \pi^{-1}&-&\text{surjektiv} \\
+  \pi' &-&\text{total, injektiv} \\
+  \pi'^{-1}&-&\text{surjektiv} \\
+  \pi^{-1}\circ\pi &=& id_{M_{CSGS}} \\
+  \pi'^{-1}\circ\pi' &=& id_{M_{CSG}} \\
+\end{eqnarray}
+
+Weiter werden wir nur Mechanismen betrachten die nichts am Setting ändern sondern nur matchings und vergütungsverteilung berechnen.
+Auf eine ausführliche Definition der gesuchten Funktionen wird hier ebenfalls verzichtet. Statdessen wird eine intuition gegeben: Ein Setting bzw. Game lässt sich in ein Simple Setting bzw. Simple Game überführen indem jede ressource eines Agenten als eigenständiger Agent betrachtet wird wobei die zugehörigkeit von agenten unr Resourcen sich in der $AgentOwner$ Relation gemerkt wird. Kostenfunktion bleibt dabei bestehen und wird lediglich auf die Agentbesitzer übertragen. Bei den Matches sowie vergütung wird ähnlich verfahren. Hierdurch gehen keine informationen verlohren und alle Betrachtungen können auf den vereifachten Modellen durchgeführt werden.
+\subsection{supadd}
+\label{supadd}
+
+Um die Superadditivität des Spieles zu zeigen werden zunächst der Begriffe formal festgehalten:
 
 \begin{definition}
   Sei $K\subseteq A$ eine beliebige Koalition. Wir definieren die Menge $PM(K)$ der potentiellen Matches:
@@ -130,7 +238,7 @@ Gesucht wird ein Mechanismus der bei eingabe einer $\sigma_{CSGS}$-Struktur eine
   \end{eqnarray}
 \end{definition}
 
-Da es sich um ein ''einfaches'' Spiel handelt, mach es sinn einen Agenten nur einer Koalition zuzuordnen:
+Da es sich um ein Simple Game handelt, Könenn wir o.B.d.A. annehmen, dass eine Agent nur einer Koalition zuzgeordnet ist:
 \begin{equation}
   K\neq S \Rightarrow K\cap S =\emptyset \label{koalitiondisjunct}
 \end{equation}
@@ -161,7 +269,7 @@ Zur weiteren vereinfachung definieren wir uns noch eine Bewertungsfunktion für 
   v(K) + v(S) := \max_{(B_K, B_S)\in Outcome(K,S)}(v(B_K)+v(B_S))
 \end{equation}
 Dadurch dass die Baustellen die von einer Koalition gebaut werden nicht mehr von einer anderen koalition gebaut werden können, müssen wir diese zeitgleich betrachten.\\
-\textbf{Bemerkung}: Definitionsgemäs ist das ergäbniss pareto effizient.
+\textbf{Bemerkung}: Nach Definition ist das Ergebniss pareto effizient.
 \end{definition}
 
 Exestiert eine Koalition isoliert, lässt sich diese auch isoliert betrachten:
@@ -179,7 +287,7 @@ Insbesondere gilt dann auch für zwei Koalitionen K,S:
 
 Beachte auch das für einen Outcome zweier Koalitionen eine mögliche Baustellenmenge der potentiellen Baustellen der vereinigung der Koalitionen exestiert die alle Baustellen des seperaten Outcomes beinhaltet:
 \begin{equation}
-  \forall (B_K, B_S)\in Outcome(K,S).\exists B'\in B(K\cup S).B_K\subset B'\land B_S\subset B'
+  \forall (B_K, B_S)\in Outcome(K,S).\exists B'\in B(K\cup S).B_K\cup B_S\subseteq B'
 \end{equation}
 
 Hierraus können wir die Superadditivität des Spiels schließen:
@@ -189,7 +297,7 @@ Hierraus können wir die Superadditivität des Spiels schließen:
 
 
 Insbesondere ist das Spiel Konvex.
-Nach einem Theorem (TODO) ist bei einem Konvexen Spiel das Shapley Value im Core enthalten sodass die Beste Lösung dieses Spiels die große Koalition ist und eine Stabile und faire lösung immer exestiert.
+Nach einem Theorem (TODO) ist bei einem konvexen Spiel das Shapley Value im Core enthalten, sodass die beste Lösung dieses Spiels die große Koalition ist und eine stabile und faire Lösung immer exestiert.
 
 
 
