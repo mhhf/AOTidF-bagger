@@ -274,10 +274,11 @@ Zur weiteren vereinfachung definieren wir uns noch eine Bewertungsfunktion für 
 
 \begin{definition}
   Nun können wir den Wert betrachten, die zwei Koalitionen erzielen können. Seien K,S beliebige Koalition:
-\begin{equation}
-  v(K) + v(S) := \max_{(B_K, B_S)\in Outcome(K,S)}(v(B_K)+v(B_S))
-\end{equation}
+\begin{eqnarray}
+  v(K) + v(S) := \\\max_{(B_K, B_S)\in Outcome(K,S)}(v(B_K) - \varphi_{kosten}(K, B_K) + v(B_S) - \varphi_{kosten}(S, B_S))
+\end{eqnarray}
 Dadurch dass die Baustellen die von einer Koalition gebaut werden nicht mehr von einer anderen koalition gebaut werden können, müssen wir diese zeitgleich betrachten.\\
+$\varphi_{kosten}(B,K)$ ist dabei die funktion, die basierend auf der vorhandenen Kostenfunktion, der Koalition und den Baustellen die kosten für die Koalition berechnet alle baustellen fertig zu stellen.
 \textbf{Bemerkung}: Nach Definition ist das Ergebniss pareto effizient.
 \end{definition}
 
@@ -285,13 +286,13 @@ Exestiert eine Koalition isoliert, lässt sich diese auch isoliert betrachten:
 \begin{definition}
   Sei K eine beliebige Koalition.
   \begin{equation}
-    v(K) := \max_{B'\in B(K)}(v(B'))
+    v(K) := \max_{B'\in B(K)}(v(B') - \varphi_{kosten}(B', K))
   \end{equation}
 \end{definition}
 
-Insbesondere gilt dann auch für zwei Koalitionen K,S:
+Insbesondere gilt dann auch für zwei allein agierende Koalitionen K,S:
 \begin{equation}
-  v(K\cup S) = \max_{B'\in B(K\cup S)}(v(B'))
+  v(K\cup S) = \max_{B'\in B(K\cup S)}(v(B')-\varphi_{kosten}(B', K))
 \end{equation}
 
 Beachte auch das für einen Outcome zweier Koalitionen eine mögliche Baustellenmenge der potentiellen Baustellen der vereinigung der Koalitionen exestiert die alle Baustellen des seperaten Outcomes beinhaltet:
