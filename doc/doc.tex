@@ -37,11 +37,11 @@
 \begin{document}
 %\thispagestyle{empty}
 \title{AOTidf Bagger Game}
-\author{Denis Erfurt, Tobias Behrens}
+\author{Denis Erfurt, Tobias Behrens, Abdallah Kadour}
 
 \begin{abstract}
   \noindent
-  In dieser Arbeit zeigen wir, dass es sich bei dem \textsc{Coalition Skill Game} (CSG) um ein superadditives Spiel handelt. Bei einem superadditives Spiel ist die große Koalition zwangsläufig die beste Strategie, um den Gewinn aller Agenten zu maximieren. Um diesen Zusammenhang aufzuzeigen, formalisieren wir zunächst das in der Aufgabenstellung beschriebene Spiel: So können wir zeigen, dass jedes CSG bezüglich seiner Strategien equivalent ist zu einem Spiel, in dem jeder Agent nur über eine Skillkapazität verfügt. Anschließend zeigen wir die Superadditivitätseigenschaft für das Spiel und geben ein Algorithmus an, der die optimale Ressourcenverteilung aus der Sicht der Agenten berechnet.
+  In dieser Arbeit zeigen wir, dass es sich bei dem \textsc{Coalition Skill Game} (CSG) um ein superadditives Spiel handelt. Bei einem superadditives Spiel ist die große Koalition zwangsläufig die beste Strategie, um den Gewinn aller Agenten zu maximieren. Um diesen Zusammenhang aufzuzeigen, formalisieren wir zunächst das in der Aufgabenstellung beschriebene Spiel: So können wir zeigen, dass jedes CSG bezüglich seiner Strategien equivalent ist zu einem Spiel, in dem jeder Agent nur über eine Einheit eines Skilltyps verfügt. Anschließend zeigen wir die Superadditivitätseigenschaft für das Spiel und geben ein Algorithmus an, der die optimale Ressourcenverteilung aus der Sicht der Agenten berechnet. Außerdem geben wir einen verteilten Algorithmus an, der Agenten und Baustellen eine möglichst optimalen Lösung über gegenseitige Aushandlungen in Gestalt von Auktionen ermöglicht.
 \end{abstract}
 
 
@@ -141,11 +141,12 @@ $M_CSG$ bezeichnen wir als Klasse aller valider Games. Hier wird ebenfalls auf e
     $m(a_2, t_1, b_1) \mapsto 3 $&$ m(a_3, t_1, b_1) \mapsto 5$ \\
     $m(a_3, t_1, b_2) \mapsto 2 $&$ m(a_3, t_2, b_2) \mapsto 2$
   \end{tabular}
+  \\
   \TODO{vergütung und veranschaulichung}
 \end{bsp}
 
 \noindent
-Wir zeigen später, dass sich jedes Setting bzw. Game zu einem Setting bzw. Game vereinfachen lässt, in dem jeder Agent nur eine Skillkapazität besitzt. Diese Vereinfachung erleichtert uns den Beweis der Superadditivität und die Betrachtung möglicher Algorithmen zur Verteilungsberechnung. Hierfür benötigen wir jedoch die neue Relation $AgentOwner_{/2}$, mit der wir uns die Zuteilung einer Skillkapazität zu seinem ursprünglichen Agenten merken.
+Wir zeigen später, dass sich jedes Setting bzw. Game zu einem Setting bzw. Game vereinfachen lässt, in dem jeder Agent nur eine Einheit eines Skilltypen besitzt. Diese Vereinfachung erleichtert uns den Beweis der Superadditivität und die Betrachtung möglicher Algorithmen zur Verteilungsberechnung. Hierfür benötigen wir jedoch die neue Relation $AgentOwner_{/2}$, mit der wir uns die Zuteilung einer Skillkapazität zu seinem ursprünglichen Agenten merken:
 
 \begin{definition}[SCSGS]
   Eine \textsc{Simple Coalition Skill Game Setting}-Signatur sei definiert als
@@ -159,11 +160,11 @@ Wir zeigen später, dass sich jedes Setting bzw. Game zu einem Setting bzw. Game
     $AgentOwner(a, x)$&$:\Leftrightarrow$& Agent $x$ gehört zu dem ursprüngl. Agenten $a$ \\
     $Agent(x)$&$:\Leftrightarrow$& $x$ ist ein Agent (Baufirma) \\
     $Baustelle(x) $&$:\Leftrightarrow$& $x$ ist eine Baustelle \\
-    $supply(x, t)\mapsto n $&$:\Leftrightarrow$& Agent $x$ besitzt $n$ Einheiten vom Skilltyp $t$ \\
+    $type(x)\mapsto t $&$:\Leftrightarrow$& Agent $x$ ist vom Skilltyp $t$ \\
     $demand(x, t)\mapsto n $&$:\Leftrightarrow$& Baustelle $x$ benötigt $n$ Einheiten vom Skilltyp $t$ \\
     $budget(x)\mapsto n $&$:\Leftrightarrow$&
     Baustelle $x$ ist bereit einen Gewinn von \\&&maximal $n$ bei Fertigstellung auszuzahlen\\
-    $kosten(t, n, x, y)\mapsto n$&$:\Leftrightarrow$& Kosten für Agenten $x$ für den Transport von \\&&$n$ Einheiten des Skilltyp $t$ an die Baustelle $y$.
+    $kosten(t, n, a, y)\mapsto n$&$:\Leftrightarrow$& Kosten für den zugehörigen ursprüngl. Agenten $a$ \\&& für den Transport von $n$ Einheiten des Skilltyp $t$ \\&& an die Baustelle $y$.
     \end{tabular}
 \end{definition}
 
@@ -178,7 +179,7 @@ Wir bezeichnen eine $\sigma_{SCSGS}$-Struktur $\mathcal{SS}$ als \textit{Simple 
   \noindent
   \textbf{Intuition} \\
     \begin{tabular}{lrl}
-    $m(x, t, y)\mapsto n$&$:\Leftrightarrow$& Agent $x$ sendet $n$ Einheiten des Skilltyps $t$ an \\&&die Baustelle $y$ \\
+    $m(x, t, y)$&$:\Leftrightarrow$& Agent $x$ sendet eine Einheiten des Skilltyps $t$ an \\&&die Baustelle $y$ \\
     $v(x,y)\mapsto n$&$:\Leftrightarrow$& Agent $x$ erhält von Baustelle $y$ die Vergütung $n$
     \end{tabular}
 \end{definition}
@@ -187,19 +188,21 @@ Wir bezeichnen eine $\sigma_{SCSGS}$-Struktur $\mathcal{SS}$ als \textit{Simple 
 Wir bezeichnen eine $\sigma_{SCSG}$-Struktur $\mathcal{SG}$ als \textit{Simple Game} mit der dazugehörigen validen Modelklasse $M_{SCSG}$. Validitätskriterien werden an dieser Stelle nicht weiter betrachtet.
 
 
-\subsection{bez}
+\subsection{Beziehungen zwischen den Modellklassen}
 \label{bez}
-
-Bei der gegebenen Aufgabenstellung interessieren wir uns für ein Mechanismus der bei eiem gegebenen Setting ein Game berechnet. Formal gesehen:
+Bei der gegebenen Aufgabenstellung interessieren wir uns für ein Mechanismus, der bei einem gegebenen Setting ein möglichst optimales Game dezentral hervorbringt. Formal gesehen:
 
 \begin{equation}
   m: M_{CSGS} \leftarrow M_{CSG}
 \end{equation}
+\noindent
+Die Kriterien, nach denen der dezentrale Mechanismus arbeitet und das Ergebnis -- bei uns ein Game -- bewertet wird, ist nicht hart formuliert und lässt uns Gestaltungspielraum. Die Forderung an das Ergebnis ist, dass die ''soziale Wohlfahrt maximiert wird und die Gewinne möglichst stabil und fair verteilt werde''.
 
-Nach welchen Kritärien dieser mechanismus arbeitet und bewertet wird wird vorest offen gelassen.\\
+Die nachfolgenden Betrachtungen wollen wir jedoch auf einer vereinfachten Strukturen anstellen: Bei  dieser besitzt jeder Agent nur eine Einheit eines Skilltyps. Um dennoch Aussagen über das CSG machen zu können, zeigen wir, dass sich jedes Setting bzw. Game zu einem Simple Setting bzw. Simple Game überführen lässt. Das erlaubt uns die Ergebnisse von  theoretische Betrachtungen von Mechanismen, die bei einem Simple Setting ein Simple Game berechnen, auf das CSG zu beziehen.
 
-Die nachfolgenden Betrachtungen wollen wir jedoch auf einer vereinfachten Strukturen machen, bei denen jeder Agent nur eine Ressource besitzt. Um dennoch aussagen über CSG machen zu können werden wir zeigen dass jedes Setting bzw. Game zu einem Simple Setting bzw. Simple Game überführen lässt. Dieses erlaubt uns auch die betrachtung von mechanismen die bei einem Simple Setting ein Simple Game berechnen. Formal:
 
+\noindent
+Formal:
 \[
 \begin{tikzcd}[column sep=1in,row sep=1in]
 M_{CSGS} \arrow{d}{\pi} \arrow{r}{\pi'^{-1}\ \circ\  m'\ \circ\ \pi} & M_{CSG} \\
@@ -207,127 +210,139 @@ M_{SCSGS} \arrow{r}{m'} & M_{SCSG} \arrow{u}{\pi'^{-1}}
 \end{tikzcd}
 \]
 
+\noindent
 Dabei müssen folgende Eigenschaften gelten:
-
-
 \begin{eqnarray}
   \pi &-&\text{total, injektiv} \\
   \pi^{-1}&-&\text{surjektiv} \\
   \pi' &-&\text{total, injektiv} \\
   \pi'^{-1}&-&\text{surjektiv} \\
   \pi^{-1}\circ\pi &=& id_{M_{CSGS}} \\
-  \pi'^{-1}\circ\pi' &=& id_{M_{CSG}} \\
+  \pi'^{-1}\circ\pi' &=& id_{M_{CSG}}
 \end{eqnarray}
 
-Weiter werden wir nur Mechanismen betrachten die nichts am Setting ändern sondern nur matchings und vergütungsverteilung berechnen.
-Auf eine ausführliche Definition der gesuchten Funktionen wird hier ebenfalls verzichtet. Statdessen wird eine intuition gegeben: Ein Setting bzw. Game lässt sich in ein Simple Setting bzw. Simple Game überführen indem jede ressource eines Agenten als eigenständiger Agent betrachtet wird wobei die zugehörigkeit von agenten unr Resourcen sich in der $AgentOwner$ Relation gemerkt wird. Kostenfunktion bleibt dabei bestehen und wird lediglich auf die Agentbesitzer übertragen. Bei den Matches sowie vergütung wird ähnlich verfahren. Hierdurch gehen keine informationen verlohren und alle Betrachtungen können auf den vereifachten Modellen durchgeführt werden.
-\subsection{supadd}
+\noindent
+Weiter werden wir nur Mechanismen betrachten die, am Setting keine Änderungen vornehmen, sondern nur Matchings und die Vergütungsverteilung bestimmen. Auf eine ausführliche Definition der gesuchten Funktionen wird hier ebenfalls verzichtet,  stattdessen wird eine Intuition gegeben: Ein Setting bzw. Game lässt sich in ein Simple Setting bzw. Simple Game überführen, indem jede Einheit eines Skilltyps eines Agenten als eigenständiger Agent betrachtet wird. 
+
+Dabei wird die Zugehörigkeit von Agenten zum Skill in der $AgentOwner$ Relation gesichert. Die Kostenfunktion bleibt bestehen und wird lediglich auf den $AgentOwner$ übertragen. Bei den Matches und Vergütungen wird ähnlich verfahren. Hierdurch gehen keine Informationen verloren und alle Betrachtungen können auf den vereinfachten Modellen durchgeführt werden.
+
+\subsection{Superadditivität}
 \label{supadd}
+Bevor wird die Superadditivität des SCSG zeigen, führen werden zunächst die Begriffe \textit{potentielle Matches} einer Koalition, die Menge der \textit{gleichzeitig möglichen Baustellen einer Koalition}, \textit{Outcome-Menge} von zwei Koalitionen und den \textit{Wert} einer Baustelle ein.
 
-Um die Superadditivität des Spieles zu zeigen werden zunächst der Begriffe formal festgehalten:
-
-\begin{definition}
-  Sei $K\subseteq A$ eine beliebige Koalition. Wir definieren die Menge $PM(K)$ der potentiellen Matches:
+\begin{definition}[Potentielle Matches einer Koalition]
+  Sei $K\subseteq Agent$ eine beliebige Koalition. Für $K$ definieren wir die \textit{Menge der potentiellen Matches} $PM(K)$ als
+  
   \begin{eqnarray}
     PM(K) := \{ &\\
-    &m: Agent\times Resource \times Baustelle \rightarrow \mathbb{N}\ |\\
-    & \phi_{Match}(m) \land \\ & \forall x.\forall t.\forall y. m(x,t, y) > 0 \rightarrow x\in K\} \label{matchown}
+    & m: Agent \times Skilltyp \times Baustelle \rightarrow \mathbb{N}\ |\\
+    & \phi_{Match}(m) \land \\ 
+    & \quad \quad \forall x\;\forall t\;\forall y: m(x,t, y) > 0 \rightarrow x\in K \quad \quad\} \label{matchown}
   \end{eqnarray}
-  Dabei definiert $\varphi_{Match}(m)$ die validen Matches:
+  
+  Dabei bezeichnet $\phi_{Match}(m)$ die Menge der validen Matches:
   \begin{eqnarray}
-    \varphi_{Match}(m) := \forall x.\forall t.(\sum_{y\in Baustelle} m(x,t,y))\leq supply(x,t)
+    \phi_{Match}(m) := \forall x\; \forall t\; : \left(\;\sum_{y\in Baustelle} m(x,t,y)\;\right)\;\leq \;supply(x,t)
   \end{eqnarray}
-  Die Zeile (\ref{matchown}) sagt das nur solche Matches betrachtet werden, deren ''aktive'' Agenten auch teil der Koalition sind.
+  Der Ausdruck (\ref{matchown}) verdeutlicht, dass nur solche Matches für eine Koalition betrachtet werden, deren liefernder Agent auch Teil der Koalition ist. 
 \end{definition}
 
-\begin{definition}
-  Sei K eine beliebige Koalition, dann definiert $B(K)$ die Menge der möglichen Baustellen, die von K gleichzeitig gebaut werden können.
-  \begin{eqnarray}
-    B(K) := \{ B_k\subseteq Baustelle\ |\\
-    \exists m\in PM(K).\forall b\in B_k.\forall t.(\sum_{x\in K}m(x,t,b))\geq demand(b, t)\}
-  \end{eqnarray}
+\begin{definition}[Gleichzeitig mögliche Baustellen einer Koalition]
+  Sei $K\subseteq Agent$ eine beliebige Koalition. Die Menge der möglichen Baustellen, die von $K$ gleichzeitig gebaut werden können -- $B(K)$ -- ist definiert als
+  
+  \begin{align}
+     B(K) := \{\quad &B_k \subseteq Baustelle\ | \\
+     &\exists m\in PM(K), \;\forall b\in B_k, \;\forall t: \\
+     &\left(\; \sum_{x\in K}m(x,t,b) \;\right)\geq demand(b, t) \quad\}
+  \end{align}
+  
 \end{definition}
 
-Da es sich um ein Simple Game handelt, Könenn wir o.B.d.A. annehmen, dass eine Agent nur einer Koalition zuzgeordnet ist:
+\noindent
+Da wir ein Simple Game betrachten, Können wir o.B.d.A. annehmen, dass eine Agent nur einer Koalition zugeordnet ist:
 \begin{equation}
   K\neq S \Rightarrow K\cap S =\emptyset \label{koalitiondisjunct}
 \end{equation}
 
-Hierraus folgt notwendigerweise, dass eine Baustelle in einem Spiel nur von einer Koalition gebaut werdenn kann, da diese pro Spiel nur einmal gebaut werden kann. Um dieses formal festzuhalten defenieren wir eine Outcome Relation:
+\noindent
+Hieraus folgt, dass eine Baustelle in einem Spiel nur von einer Koalition gebaut werden kann, da eine Baustelle pro Spiel nur einmal gebaut wird. Um dies formal festzuhalten, definieren wir im Folgenden die Outcome-Relation:
 
-\begin{definition}
-  Seien K, S Koalitionen. Eine Outcome Menge weist beiden Koalitionen ein Tupel der Baustellen zu, die sie jeweils zur gleichen Zeit bauen können:
-\begin{eqnarray}
-  Outcome(K,S) := \{(B_K,B_S)\subseteq Baustelle\times Baustelle\ |\\B_K\in B(K) \land \\ B_S\in B(S)\land\\B_K\cap B_S =\emptyset \}
-\end{eqnarray}
+\begin{definition}[Outcome-Menge zweier Koalitionen]
+  Seien $K, S \subseteq Agent$ beliebige Koalitionen. Eine \textit{Outcome-Menge} weist beiden Koalitionen ein Tupel der Baustellen zu, die sie jeweils zur gleichen Zeit bauen können:
+\begin{align}
+  Outcome(K,S) := \{ \; \;
+  &(B_K,B_S)\subseteq Baustelle\times Baustelle\ | \\
+  &B_K\in B(K) \land B_S\in B(S)\land B_K\cap B_S =\emptyset \;\;\}
+\end{align}
 \end{definition}
 
-Zur weiteren vereinfachung definieren wir uns noch eine Bewertungsfunktion für eine Menge von Baustellen:
+\noindent
+Zur weiteren Vereinfachung definieren wir noch eine Bewertungsfunktion für eine Menge von Baustellen:
 
-
-\begin{definition}
-  Sei $B\subseteq Baustelle$ beliebig. Dann definiert sich der wert von B:
+\begin{definition}[Wert einer Baustelle]
+  Sei $B\subseteq Baustelle$ beliebig. Dann ist der \textit{Wert} von $B$ definiert als
   \begin{equation}
-    v(B):=\sum_{b\in B} budget(b)
+    v(B):=\sum_{b \in B} \; budget(b)
   \end{equation}
 \end{definition}
 
+\begin{definition}[erzielbarer Wert zweier Koalitionen]
+  Seien $K, S \subseteq Agent$ beliebige Koalitionen. Der \textit{erzielbare Wert zweier Koalitionen} $K$ und $S$ ist nun definiert als 
+\begin{align}
+  v(K) + v(S) := \max_{(B_K, B_S)\in Outcome(K,S)} \;(\; 
+  &v(B_K) - \varphi_{kosten}(K, B_K) \;+ \\ &v(B_S) - \varphi_{kosten}(S, B_S) \qquad)
+\end{align}
 
-\begin{definition}
-  Nun können wir den Wert betrachten, die zwei Koalitionen erzielen können. Seien K,S beliebige Koalition:
-\begin{eqnarray}
-  v(K) + v(S) := \\\max_{(B_K, B_S)\in Outcome(K,S)}(v(B_K) - \varphi_{kosten}(K, B_K) + v(B_S) - \varphi_{kosten}(S, B_S))
-\end{eqnarray}
-Dadurch dass die Baustellen die von einer Koalition gebaut werden nicht mehr von einer anderen koalition gebaut werden können, müssen wir diese zeitgleich betrachten.\\
-$\varphi_{kosten}(B,K)$ ist dabei die funktion, die basierend auf der vorhandenen Kostenfunktion, der Koalition und den Baustellen die kosten für die Koalition berechnet alle baustellen fertig zu stellen.
-\textbf{Bemerkung}: Nach Definition ist das Ergebniss pareto effizient.
+\noindent
+Die Baustellen, die von einer Koalition gebaut werden, können nicht mehr von einer anderen Koalition gebaut werden. Deshalb müssen wir diese zeitgleich betrachten.
+$\varphi_{kosten}(B,K)$ ist dabei diejenige Funktion, die basierend auf der vorhandenen Kostenfunktion, der Koalition und den Baustellen die Kosten der Koalition für die Bereitstellung aller notwendigen Skills berechnet, um die Baustellen fertig zu stellen.
+\textbf{Bemerkung}: Nach Definition ist das Ergebnis pareto-effizient.
 \end{definition}
 
-Exestiert eine Koalition isoliert, lässt sich diese auch isoliert betrachten:
+\noindent
+Existiert eine Koalition isoliert, lässt sich diese auch isoliert betrachten:
 \begin{definition}
-  Sei K eine beliebige Koalition.
+  Sei $K \subseteq Agent$ eine beliebige Koalition.
   \begin{equation}
-    v(K) := \max_{B'\in B(K)}(v(B') - \varphi_{kosten}(B', K))
+    v(K) := \max_{B'\in B(K)} \left(\; v(B') - \varphi_{kosten}(B', K) \;\right)
   \end{equation}
 \end{definition}
 
-Insbesondere gilt dann auch für zwei allein agierende Koalitionen K,S:
+\noindent
+Insbesondere gilt dann auch für zwei allein agierende Koalitionen $K, S \subseteq Agent$:
 \begin{equation}
-  v(K\cup S) = \max_{B'\in B(K\cup S)}(v(B')-\varphi_{kosten}(B', K))
+  v(K\cup S) = \max_{B'\in B(K\cup S)} \left(\; v(B')-\varphi_{kosten}(B', K) \;\right)
 \end{equation}
 
-Beachte auch das für einen Outcome zweier Koalitionen eine mögliche Baustellenmenge der potentiellen Baustellen der vereinigung der Koalitionen exestiert die alle Baustellen des seperaten Outcomes beinhaltet:
+\noindent
+Beachte auch das für einen Outcome zweier Koalitionen eine mögliche Baustellenmenge der potentiellen Baustellen der Vereinigung der Koalitionen existiert die alle Baustellen des separaten Outcomes beinhaltet:
 \begin{equation}
-  \forall (B_K, B_S)\in Outcome(K,S).\exists B'\in B(K\cup S).B_K\cup B_S\subseteq B'
+  \forall (B_K, B_S)\in Outcome(K,S),\; \exists B'\in B(K\cup S):\; B_K\cup B_S\subseteq B'
 \end{equation}
 
-Hierraus können wir die Superadditivität des Spiels schließen:
+\noindent
+Hieraus können wir die Superadditivität des Spiels schließen:
 \begin{equation}
   v(K\cup S) \geq v(K) + v(S)
 \end{equation}
 
-
+\noindent
 Insbesondere ist das Spiel Konvex.
-Nach einem Theorem (TODO) ist bei einem konvexen Spiel das Shapley Value im Core enthalten, sodass die beste Lösung dieses Spiels die große Koalition ist und eine stabile und faire Lösung immer exestiert.
+Nach einem Theorem (TODO) ist bei einem konvexen Spiel das Shapley Value im Core enthalten, sodass die beste Lösung dieses Spiels die große Koalition ist und eine stabile und faire Lösung immer existiert.
 
-
-
-
-
+%
 % \section{Vorgehen}
-% Zunächst werden wir versuchen unterschiedliche optimierungskritärien (utility) zu formulieren wie z.B. Optimierung der Gewinne aller Agenten. Oder optimieren der Gewinne bei gleichzeitiger minimierung der Kosten der Baustellen.
+% Zunächst formulieren wir unterschiedliche Optimierungskriterien, wie z.B.: Optimierung der Gewinne aller Agenten; Optimieren der Gewinne bei gleichzeitiger Minimierung der Kosten der Baustellen.
 %
-%
-% \subsection*{Analysekritärien}
-% Die Analysetechnik besteht nun darin folgende Fragen zu Formalisieren und gegebene Modelle darauf zu untersuchen:
-%
+% \subsection*{Analysekriterien}
+% Die Analysetechnik besteht nun darin, die folgenden Fragen zu formalisieren und gegebene Modelle darauf zu untersuchen:
+% 
 % \begin{enumerate}
-%   \item $\varphi_{\text{Optimal}}\Leftrightarrow$ Es exestiert kein Matching, das bez. der optimalitätskritärium besser währe.
+%   \item $\varphi_{\text{Optimal}}\Leftrightarrow$ Es existiert kein Matching, das bez. der Optimalitätskritärium besser währe.
 %   \item $\varphi_{\text{pareto-effizient}}\Leftrightarrow$ Kein Spieler kann sich durch Manipulation seines Matchings verbessern.
-%   \item Existenz von dummy und veto spielern
-%   \item eindeutigkeit des optimums
+%   \item Existenz von Dummy- und Vetospielern
+%   \item Eindeutigkeit des Optimums
 % \end{enumerate}
-
 % \begin{dot2tex}[dot,mathmode]
 % graph G {
 %       splines=false;
