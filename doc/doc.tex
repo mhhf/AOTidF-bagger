@@ -1,6 +1,7 @@
 % Article template for Mathematics Magazine
 % Revised 7/2002  Thanks for Greg St. George
-\documentclass[12pt]{article}
+\documentclass[sigconf]{acmart}
+% \documentclass[manuscript]{acmart}
 \usepackage{amssymb}
 \usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
@@ -28,11 +29,12 @@
   {\newline}{}%
 \theoremstyle{break}
 \newtheorem{zeige}{Zeige}
-\newtheorem{definition}{Definition}
+% \newtheorem{definition}{Definition}
 \newtheorem{bsp}{Beispiel}
 \newtheorem{thm}{Theorem}
+\newtheorem{deff}{Definition}
 
-
+\setcopyright{none}
 
 \begin{document}
 %\thispagestyle{empty}
@@ -56,7 +58,6 @@ Um das gegebene Problem strukturell analysieren zu können, benutzen wir die Spr
 
 
 \subsection{Grundlagen}
-\TODO{HOL}
   Im weiteren Verlauf der Arbeit werden Funktionen mit kleinem Anfangsbuchstaben und Relationen mit einem großen Anfangsbuchstaben geschrieben. Ebenfalls gehen wir davon aus, dass alle Funktionen total und mit 0 initialisiert sind, falls für eine Struktur Eingabeparameter nicht näher definiert wurden. Wir verwenden die Schreibweise in Prädikatenlogik und die Mengenschreibweise equivalent: $a\in A \equiv A(a)$
 
 \subsection{Terminologie}
@@ -98,7 +99,7 @@ Auf eine formale Definition der Validität eines Settings -- z.B. \textit{die Me
 Beispielhaft ein Setting für ein gegebenes Szenario:
 \begin{bsp}
   Sei $\mathcal{S}$ eine $\sigma_{CSGS}-$Struktur mit:\\
-  
+
   \noindent
   \setlength{\tabcolsep}{24pt}
   \begin{tabular}{l|l}
@@ -115,7 +116,7 @@ Beispielhaft ein Setting für ein gegebenes Szenario:
 \begin{definition}[CSG]
   Eine \textsc{Coalitional Skill Game}-Signatur (CSG-Signatur) sei definiert als
   \begin{align*}
-    \sigma_{CSG}:=\sigma_{CSGS}\cup\{m_{/3}, v_{/2}\}   
+    \sigma_{CSG}:=\sigma_{CSGS}\cup\{m_{/3}, v_{/2}\}
   \end{align*}
   \noindent
   \textbf{Intuition} \\
@@ -133,7 +134,7 @@ $M_CSG$ bezeichnen wir als Klasse aller valider Games. Hier wird ebenfalls auf e
 \newpage
 \begin{bsp}
   Sei $\mathcal{G}$ eine Erweiterung der $\sigma_{CSG}$-Struktur $\mathcal{S}$ mit: \\
-  
+
   \noindent
   \setlength{\tabcolsep}{24pt}
   \begin{tabular}{l|l}
@@ -193,7 +194,7 @@ Wir bezeichnen eine $\sigma_{SCSG}$-Struktur $\mathcal{SG}$ als \textit{Simple G
 Bei der gegebenen Aufgabenstellung interessieren wir uns für ein Mechanismus, der bei einem gegebenen Setting ein möglichst optimales Game dezentral hervorbringt. Formal gesehen:
 
 \begin{equation}
-  m: M_{CSGS} \leftarrow M_{CSG}
+  m: M_{CSGS} \rightarrow M_{CSG}
 \end{equation}
 \noindent
 Die Kriterien, nach denen der dezentrale Mechanismus arbeitet und das Ergebnis -- bei uns ein Game -- bewertet wird, ist nicht hart formuliert und lässt uns Gestaltungspielraum. Die Forderung an das Ergebnis ist, dass die ''soziale Wohlfahrt maximiert wird und die Gewinne möglichst stabil und fair verteilt werde''.
@@ -222,7 +223,7 @@ Dabei müssen folgende Eigenschaften gelten:
 \end{eqnarray}
 
 \noindent
-Weiter werden wir nur Mechanismen betrachten die, am Setting keine Änderungen vornehmen, sondern nur Matchings und die Vergütungsverteilung bestimmen. Auf eine ausführliche Definition der gesuchten Funktionen wird hier ebenfalls verzichtet,  stattdessen wird eine Intuition gegeben: Ein Setting bzw. Game lässt sich in ein Simple Setting bzw. Simple Game überführen, indem jede Einheit eines Skilltyps eines Agenten als eigenständiger Agent betrachtet wird. 
+Weiter werden wir nur Mechanismen betrachten die, am Setting keine Änderungen vornehmen, sondern nur Matchings und die Vergütungsverteilung bestimmen. Auf eine ausführliche Definition der gesuchten Funktionen wird hier ebenfalls verzichtet,  stattdessen wird eine Intuition gegeben: Ein Setting bzw. Game lässt sich in ein Simple Setting bzw. Simple Game überführen, indem jede Einheit eines Skilltyps eines Agenten als eigenständiger Agent betrachtet wird.
 
 Dabei wird die Zugehörigkeit von Agenten zum Skill in der $AgentOwner$ Relation gesichert. Die Kostenfunktion bleibt bestehen und wird lediglich auf den $AgentOwner$ übertragen. Bei den Matches und Vergütungen wird ähnlich verfahren. Hierdurch gehen keine Informationen verloren und alle Betrachtungen können auf den vereinfachten Modellen durchgeführt werden.
 
@@ -232,30 +233,30 @@ Bevor wird die Superadditivität des SCSG zeigen, führen werden zunächst die B
 
 \begin{definition}[Potentielle Matches einer Koalition]
   Sei $K\subseteq Agent$ eine beliebige Koalition. Für $K$ definieren wir die \textit{Menge der potentiellen Matches} $PM(K)$ als
-  
+
   \begin{eqnarray}
     PM(K) := \{ &\\
     & m: Agent \times Skilltyp \times Baustelle \rightarrow \mathbb{N}\ |\\
-    & \phi_{Match}(m) \land \\ 
+    & \phi_{Match}(m) \land \\
     & \quad \quad \forall x\;\forall t\;\forall y: m(x,t, y) > 0 \rightarrow x\in K \quad \quad\} \label{matchown}
   \end{eqnarray}
-  
+
   Dabei bezeichnet $\phi_{Match}(m)$ die Menge der validen Matches:
   \begin{eqnarray}
     \phi_{Match}(m) := \forall x\; \forall t\; : \left(\;\sum_{y\in Baustelle} m(x,t,y)\;\right)\;\leq \;supply(x,t)
   \end{eqnarray}
-  Der Ausdruck (\ref{matchown}) verdeutlicht, dass nur solche Matches für eine Koalition betrachtet werden, deren liefernder Agent auch Teil der Koalition ist. 
+  Der Ausdruck (\ref{matchown}) verdeutlicht, dass nur solche Matches für eine Koalition betrachtet werden, deren liefernder Agent auch Teil der Koalition ist.
 \end{definition}
 
 \begin{definition}[Gleichzeitig mögliche Baustellen einer Koalition]
   Sei $K\subseteq Agent$ eine beliebige Koalition. Die Menge der möglichen Baustellen, die von $K$ gleichzeitig gebaut werden können -- $B(K)$ -- ist definiert als
-  
+
   \begin{align}
      B(K) := \{\quad &B_k \subseteq Baustelle\ | \\
      &\exists m\in PM(K), \;\forall b\in B_k, \;\forall t: \\
      &\left(\; \sum_{x\in K}m(x,t,b) \;\right)\geq demand(b, t) \quad\}
   \end{align}
-  
+
 \end{definition}
 
 \noindent
@@ -287,9 +288,9 @@ Zur weiteren Vereinfachung definieren wir noch eine Bewertungsfunktion für eine
 \end{definition}
 
 \begin{definition}[erzielbarer Wert zweier Koalitionen]
-  Seien $K, S \subseteq Agent$ beliebige Koalitionen. Der \textit{erzielbare Wert zweier Koalitionen} $K$ und $S$ ist nun definiert als 
+  Seien $K, S \subseteq Agent$ beliebige Koalitionen. Der \textit{erzielbare Wert zweier Koalitionen} $K$ und $S$ ist nun definiert als
 \begin{align}
-  v(K) + v(S) := \max_{(B_K, B_S)\in Outcome(K,S)} \;(\; 
+  v(K) + v(S) := \max_{(B_K, B_S)\in Outcome(K,S)} \;(\;
   &v(B_K) - \varphi_{kosten}(K, B_K) \;+ \\ &v(B_S) - \varphi_{kosten}(S, B_S) \qquad)
 \end{align}
 
@@ -330,13 +331,49 @@ Hieraus können wir die Superadditivität des Spiels schließen:
 Insbesondere ist das Spiel Konvex.
 Nach einem Theorem (TODO) ist bei einem konvexen Spiel das Shapley Value im Core enthalten, sodass die beste Lösung dieses Spiels die große Koalition ist und eine stabile und faire Lösung immer existiert.
 
+\subsection{NP-härte des Problems}
+Im folgenden möchten wir die NP-härte eines gewünschten mechanismusses Zeigen. Hierfür reduzieren wir das Rucksackproblem, ein allgemein bekanntes NP-vollständiges Problem, auf ein CSG.
+Das Rucksackproblem ist folgendermaßen definiert:
+
+\begin{lemma}
+Sei $m:CSGS\rightarrow CSG$ ein Mechanismus, der ein optimales Matching berechnet, dann ist m NP-hart.
+\end{lemma}
+
+\begin{definition}[Rucksackproblem]
+Sei $U$ eine Menge von Objekten, w eine Gewichtsfunktion und v eine Nutzenfunktion:
+\begin{align}
+  w: U\rightarrow \mathbb{R} \\
+  v: U\rightarrow \mathbb{R}
+\end{align}
+Sei weiter $B\in\mathbb{R}$ eine vorgegebene Gewichtsschranke.
+Gesucht ist eine Teilmenge $K\subseteq U$, die folgende Bedingungen erfüllt:
+\begin{align}
+  \sum_{w\in K}w(u)\leq B \label{bed1}\\
+  max(\sum_{w_in K}v(u)) \label{bed2}
+\end{align}
+\end{definition}
+
+Sei $K=\{U,w,v\}\in KNAPSACK$ ein beliebiges Rucksackproblem. Wir geben eine übersetzung in eine CSGS-Signatur an:
+\begin{align}
+  Agent = \{a\} \\
+  supply(a, t) \mapsto B \\
+  Baustelle = U \\
+  demand(u, t) \mapsto w(u) \\
+  kosten(t, n, x, y) \mapsto 0
+\end{align}
+\TODO{In worten beschreiben was hier passiert.}
+
+Intuitiv sorgt die Bedingung \ref{bed1} dafür, dass der Agent seine resourcen nicht überschreitet, sowie die Bedingung \ref{bed2}, dass der Agent sein profiet maximiert. Beides sind ebenfalls Anforderungen, die von einem Mechanismus erfüllt werden müssen der ein optimales CSG berechnet.
+\TODO{referenz zum abschnit über den mechanismus}
+Angenommen es gäbe ein $m\in P$ der aus einem CSGS ein CSG mit einem optimalem matching berechnet, dann währe auch $KNAPSACK\in P$. Dieses ist jedoch ein wiederspruch zur annahme $KNAPSACK\in NP$.
+
 %
 % \section{Vorgehen}
 % Zunächst formulieren wir unterschiedliche Optimierungskriterien, wie z.B.: Optimierung der Gewinne aller Agenten; Optimieren der Gewinne bei gleichzeitiger Minimierung der Kosten der Baustellen.
 %
 % \subsection*{Analysekriterien}
 % Die Analysetechnik besteht nun darin, die folgenden Fragen zu formalisieren und gegebene Modelle darauf zu untersuchen:
-% 
+%
 % \begin{enumerate}
 %   \item $\varphi_{\text{Optimal}}\Leftrightarrow$ Es existiert kein Matching, das bez. der Optimalitätskritärium besser währe.
 %   \item $\varphi_{\text{pareto-effizient}}\Leftrightarrow$ Kein Spieler kann sich durch Manipulation seines Matchings verbessern.
