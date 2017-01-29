@@ -1,0 +1,22 @@
+\subsection{Aufgabenstellung}
+\label{task}
+Als gegebenes Szenario war eine Menge an Bauaufträgen und Baufirmen, im folgenden Agenten genannt, gegeben. Den Agenten verfügen über ein Bestand an Skillkapazitäten und Baustellen besitzen ein Bedarf an Skillkapazitäten der für die Ausschüttung eines Erlöses gedeckt werden muss.
+
+Diese Arbeit Modelliert (Kapitel \ref{mod}) dieses Szenario und untersucht Mechanismen (Kapitel \ref{ergebnisse}), die mit hilfe von Koalitionsbildung eine Zuordnung von Bestand und Bedarf an Skillkapazitäten berechnen, bezüglich der \textbf{sozialen Wohlfahrt, Stabilität und Fairness} der Gewinnausschüttung sowie ihrer \textbf{absoluten Performance}.
+
+\subsubsection*{Prämissen}
+Allgemein gehen wir von folgenden Grundannahmen aus:
+
+\begin{enumerate}
+  \item \textbf{Rationalität}: Agenten arbeiten ausschließlich für ihr eigenes Interesse.
+  \item \textbf{Multiskill}: Agenten können mehrere Skilltypen mit beliebiger quantität besitzen.
+  \item \textbf{linearität}: Skillkapazitäten können höhstens ein mal eingesetzt werden und werden nach ihrem einsatz "verbraucht".
+  \item \textbf{unvollständige Information der Konkurenz}: Agenten haben keine Information über die Ressourcen anderer Agenten.
+  \item \textbf{vollständige Informationen des Bedarfs}: Agenten haben vollständige Information über die Anzahl, Position, Bedarf sowie Vergütung der Bauaufträge.
+  \item \textbf{Zeitagnostisch}: Alle betrachtungen werden ohne Zeit gemacht: insbesondere verändert sich nichts an den Bauaufträgen oder den Agenten.
+\end{enumerate}
+
+\subsection{Grundlagen}
+\label{basics}
+  Im weiteren Verlauf der Arbeit werden Funktionen mit kleinem Anfangsbuchstaben und Relationen mit einem großen Anfangsbuchstaben geschrieben. Ebenfalls gehen wir davon aus, dass alle Funktionen total und mit 0 initialisiert sind, falls für eine Struktur Eingabeparameter nicht näher definiert wurden. Wir verwenden die Schreibweise in Prädikatenlogik und die Mengenschreibweise equivalent: $a\in A \equiv A(a)$
+  Um das gegebene Problem strukturell analysieren zu können, benutzen wir die Sprache der HOL (Higher Order Logic).

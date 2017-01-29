@@ -1,7 +1,7 @@
 % Article template for Mathematics Magazine
 % Revised 7/2002  Thanks for Greg St. George
-\documentclass[sigconf]{acmart}
-% \documentclass[manuscript]{acmart}
+% \documentclass[sigconf]{acmart}
+\documentclass[manuscript]{acmart}
 \usepackage{amssymb}
 \usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
@@ -15,6 +15,7 @@
 \renewcommand{\baselinestretch}{1.2}
 %This is the command that spaces the manuscript for easy reading
 
+\setlength\parindent{0pt}
 
 %todo
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
@@ -43,372 +44,49 @@
 
 \begin{abstract}
   \noindent
-  In dieser Arbeit zeigen wir, dass es sich bei dem \textsc{Coalition Skill Game} (CSG) um ein superadditives Spiel handelt. Bei einem superadditives Spiel ist die große Koalition zwangsläufig die beste Strategie, um den Gewinn aller Agenten zu maximieren. Um diesen Zusammenhang aufzuzeigen, formalisieren wir zunächst das in der Aufgabenstellung beschriebene Spiel: So können wir zeigen, dass jedes CSG bezüglich seiner Strategien equivalent ist zu einem Spiel, in dem jeder Agent nur über eine Einheit eines Skilltyps verfügt. Anschließend zeigen wir die Superadditivitätseigenschaft für das Spiel und geben ein Algorithmus an, der die optimale Ressourcenverteilung aus der Sicht der Agenten berechnet. Außerdem geben wir einen verteilten Algorithmus an, der Agenten und Baustellen eine möglichst optimalen Lösung über gegenseitige Aushandlungen in Gestalt von Auktionen ermöglicht.
+  \TODO{Abstract}
+  % In dieser Arbeit zeigen wir, dass es sich bei dem \textsc{Coalition Skill Game} (CSG) um ein superadditives Spiel handelt. Bei einem superadditives Spiel ist die große Koalition zwangsläufig die beste Strategie, um den Gewinn aller Agenten zu maximieren. Um diesen Zusammenhang aufzuzeigen, formalisieren wir zunächst das in der Aufgabenstellung beschriebene Spiel: So können wir zeigen, dass jedes CSG bezüglich seiner Strategien equivalent ist zu einem Spiel, in dem jeder Agent nur über eine Einheit eines Skilltyps verfügt. Anschließend zeigen wir die Superadditivitätseigenschaft für das Spiel und geben ein Algorithmus an, der die optimale Ressourcenverteilung aus der Sicht der Agenten berechnet. Außerdem geben wir einen verteilten Algorithmus an, der Agenten und Baustellen eine möglichst optimalen Lösung über gegenseitige Aushandlungen in Gestalt von Auktionen ermöglicht.
 \end{abstract}
 
 
 
 \maketitle
 
+\section{Gliederung}
+\TODO{gliederung}
 
 \section{Voraussetzungen}
-Um das gegebene Problem strukturell analysieren zu können, benutzen wir die Sprache der HOL (Higher Order Logic). Zunächst werden wir in (\ref{sigmod}) vier Signaturen mit den dazugehörigen Modellklassen einführen, auf denen das Problem analysiert wird. Anschließend werden wir in (\ref{bez}) Beziehungen zwischen den Modellklassen betrachten und schließlich in (\ref{supadd}) die Superadditivität des Spiels zeigen.
-\\
-\TODO{Vereinfachungen - fixes binäres budget}
+In diesem Kapitel werden wir in Abschnit \ref{task} einen Gesamtüberblick über die Aufgabenstellung geben sowie Prämissen für die weitere Bearbeitung formulieren. Außerdem im Abschnitt \ref{basics} notwendige theoretische Grundlagen zusammenfassen die für das weitere verständniss der Arbeit notwendig sind.
+
+\input{vorraussetzungen}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% MODELLIERUNG
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Modellierung}
+\label{mod}
+Ziel dieses Kapitels ist es durch eine Formalisierung der Aufgabenstellung eine geeignete Grundlage zu schaffen auf der nachfolgende Mechanismen formalisiert und zentrale Fragestellungen formal beantwortet werden können.
+ Zunächst werden wir in Abschnitt (\ref{sigmod}) grundlegende Definitionen vorstellen sowie in Abschnit (\ref{sigandmod}) zwei Signaturen sowie einige zentrale Modellklassen einführen.
+
+\input{modellierung}
 
 
-\subsection{Grundlagen}
-  Im weiteren Verlauf der Arbeit werden Funktionen mit kleinem Anfangsbuchstaben und Relationen mit einem großen Anfangsbuchstaben geschrieben. Ebenfalls gehen wir davon aus, dass alle Funktionen total und mit 0 initialisiert sind, falls für eine Struktur Eingabeparameter nicht näher definiert wurden. Wir verwenden die Schreibweise in Prädikatenlogik und die Mengenschreibweise equivalent: $a\in A \equiv A(a)$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ERGEBNISSE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ergebnisse}
+\label{ergebnisse}
+\subsection{Theoretische Ergebnisse}
 
-\subsection{Terminologie}
-\label{sigmod}
+\input{theoretische_ergebnisse}
 
-\subsubsection{Signaturen und Modellklassen}
-Wir führen nun vier verschiedene Signaturen mit den dazugehörigen Modellklassen ein:
-\begin{enumerate}
-  \item \textbf{CSGS} - Coalition Skill Game Setting
-  \item \textbf{CSG} - Coalition Skill Game
-  \item \textbf{SCSGS} - Simple Coalition Skill Game Setting
-  \item \textbf{SCSG} - Simple Coalition Skill Game
-\end{enumerate}
+\subsection{Praktische Ergebnisse}
 
-\begin{definition}[CSGS]
-  Eine \textsc{Coalitional Skill Game Setting}-Signatur (CSGS-Signatur) sei definiert als
-  \begin{align*}
-    &\sigma_{CSGS}:= \\
-    &\{Agent_{/1}, Baustelle_{/1}, supply_{/2}, demand_{/2}, budget_{/1}, kosten_{/4} \}
-  \end{align*}
-  \noindent
-  \textbf{Intuition} \\
-    \begin{tabular}{lrl}
-    $Agent(x)$&$:\Leftrightarrow$& $x$ ist ein Agent (Baufirma) \\
-    $Baustelle(x) $&$:\Leftrightarrow$& $x$ ist eine Baustelle \\
-    $supply(x, t)\mapsto n $&$:\Leftrightarrow$& Agent $x$ besitzt $n$ Einheiten vom Skilltyp $t$ \\
-    $demand(x, t)\mapsto n $&$:\Leftrightarrow$& Baustelle $x$ benötigt $n$ Einheiten vom Skilltyp $t$ \\
-    $budget(x)\mapsto n $&$:\Leftrightarrow$&
-    Baustelle $x$ ist bereit einen Gewinn von \\&&maximal $n$ bei Fertigstellung auszuzahlen\\
-    $kosten(t, n, x, y)\mapsto n$&$:\Leftrightarrow$& Kosten für Agenten $x$ für den Transport von \\&&$n$ Einheiten des Skilltyp $t$ an die Baustelle $y$.
-    \end{tabular}
-\end{definition}
-
-\noindent
-Im folgenden werden wir die $\sigma_{CSGS}$-Struktur $\mathcal{S}$ als ein Setting bezeichnen. Die Modellklasse $M_{CSGS}$ steht für die Gesamtheit an validen Settings.
-Auf eine formale Definition der Validität eines Settings -- z.B. \textit{die Menge der Baustellen und Agenten sind disjunkt} -- wird verzichtet.
-
-\newpage \noindent
-Beispielhaft ein Setting für ein gegebenes Szenario:
-\begin{bsp}
-  Sei $\mathcal{S}$ eine $\sigma_{CSGS}-$Struktur mit:\\
-
-  \noindent
-  \setlength{\tabcolsep}{24pt}
-  \begin{tabular}{l|l}
-    $Agent^\mathcal{S} := \{a_1, a_2, a_3\}$ & $Baustelle^\mathcal{S} := \{b_1, b_2\}$ \\
-    $supply^\mathcal{S}(a_1, t_1)\mapsto 2 $ & $demand^\mathcal{S}(b_1, t_1)\mapsto 10$\\
-    $supply^\mathcal{S}(a_1, t_2)\mapsto 7 $ & $demand^\mathcal{S}(b_1, t_2)\mapsto 5 $\\
-    $supply^\mathcal{S}(a_2, t_1)\mapsto 3 $ & $demand^\mathcal{S}(b_2, t_1)\mapsto 2 $\\
-    $supply^\mathcal{S}(a_2, t_2)\mapsto 5 $ & $demand^\mathcal{S}(b_2, t_2)\mapsto 2 $\\
-    $supply^\mathcal{S}(a_3, t_1)\mapsto 20$ & $budget^\mathcal{S}(b_1)\mapsto 10$\\
-    $supply^\mathcal{S}(a_3, t_2)\mapsto 5 $ & $budget^\mathcal{S}(b_2)\mapsto 3 $\\
-  \end{tabular}
-\end{bsp}
-
-\begin{definition}[CSG]
-  Eine \textsc{Coalitional Skill Game}-Signatur (CSG-Signatur) sei definiert als
-  \begin{align*}
-    \sigma_{CSG}:=\sigma_{CSGS}\cup\{m_{/3}, v_{/2}\}
-  \end{align*}
-  \noindent
-  \textbf{Intuition} \\
-    \begin{tabular}{lrl}
-    $m(x, t, y)\mapsto n$&$:\Leftrightarrow$& Agent $x$ sendet $n$ Einheiten des Skilltyps $t$ an \\&&die Baustelle $y$ \\
-    $v(x,y)\mapsto n$&$:\Leftrightarrow$& Agent $x$ erhält von Baustelle $y$ die Vergütung $n$
-    \end{tabular}
-\end{definition}
-
-\noindent
-Wir bezeichnen eine $\sigma_{CSG}$-Struktur als ein Game $\mathcal{G}$. Intuitiv ist ein Game ein valides Setting mit einer möglichen validen Lösung: eine mögliche Verteilung der verfügbaren Skills der Baufirmen mit entsprechender Vergütungen der Baustellen.
-
-$M_CSG$ bezeichnen wir als Klasse aller valider Games. Hier wird ebenfalls auf eine formale Definition valider Kriterien verzichtet. Informell seien aber die wichtigsten Aspekte der Validität kurz beschrieben: Ein Agent kann nicht mehr Einheiten eines Skills ausgeben als er besitzt; Eine Baustelle kann nicht mehr Geld ausgeben, als sie besitzt; Eine Baustelle gibt nur Geld aus, falls sie vollständig mit den benötigten Skills versorgt wird.
-
-\newpage
-\begin{bsp}
-  Sei $\mathcal{G}$ eine Erweiterung der $\sigma_{CSG}$-Struktur $\mathcal{S}$ mit: \\
-
-  \noindent
-  \setlength{\tabcolsep}{24pt}
-  \begin{tabular}{l|l}
-    $m(a_1, t_1, b_1) \mapsto 2 $&$ m(a_1, t_2, b_1) \mapsto 5$ \\
-    $m(a_2, t_1, b_1) \mapsto 3 $&$ m(a_3, t_1, b_1) \mapsto 5$ \\
-    $m(a_3, t_1, b_2) \mapsto 2 $&$ m(a_3, t_2, b_2) \mapsto 2$
-  \end{tabular}
-  \\
-  \TODO{vergütung und veranschaulichung}
-\end{bsp}
-
-\noindent
-Wir zeigen später, dass sich jedes Setting bzw. Game zu einem Setting bzw. Game vereinfachen lässt, in dem jeder Agent nur eine Einheit eines Skilltypen besitzt. Diese Vereinfachung erleichtert uns den Beweis der Superadditivität und die Betrachtung möglicher Algorithmen zur Verteilungsberechnung. Hierfür benötigen wir jedoch die neue Relation $AgentOwner_{/2}$, mit der wir uns die Zuteilung einer Skillkapazität zu seinem ursprünglichen Agenten merken:
-
-\begin{definition}[SCSGS]
-  Eine \textsc{Simple Coalition Skill Game Setting}-Signatur sei definiert als
-  \begin{align*}
-    &\sigma_{SCSGS}:= \\
-    &\{gentOwner_{2}, Agent_{/1}, Baustelle_{/1}, supply_{/2}, demand_{/2}, budget_{/1}, kosten_{/4} \}
-  \end{align*}
-  \noindent
-  \textbf{Intuition} \\
-    \begin{tabular}{lrl}
-    $AgentOwner(a, x)$&$:\Leftrightarrow$& Agent $x$ gehört zu dem ursprüngl. Agenten $a$ \\
-    $Agent(x)$&$:\Leftrightarrow$& $x$ ist ein Agent (Baufirma) \\
-    $Baustelle(x) $&$:\Leftrightarrow$& $x$ ist eine Baustelle \\
-    $type(x)\mapsto t $&$:\Leftrightarrow$& Agent $x$ ist vom Skilltyp $t$ \\
-    $demand(x, t)\mapsto n $&$:\Leftrightarrow$& Baustelle $x$ benötigt $n$ Einheiten vom Skilltyp $t$ \\
-    $budget(x)\mapsto n $&$:\Leftrightarrow$&
-    Baustelle $x$ ist bereit einen Gewinn von \\&&maximal $n$ bei Fertigstellung auszuzahlen\\
-    $kosten(t, n, a, y)\mapsto n$&$:\Leftrightarrow$& Kosten für den zugehörigen ursprüngl. Agenten $a$ \\&& für den Transport von $n$ Einheiten des Skilltyp $t$ \\&& an die Baustelle $y$.
-    \end{tabular}
-\end{definition}
-
-\noindent
-Wir bezeichnen eine $\sigma_{SCSGS}$-Struktur $\mathcal{SS}$ als \textit{Simple Setting} und die dazugehörige Modellklasse valider Strukturen $M_{SCSGS}$. Auch hier werden wir die Validitätskriterien nicht weiter erläutern.
-
-\begin{definition}[SCSG]
-  Eine \textsc{Simple Coalition Skill Game}-Signatur (SCSG) sei definiert als
-  \begin{align*}
-    \sigma_{SCSG}:=\sigma_{SCSGS}\cup\{M_{/3}, v_{/2}\}
-  \end{align*}
-  \noindent
-  \textbf{Intuition} \\
-    \begin{tabular}{lrl}
-    $m(x, t, y)$&$:\Leftrightarrow$& Agent $x$ sendet eine Einheiten des Skilltyps $t$ an \\&&die Baustelle $y$ \\
-    $v(x,y)\mapsto n$&$:\Leftrightarrow$& Agent $x$ erhält von Baustelle $y$ die Vergütung $n$
-    \end{tabular}
-\end{definition}
-
-\noindent
-Wir bezeichnen eine $\sigma_{SCSG}$-Struktur $\mathcal{SG}$ als \textit{Simple Game} mit der dazugehörigen validen Modelklasse $M_{SCSG}$. Validitätskriterien werden an dieser Stelle nicht weiter betrachtet.
-
-
-\subsection{Beziehungen zwischen den Modellklassen}
-\label{bez}
-Bei der gegebenen Aufgabenstellung interessieren wir uns für ein Mechanismus, der bei einem gegebenen Setting ein möglichst optimales Game dezentral hervorbringt. Formal gesehen:
-
-\begin{equation}
-  m: M_{CSGS} \rightarrow M_{CSG}
-\end{equation}
-\noindent
-Die Kriterien, nach denen der dezentrale Mechanismus arbeitet und das Ergebnis -- bei uns ein Game -- bewertet wird, ist nicht hart formuliert und lässt uns Gestaltungspielraum. Die Forderung an das Ergebnis ist, dass die ''soziale Wohlfahrt maximiert wird und die Gewinne möglichst stabil und fair verteilt werde''.
-
-Die nachfolgenden Betrachtungen wollen wir jedoch auf einer vereinfachten Strukturen anstellen: Bei  dieser besitzt jeder Agent nur eine Einheit eines Skilltyps. Um dennoch Aussagen über das CSG machen zu können, zeigen wir, dass sich jedes Setting bzw. Game zu einem Simple Setting bzw. Simple Game überführen lässt. Das erlaubt uns die Ergebnisse von  theoretische Betrachtungen von Mechanismen, die bei einem Simple Setting ein Simple Game berechnen, auf das CSG zu beziehen.
-
-
-\noindent
-Formal:
-\[
-\begin{tikzcd}[column sep=1in,row sep=1in]
-M_{CSGS} \arrow{d}{\pi} \arrow{r}{\pi'^{-1}\ \circ\  m'\ \circ\ \pi} & M_{CSG} \\
-M_{SCSGS} \arrow{r}{m'} & M_{SCSG} \arrow{u}{\pi'^{-1}}
-\end{tikzcd}
-\]
-
-\noindent
-Dabei müssen folgende Eigenschaften gelten:
-\begin{eqnarray}
-  \pi &-&\text{total, injektiv} \\
-  \pi^{-1}&-&\text{surjektiv} \\
-  \pi' &-&\text{total, injektiv} \\
-  \pi'^{-1}&-&\text{surjektiv} \\
-  \pi^{-1}\circ\pi &=& id_{M_{CSGS}} \\
-  \pi'^{-1}\circ\pi' &=& id_{M_{CSG}}
-\end{eqnarray}
-
-\noindent
-Weiter werden wir nur Mechanismen betrachten die, am Setting keine Änderungen vornehmen, sondern nur Matchings und die Vergütungsverteilung bestimmen. Auf eine ausführliche Definition der gesuchten Funktionen wird hier ebenfalls verzichtet,  stattdessen wird eine Intuition gegeben: Ein Setting bzw. Game lässt sich in ein Simple Setting bzw. Simple Game überführen, indem jede Einheit eines Skilltyps eines Agenten als eigenständiger Agent betrachtet wird.
-
-Dabei wird die Zugehörigkeit von Agenten zum Skill in der $AgentOwner$ Relation gesichert. Die Kostenfunktion bleibt bestehen und wird lediglich auf den $AgentOwner$ übertragen. Bei den Matches und Vergütungen wird ähnlich verfahren. Hierdurch gehen keine Informationen verloren und alle Betrachtungen können auf den vereinfachten Modellen durchgeführt werden.
-
-\subsection{Superadditivität}
-\label{supadd}
-Bevor wird die Superadditivität des SCSG zeigen, führen werden zunächst die Begriffe \textit{potentielle Matches} einer Koalition, die Menge der \textit{gleichzeitig möglichen Baustellen einer Koalition}, \textit{Outcome-Menge} von zwei Koalitionen und den \textit{Wert} einer Baustelle ein.
-
-\begin{definition}[Potentielle Matches einer Koalition]
-  Sei $K\subseteq Agent$ eine beliebige Koalition. Für $K$ definieren wir die \textit{Menge der potentiellen Matches} $PM(K)$ als
-
-  \begin{eqnarray}
-    PM(K) := \{ &\\
-    & m: Agent \times Skilltyp \times Baustelle \rightarrow \mathbb{N}\ |\\
-    & \phi_{Match}(m) \land \\
-    & \quad \quad \forall x\;\forall t\;\forall y: m(x,t, y) > 0 \rightarrow x\in K \quad \quad\} \label{matchown}
-  \end{eqnarray}
-
-  Dabei bezeichnet $\phi_{Match}(m)$ die Menge der validen Matches:
-  \begin{eqnarray}
-    \phi_{Match}(m) := \forall x\; \forall t\; : \left(\;\sum_{y\in Baustelle} m(x,t,y)\;\right)\;\leq \;supply(x,t)
-  \end{eqnarray}
-  Der Ausdruck (\ref{matchown}) verdeutlicht, dass nur solche Matches für eine Koalition betrachtet werden, deren liefernder Agent auch Teil der Koalition ist.
-\end{definition}
-
-\begin{definition}[Gleichzeitig mögliche Baustellen einer Koalition]
-  Sei $K\subseteq Agent$ eine beliebige Koalition. Die Menge der möglichen Baustellen, die von $K$ gleichzeitig gebaut werden können -- $B(K)$ -- ist definiert als
-
-  \begin{align}
-     B(K) := \{\quad &B_k \subseteq Baustelle\ | \\
-     &\exists m\in PM(K), \;\forall b\in B_k, \;\forall t: \\
-     &\left(\; \sum_{x\in K}m(x,t,b) \;\right)\geq demand(b, t) \quad\}
-  \end{align}
-
-\end{definition}
-
-\noindent
-Da wir ein Simple Game betrachten, Können wir o.B.d.A. annehmen, dass eine Agent nur einer Koalition zugeordnet ist:
-\begin{equation}
-  K\neq S \Rightarrow K\cap S =\emptyset \label{koalitiondisjunct}
-\end{equation}
-
-\noindent
-Hieraus folgt, dass eine Baustelle in einem Spiel nur von einer Koalition gebaut werden kann, da eine Baustelle pro Spiel nur einmal gebaut wird. Um dies formal festzuhalten, definieren wir im Folgenden die Outcome-Relation:
-
-\begin{definition}[Outcome-Menge zweier Koalitionen]
-  Seien $K, S \subseteq Agent$ beliebige Koalitionen. Eine \textit{Outcome-Menge} weist beiden Koalitionen ein Tupel der Baustellen zu, die sie jeweils zur gleichen Zeit bauen können:
-\begin{align}
-  Outcome(K,S) := \{ \; \;
-  &(B_K,B_S)\subseteq Baustelle\times Baustelle\ | \\
-  &B_K\in B(K) \land B_S\in B(S)\land B_K\cap B_S =\emptyset \;\;\}
-\end{align}
-\end{definition}
-
-\noindent
-Zur weiteren Vereinfachung definieren wir noch eine Bewertungsfunktion für eine Menge von Baustellen:
-
-\begin{definition}[Wert einer Baustelle]
-  Sei $B\subseteq Baustelle$ beliebig. Dann ist der \textit{Wert} von $B$ definiert als
-  \begin{equation}
-    v(B):=\sum_{b \in B} \; budget(b)
-  \end{equation}
-\end{definition}
-
-\begin{definition}[erzielbarer Wert zweier Koalitionen]
-  Seien $K, S \subseteq Agent$ beliebige Koalitionen. Der \textit{erzielbare Wert zweier Koalitionen} $K$ und $S$ ist nun definiert als
-\begin{align}
-  v(K) + v(S) := \max_{(B_K, B_S)\in Outcome(K,S)} \;(\;
-  &v(B_K) - \varphi_{kosten}(K, B_K) \;+ \\ &v(B_S) - \varphi_{kosten}(S, B_S) \qquad)
-\end{align}
-
-\noindent
-Die Baustellen, die von einer Koalition gebaut werden, können nicht mehr von einer anderen Koalition gebaut werden. Deshalb müssen wir diese zeitgleich betrachten.
-$\varphi_{kosten}(B,K)$ ist dabei diejenige Funktion, die basierend auf der vorhandenen Kostenfunktion, der Koalition und den Baustellen die Kosten der Koalition für die Bereitstellung aller notwendigen Skills berechnet, um die Baustellen fertig zu stellen.
-\textbf{Bemerkung}: Nach Definition ist das Ergebnis pareto-effizient.
-\end{definition}
-
-\noindent
-Existiert eine Koalition isoliert, lässt sich diese auch isoliert betrachten:
-\begin{definition}
-  Sei $K \subseteq Agent$ eine beliebige Koalition.
-  \begin{equation}
-    v(K) := \max_{B'\in B(K)} \left(\; v(B') - \varphi_{kosten}(B', K) \;\right)
-  \end{equation}
-\end{definition}
-
-\noindent
-Insbesondere gilt dann auch für zwei allein agierende Koalitionen $K, S \subseteq Agent$:
-\begin{equation}
-  v(K\cup S) = \max_{B'\in B(K\cup S)} \left(\; v(B')-\varphi_{kosten}(B', K) \;\right)
-\end{equation}
-
-\noindent
-Beachte auch das für einen Outcome zweier Koalitionen eine mögliche Baustellenmenge der potentiellen Baustellen der Vereinigung der Koalitionen existiert die alle Baustellen des separaten Outcomes beinhaltet:
-\begin{equation}
-  \forall (B_K, B_S)\in Outcome(K,S),\; \exists B'\in B(K\cup S):\; B_K\cup B_S\subseteq B'
-\end{equation}
-
-\noindent
-Hieraus können wir die Superadditivität des Spiels schließen:
-\begin{equation}
-  v(K\cup S) \geq v(K) + v(S)
-\end{equation}
-
-\noindent
-Insbesondere ist das Spiel Konvex.
-Nach einem Theorem (TODO) ist bei einem konvexen Spiel das Shapley Value im Core enthalten, sodass die beste Lösung dieses Spiels die große Koalition ist und eine stabile und faire Lösung immer existiert.
-
-\subsection{NP-härte des Problems}
-Im folgenden möchten wir die NP-härte eines gewünschten mechanismusses Zeigen. Hierfür reduzieren wir das Rucksackproblem, ein allgemein bekanntes NP-vollständiges Problem, auf ein CSG.
-Das Rucksackproblem ist folgendermaßen definiert:
-
-\begin{lemma}
-Sei $m:CSGS\rightarrow CSG$ ein Mechanismus, der ein optimales Matching berechnet, dann ist m NP-hart.
-\end{lemma}
-
-\begin{definition}[Rucksackproblem]
-Sei $U$ eine Menge von Objekten, w eine Gewichtsfunktion und v eine Nutzenfunktion:
-\begin{align}
-  w: U\rightarrow \mathbb{R} \\
-  v: U\rightarrow \mathbb{R}
-\end{align}
-Sei weiter $B\in\mathbb{R}$ eine vorgegebene Gewichtsschranke.
-Gesucht ist eine Teilmenge $K\subseteq U$, die folgende Bedingungen erfüllt:
-\begin{align}
-  \sum_{w\in K}w(u)\leq B \label{bed1}\\
-  max(\sum_{w_in K}v(u)) \label{bed2}
-\end{align}
-\end{definition}
-
-Sei $K=\{U,w,v\}\in KNAPSACK$ ein beliebiges Rucksackproblem. Wir geben eine übersetzung in eine CSGS-Signatur an:
-\begin{align}
-  Agent = \{a\} \\
-  supply(a, t) \mapsto B \\
-  Baustelle = U \\
-  demand(u, t) \mapsto w(u) \\
-  kosten(t, n, x, y) \mapsto 0
-\end{align}
-\TODO{In worten beschreiben was hier passiert.}
-
-Intuitiv sorgt die Bedingung \ref{bed1} dafür, dass der Agent seine resourcen nicht überschreitet, sowie die Bedingung \ref{bed2}, dass der Agent sein profiet maximiert. Beides sind ebenfalls Anforderungen, die von einem Mechanismus erfüllt werden müssen der ein optimales CSG berechnet.
-\TODO{referenz zum abschnit über den mechanismus}
-Angenommen es gäbe ein $m\in P$ der aus einem CSGS ein CSG mit einem optimalem matching berechnet, dann währe auch $KNAPSACK\in P$. Dieses ist jedoch ein wiederspruch zur annahme $KNAPSACK\in NP$.
-
-%
-% \section{Vorgehen}
-% Zunächst formulieren wir unterschiedliche Optimierungskriterien, wie z.B.: Optimierung der Gewinne aller Agenten; Optimieren der Gewinne bei gleichzeitiger Minimierung der Kosten der Baustellen.
-%
-% \subsection*{Analysekriterien}
-% Die Analysetechnik besteht nun darin, die folgenden Fragen zu formalisieren und gegebene Modelle darauf zu untersuchen:
-%
-% \begin{enumerate}
-%   \item $\varphi_{\text{Optimal}}\Leftrightarrow$ Es existiert kein Matching, das bez. der Optimalitätskritärium besser währe.
-%   \item $\varphi_{\text{pareto-effizient}}\Leftrightarrow$ Kein Spieler kann sich durch Manipulation seines Matchings verbessern.
-%   \item Existenz von Dummy- und Vetospielern
-%   \item Eindeutigkeit des Optimums
-% \end{enumerate}
-% \begin{dot2tex}[dot,mathmode]
-% graph G {
-%       splines=false;
-%       node[shape=circle, style=filled]
-%       subgraph cluster_1 {
-%       subgraph cluster_1r {
-%          a12 [label="a"]
-%          b12 [label="b"]
-%          c12 [label="c"]
-%          d12 [label="d"]
-%          e12 [label="e"]
-%          a12--b12--c12--d12--e12 [style=invis]
-%          }
-%       subgraph cluster_1l {
-%          a11 [label="a"]
-%          b11 [label="b"]
-%          c11 [label="c"]
-%          d11 [label="d"]
-%          e11 [label="e"]
-%          a11--b11--c11--d11--e11 [style=invis]
-%          }
-%          c11--a12 [constraint=false]
-%          c11--b12 [constraint=false]
-%          d11--b12 [constraint=false]
-%          e11--a12 [constraint=false]
-%          e11--b12 [constraint=false]
-%      }
-% }
-% \end{dot2tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%% ZUSAMMENFASSUNG
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Zusammenfassung}
+\TODO{Zusammenfassung}
 
 
 \end{document}

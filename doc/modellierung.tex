@@ -1,0 +1,124 @@
+\subsection{Signaturen und Modellklassen}
+\label{sigandmod}
+Wir führen nun zwei verschiedene Signaturen mit den dazugehörigen Modellklassen ein:
+\begin{enumerate}
+  \item \textbf{CSGS} - Coalition Skill Game Setting
+  \item \textbf{CSG} - Coalition Skill Game
+\end{enumerate}
+
+\begin{definition}[CSGS]
+  Eine \textsc{Coalitional Skill Game Setting}-Signatur (CSGS-Signatur) sei definiert als
+  \begin{align*}
+    &\sigma_{CSGS}:= \\
+    &\{Agent_{/1}, Baustelle_{/1}, supply_{/2}, demand_{/2}, budget_{/1}, kosten_{/4} \}
+  \end{align*}
+  \textbf{Intuition} \\
+    \begin{tabular}{lrl}
+    $Agent(x)$&$:\Leftrightarrow$& $x$ ist ein Agent (Baufirma) \\
+    $Baustelle(x) $&$:\Leftrightarrow$& $x$ ist eine Baustelle \\
+    $supply(x, t)\mapsto n $&$:\Leftrightarrow$& Agent $x$ besitzt $n$ Einheiten vom Skilltyp $t$ \\
+    $demand(x, t)\mapsto n $&$:\Leftrightarrow$& Baustelle $x$ benötigt $n$ Einheiten vom Skilltyp $t$ \\
+    $budget(x)\mapsto n $&$:\Leftrightarrow$&
+    Baustelle $x$ ist bereit einen Gewinn von \\&&maximal $n$ bei Fertigstellung auszuzahlen\\
+    $kosten(t, n, x, y)\mapsto n$&$:\Leftrightarrow$& Kosten für Agenten $x$ für den Transport von \\&&$n$ Einheiten des Skilltyp $t$ an die Baustelle $y$.
+    \end{tabular}
+\end{definition}
+
+Im folgenden werden wir die $\sigma_{CSGS}$-Struktur $\mathcal{S}$ als ein Setting bezeichnen. Die Modellklasse $M_{CSGS}$ steht für die Gesamtheit an validen Settings die zudem folgende Bedingungen erfüllt:
+\begin{align}
+  Agent\cap Baustelle = \emptyset
+\end{align}
+
+\begin{bsp}[]
+  Ein Beispiel für eine valides Setting ist die Struktur $\mathcal{S}\in M_{CSGS}$ mit:\\
+
+  \setlength{\tabcolsep}{24pt}
+  \begin{tabular}{l|l}
+    $Agent^\mathcal{S} := \{a_1, a_2, a_3\}$ & $Baustelle^\mathcal{S} := \{b_1, b_2\}$ \\
+    $supply^\mathcal{S}(a_1, t_1)\mapsto 2 $ & $demand^\mathcal{S}(b_1, t_1)\mapsto 10$\\
+    $supply^\mathcal{S}(a_1, t_2)\mapsto 7 $ & $demand^\mathcal{S}(b_1, t_2)\mapsto 5 $\\
+    $supply^\mathcal{S}(a_2, t_1)\mapsto 3 $ & $demand^\mathcal{S}(b_2, t_1)\mapsto 2 $\\
+    $supply^\mathcal{S}(a_2, t_2)\mapsto 5 $ & $demand^\mathcal{S}(b_2, t_2)\mapsto 2 $\\
+    $supply^\mathcal{S}(a_3, t_1)\mapsto 20$ & $budget^\mathcal{S}(b_1)\mapsto 10$\\
+    $supply^\mathcal{S}(a_3, t_2)\mapsto 5 $ & $budget^\mathcal{S}(b_2)\mapsto 3 $\\
+  \end{tabular}
+\end{bsp}
+
+\begin{definition}[CSG]
+  Eine \textsc{Coalitional Skill Game}-Signatur (CSG-Signatur) sei definiert als
+  \begin{align*}
+    \sigma_{CSG}:=\sigma_{CSGS}\cup\{m_{/3}, v_{/2}\}
+  \end{align*}
+  \textbf{Intuition} \\
+    \begin{tabular}{lrl}
+    $m(x, t, y)\mapsto n$&$:\Leftrightarrow$& Agent $x$ sendet $n$ Einheiten des Skilltyps $t$ an \\&&die Baustelle $y$ \\
+    $v(x,y)\mapsto n$&$:\Leftrightarrow$& Agent $x$ erhält von Baustelle $y$ die Vergütung $n$
+    \end{tabular}
+\end{definition}
+
+Wir bezeichnen eine $\sigma_{CSG}$-Struktur als ein Game $\mathcal{G}$. Intuitiv ist ein Game ein valides Setting mit einer möglichen validen Lösung: eine mögliche Verteilung der verfügbaren Skills der Baufirmen mit entsprechender Vergütungen der Baustellen.
+
+$M_CSG$ bezeichnen wir als Klasse aller valider Games, die folgende (informelle) Eigenschaften erfüllen:
+\begin{enumerate}
+  \item Ein Agent kann nicht mehr Einheiten eines Skills ausgeben als er besitzt.
+  \item Eine Baustelle kann nicht mehr Geld ausgeben, als sie besitzt.
+  \item Eine Baustelle gibt genau dann Geld aus, wenn sie vollständig mit den benötigten Skills versorgt wird.
+\end{enumerate}
+
+% \begin{bsp}
+%   Sei $\mathcal{G}$ eine Erweiterung der $\sigma_{CSG}$-Struktur $\mathcal{S}$ mit: \\
+%
+%   \setlength{\tabcolsep}{24pt}
+%   \begin{tabular}{l|l}
+%     $m(a_1, t_1, b_1) \mapsto 2 $&$ m(a_1, t_2, b_1) \mapsto 5$ \\
+%     $m(a_2, t_1, b_1) \mapsto 3 $&$ m(a_3, t_1, b_1) \mapsto 5$ \\
+%     $m(a_3, t_1, b_2) \mapsto 2 $&$ m(a_3, t_2, b_2) \mapsto 2$
+%   \end{tabular}
+%   \\
+%   \TODO{vergütung und veranschaulichung}
+% \end{bsp}
+
+Sei $M_{OCSG} \subset M_{CSG}$ eine Modellklasse die zusätzlich ''optimal'' ist:
+\begin{enumerate}
+  \item Es exestiert kein Matching, so dass der summierte Gewinn für alle Agenten größer währe.
+\end{enumerate}
+
+Sei $M_{FOCSG}\subset M_{OCSG}$ eine Modellklasse, die zusätzlich ''fair'' ist:
+
+\TODO{verweis für Kritärien für ''fearheit''}
+
+\subsection{Terminologie}
+\label{sigmod}
+
+\begin{definition}[Koalition]
+  Eine \textbf{Koalition} ist ein Zusammenschluss an Agenten die vollständige Informationen über alle Koalitionsteilnehmer besitzen und die Verteilung gemeinsamer Ressourcen auf Bauaufträge beabsichtigen. Ebenfalls haben sie einen gemeinsamen Mechanismus welches den Erlös auf die Koalitionsteilnehmer aufteilt. Formal: $K\subseteq Agenten$ mit folgenden Eigenschaften:
+  \begin{align}
+    \exists x\exists t\exists y. m(x,t,y) > 0 \land K(x)\rightarrow (\forall x'\forall t' m(x',t',y) > 0\Rightarrow K(x')) \label{onebaustelle} \\
+    \exists x\exists y v(x,y) > 0 \land K(x) \rightarrow (\forall x'.v(x', y) > 0 \rightarrow K(x')) \label{oneprofit}
+  \end{align}
+  Dabei sagt Bedingung \ref{onebaustelle} aus, dass eine Baustelle nur von einer Koalition gebaut werden kann, sowie Bedingung \ref{oneprofit}, dass eine Baustelle nur geld an eine Koalition senden kann.
+\end{definition}
+
+\begin{definition}[Matching]
+  Ein \textbf{Matching} ist eine Konkrete zuordnung von Skillkapazitäten zu Bauaufträgen.
+  Formal das Prädikat $m\in\sigma_{CSG}$
+\end{definition}
+
+% \begin{definition}[Gewinnverteilung]
+%   Eine \textbf{Gewinnverteilung} ist eine Relation, die für eine konkrete Koalition mit einem Konkreten matching sowie dem dazu verbundenen Erlös eine Auszahlungsverteilung an jeden Koalitionsteilnehmer berechnet.
+% \end{definition}
+
+
+\subsection{Mechanismen}
+
+\TODO{Mechanismuskritätien}
+\TODO{phasen}
+\TODO{überarbeiten}
+
+Bei der gegebenen Aufgabenstellung interessieren wir uns für ein Mechanismus, der bei einem gegebenen Setting ein möglichst optimales Game dezentral hervorbringt. Formal gesehen:
+
+\begin{equation}
+  m: M_{CSGS} \rightarrow M_{CSG}
+\end{equation}
+\TODO{define mechnismus kritärien}
+Die Kriterien, nach denen der dezentrale Mechanismus arbeitet und das Ergebnis -- bei uns ein Game -- bewertet wird, ist nicht hart formuliert und lässt uns Gestaltungspielraum. Die Forderung an das Ergebnis ist, dass die ''soziale Wohlfahrt maximiert wird und die Gewinne möglichst stabil und fair verteilt werde''.
