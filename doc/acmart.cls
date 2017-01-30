@@ -1767,22 +1767,22 @@ Computing Machinery]
    \ignorespaces\@abstract\par}%
   \fi\egroup}
 \def\@mkbibcitation{\bgroup
-  \def\footnotemark{}%
-  \par\medskip\small\noindent{\bfseries ACM Reference format:}\par\nobreak
-  \noindent\authors. \@acmYear. \@title.
-  \if@ACM@journal
-     \textit{\@journalNameShort}
-     \@acmVolume, \@acmNumber, Article~\@acmArticle\ (\@acmPubDate),
-     \ref{TotPages}~pages.
-  \else
-     In \textit{Proceedings of \acmConference@name, \acmConference@venue,
-       \acmConference@date
-       \ifx\acmConference@name\acmConference@shortname\else
-         \ (\acmConference@shortname)\fi
-         ,} \ref{TotPages}~pages.
-  \fi\par
-  \noindent DOI: \nolinkurl{\@acmDOI}
-\par\egroup}
+%  \def\footnotemark{}%
+%  \par\medskip\small\noindent{\bfseries ACM Reference format:}\par\nobreak
+%  \noindent\authors. \@acmYear. \@title.
+%  \if@ACM@journal
+%     \textit{\@journalNameShort}
+%     \@acmVolume, \@acmNumber, Article~\@acmArticle\ (\@acmPubDate),
+%     \ref{TotPages}~pages.
+%  \else
+%     In \textit{Proceedings of \acmConference@name, \acmConference@venue,
+%       \acmConference@date
+%       \ifx\acmConference@name\acmConference@shortname\else
+%         \ (\acmConference@shortname)\fi
+%         ,} \ref{TotPages}~pages.
+%  \fi\par
+%  \noindent DOI: \nolinkurl{\@acmDOI}
+\egroup}
 \def\@printendtopmatter{\par\medskip
   \ifcase\ACM@format@nr
   \relax % manuscript
@@ -1854,7 +1854,7 @@ Computing Machinery]
     \fancyhead[RO]{\if@ACM@printfolios\thepage\fi}%
     \fancyhead[RE]{\@shortauthors}%
     \fancyhead[LO]{\ACM@linecount\shorttitle}%
-    \fancyfoot[RO,LE]{\footnotesize Manuscript submitted to ACM}%
+%    \fancyfoot[RO,LE]{\footnotesize Manuscript submitted to ACM}%
   \or % acmsmall
     \fancyhead[LE]{\ACM@linecount\@headfootfont\@acmArticle\if@ACM@printfolios:\thepage\fi}%
     \fancyhead[RO]{\@headfootfont\@acmArticle\if@ACM@printfolios:\thepage\fi}%
@@ -1939,7 +1939,7 @@ Computing Machinery]
   \relax % manuscript
     \fancyhead[L]{\ACM@linecount}%
     \fancyfoot[RO,LE]{\if@ACM@printfolios\small\thepage\fi}%
-    \fancyfoot[RE,LO]{\footnotesize Manuscript submitted to ACM}%
+%    \fancyfoot[RE,LO]{\footnotesize Manuscript submitted to ACM}%
   \or % acmsmall
     \fancyfoot[RO,LE]{\footnotesize \@journalName, Vol. \@acmVolume, No.
     \@acmNumber, Article \@acmArticle.  Publication date:
