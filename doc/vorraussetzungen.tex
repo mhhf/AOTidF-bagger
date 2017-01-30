@@ -1,22 +1,29 @@
 \subsection{Aufgabenstellung}
 \label{task}
-Als gegebenes Szenario war eine Menge an Bauaufträgen und Baufirmen, im folgenden Agenten genannt, gegeben. Den Agenten verfügen über ein Bestand an Skillkapazitäten und Baustellen besitzen ein Bedarf an Skillkapazitäten der für die Ausschüttung eines Erlöses gedeckt werden muss.
+Das gegebene Szenario lässt sich wie folgt zusammenfassen: Es existieren eine Menge an Baustellen und Baufirmen, im Folgenden Agenten genannt. Agenten verfügen über ein Bestand an Skillkapazitäten -- eine Anzahl an Einheiten verschiedener Skills -- und Baustellen wiederum benötigen Skillkapazitäten für ihre Fertigstellung. Wird die Baustelle fertiggestellt, wird eine vorher definierte Summe -- der Erlös -- ausgeschüttet.
 
-Diese Arbeit Modelliert (Kapitel \ref{mod}) dieses Szenario und untersucht Mechanismen (Kapitel \ref{ergebnisse}), die mit hilfe von Koalitionsbildung eine Zuordnung von Bestand und Bedarf an Skillkapazitäten berechnen, bezüglich der \textbf{sozialen Wohlfahrt, Stabilität und Fairness} der Gewinnausschüttung sowie ihrer \textbf{absoluten Performance}.
+Diese Arbeit modelliert dieses Szenario (Kapitel \ref{mod}) und untersucht Mechanismen (Kapitel \ref{ergebnisse}), die mit Hilfe von Koalitionsbildung eine Zuordnung von Bestand und Bedarf an Skillkapazitäten bestimmen. Die Mechanismen werden bezüglich der Maximierung der sozialen Wohlfahrt, Stabilität und Fairness der Gewinnausschüttung, sowie auch ihrer absoluten Performance untersucht.
+
+Unter \textbf{sozialer Wohlfahrt} verstehen wir die Summe der  Gewinne aller Agenten. Der Gewinn eines Agenten $a$ ist dabei die Differenz zwischen dem Teil des Erlöses, den $a$ aus dem Gesamterlös erhält, und den Kosten, die für $a$ im Spiel für die Bereitstellung seiner tatsächlich Skillkapazitäten anfallen.
+
+Ein Mechanismus ist in unserem Verständnis bezüglich seiner Gewinnausschüttung \textbf{fair}, wenn dessen Gewinnausschüttung für jeden Agenten $a$ dem \textit{Shapley Value} für den Agenten $a$ entspricht. Wir folgen hiermit also dem normativen Verständnis des Shapley Values.
+\TODO{Def. Shapley Value hier?}
+
+Der Mechanismus ist weitergehend auch bezüglich seiner Gewinnausschüttung \textbf{stabil}, wenn 
 
 \subsubsection*{Prämissen}
-Allgemein gehen wir von folgenden Grundannahmen aus:
+Des Weiteren gehen wir von folgenden Grundannahmen bei der Bearbeitung der Aufgabenstellung aus:
 
 \begin{enumerate}
   \item \textbf{Rationalität}: Agenten arbeiten ausschließlich für ihr eigenes Interesse.
-  \item \textbf{Multiskill}: Agenten können mehrere Skilltypen mit beliebiger quantität besitzen.
-  \item \textbf{linearität}: Skillkapazitäten können höhstens ein mal eingesetzt werden und werden nach ihrem einsatz "verbraucht".
-  \item \textbf{unvollständige Information der Konkurenz}: Agenten haben keine Information über die Ressourcen anderer Agenten.
+  \item \textbf{Multiskill}: Agenten können mehrere Skilltypen mit beliebiger Quantität besitzen.
+  \item \textbf{Linearität}: Skillkapazitäten können höchstens ein mal eingesetzt werden und sind nach ihrem Einsatz "verbraucht".
+  \item \textbf{unvollständige Information der Konkurrenz}: Agenten haben keine Information über die Ressourcen anderer Agenten und treten gegeneinander in Konkurrenz.
   \item \textbf{vollständige Informationen des Bedarfs}: Agenten haben vollständige Information über die Anzahl, Position, Bedarf sowie Vergütung der Bauaufträge.
-  \item \textbf{Zeitagnostisch}: Alle betrachtungen werden ohne Zeit gemacht: insbesondere verändert sich nichts an den Bauaufträgen oder den Agenten.
+  \item \textbf{Zeitagnostisch}: Alle Betrachtungen werden ohne Berücksichtigung der Zeit gemacht. Insbesondere erfolgen über die Zeit keine Änderungen an den Bauaufträgen oder den Skillkapazitäten Agenten.
 \end{enumerate}
 
 \subsection{Grundlagen}
 \label{basics}
-  Im weiteren Verlauf der Arbeit werden Funktionen mit kleinem Anfangsbuchstaben und Relationen mit einem großen Anfangsbuchstaben geschrieben. Ebenfalls gehen wir davon aus, dass alle Funktionen total und mit 0 initialisiert sind, falls für eine Struktur Eingabeparameter nicht näher definiert wurden. Wir verwenden die Schreibweise in Prädikatenlogik und die Mengenschreibweise equivalent: $a\in A \equiv A(a)$
+  Im weiteren Verlauf der Arbeit werden Funktionen mit kleinem Anfangsbuchstaben und Relationen mit einem großen Anfangsbuchstaben geschrieben. Ebenfalls gehen wir davon aus, dass alle Funktionen total und mit $0$ initialisiert sind, falls für eine Struktur Eingabeparameter nicht näher definiert werden. Wir verwenden die Schreibweise in Prädikatenlogik und die Mengenschreibweise äquivalent: $a\in A \equiv A(a)$
   Um das gegebene Problem strukturell analysieren zu können, benutzen wir die Sprache der HOL (Higher Order Logic).

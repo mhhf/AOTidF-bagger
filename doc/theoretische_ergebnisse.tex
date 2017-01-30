@@ -1,10 +1,12 @@
 \subsubsection{Superadditivität}
 \label{supadd}
+Im folgenden zeigen wir die Superadditivität das CSG. Intuitiv zeigen wir, das ein Spieler immer nur positiven Wert in die Koalition mit einbringt.
+
 \begin{lemma}[Superadditivität]
 Das CSG ist superadditiv.
 \end{lemma}
 
-Bevor wird die Superadditivität des CSG zeigen, füren wir zunächst zwei weitere ''simple'' Signaturen mit dazugehörigen Modellklassen ein und zeigen, dass Ergebnisse auf ihnen direkt auf CSG übertragen werden können. Außerdem führen wir die Begriffe \textit{potentielle Matches} einer Koalition, die Menge der \textit{gleichzeitig möglichen Baustellen einer Koalition}, \textit{Outcome-Menge} von zwei Koalitionen und den \textit{Wert} einer Baustelle ein.
+Bevor wird die Superadditivität des CSG zeigen, füren wir zunächst zwei weitere ''simple'' Signaturen mit dazugehörigen Modellklassen ein und zeigen, dass Ergebnisse auf ihnen direkt auf CSG übertragen werden können. Außerdem führen wir die Begriffe \textit{potentielle Matches} einer Koalition, die Menge der \textit{gleichzeitig möglichen Baustellen einer Koalition}, \textit{Outcome-Menge} von zwei Koalitionen und den \textit{Wert} einer Baustelle ein:
 
 \begin{enumerate}
   \item \textbf{SCSGS} - Simple Coalition Skill Game Setting
@@ -12,7 +14,7 @@ Bevor wird die Superadditivität des CSG zeigen, füren wir zunächst zwei weite
 \end{enumerate}
 
 \noindent
-Wir zeigen später, dass sich jedes Setting bzw. Game zu einem Setting bzw. Game vereinfachen lässt, in dem jeder Agent nur eine Einheit eines Skilltypen besitzt. Diese Vereinfachung erleichtert uns den Beweis der Superadditivität und die Betrachtung möglicher Algorithmen zur Verteilungsberechnung. Hierfür benötigen wir jedoch die neue Relation $AgentOwner_{/2}$, mit der wir uns die Zuteilung einer Skillkapazität zu seinem ursprünglichen Agenten merken:
+Wir zeigen im folgenden, dass sich jedes Setting bzw. Game zu einem Setting bzw. Game vereinfachen lässt, in dem jeder Agent nur eine Einheit eines Skilltypen besitzt. Diese Vereinfachung erleichtert uns den Beweis der Superadditivität und die Betrachtung möglicher Algorithmen zur Verteilungsberechnung. Hierfür benötigen wir jedoch die neue Relation $AgentOwner_{/2}$, mit der wir uns die Zuteilung einer Skillkapazität zu seinem ursprünglichen Agenten merken:
 
 \begin{definition}[SCSGS]
   Eine \textsc{Simple Coalition Skill Game Setting}-Signatur sei definiert als
@@ -35,7 +37,7 @@ Wir zeigen später, dass sich jedes Setting bzw. Game zu einem Setting bzw. Game
 \end{definition}
 
 \noindent
-Wir bezeichnen eine $\sigma_{SCSGS}$-Struktur $\mathcal{SS}$ als \textit{Simple Setting} und die dazugehörige Modellklasse valider Strukturen $M_{SCSGS}$. Auch hier werden wir die Validitätskriterien nicht weiter erläutern.
+Wir bezeichnen eine $\sigma_{SCSGS}$-Struktur $\mathcal{SS}$ als \textit{Simple Setting} und die dazugehörige Modellklasse valider Strukturen $M_{SCSGS}$. Validitätskritärien sind analog zu $M_{CSGS}$.
 
 \begin{definition}[SCSG]
   Eine \textsc{Simple Coalition Skill Game}-Signatur (SCSG) sei definiert als
@@ -51,7 +53,7 @@ Wir bezeichnen eine $\sigma_{SCSGS}$-Struktur $\mathcal{SS}$ als \textit{Simple 
 \end{definition}
 
 \noindent
-Wir bezeichnen eine $\sigma_{SCSG}$-Struktur $\mathcal{SG}$ als \textit{Simple Game} mit der dazugehörigen validen Modelklasse $M_{SCSG}$. Validitätskriterien werden an dieser Stelle nicht weiter betrachtet.
+Wir bezeichnen eine $\sigma_{SCSG}$-Struktur $\mathcal{SG}$ als \textit{Simple Game} mit der dazugehörigen validen Modelklasse $M_{SCSG}$. Validitätskriterien sing analog zu $M_{CSG}$.
 
 
 \subsection{Beziehungen zwischen den Modellklassen}
@@ -134,44 +136,44 @@ Hieraus folgt, dass eine Baustelle in einem Spiel nur von einer Koalition gebaut
 \end{definition}
 
 \noindent
-Zur weiteren Vereinfachung definieren wir noch eine Bewertungsfunktion für eine Menge von Baustellen:
-
-\begin{definition}[Wert einer Baustelle]
-  Sei $B\subseteq Baustelle$ beliebig. Dann ist der \textit{Wert} von $B$ definiert als
-  \begin{equation}
-    v(B):=\sum_{b \in B} \; budget(b)
-  \end{equation}
-\end{definition}
-
-\begin{definition}[erzielbarer Wert zweier Koalitionen]
-  Seien $K, S \subseteq Agent$ beliebige Koalitionen. Der \textit{erzielbare Wert zweier Koalitionen} $K$ und $S$ ist nun definiert als
-\begin{align}
-  v(K) + v(S) := \max_{(B_K, B_S)\in Outcome(K,S)} \;(\;
-  &v(B_K) - \varphi_{kosten}(K, B_K) \;+ \\ &v(B_S) - \varphi_{kosten}(S, B_S) \qquad)
-\end{align}
-
-\noindent
-Die Baustellen, die von einer Koalition gebaut werden, können nicht mehr von einer anderen Koalition gebaut werden. Deshalb müssen wir diese zeitgleich betrachten.
-$\varphi_{kosten}(B,K)$ ist dabei diejenige Funktion, die basierend auf der vorhandenen Kostenfunktion, der Koalition und den Baustellen die Kosten der Koalition für die Bereitstellung aller notwendigen Skills berechnet, um die Baustellen fertig zu stellen.
-\textbf{Bemerkung}: Nach Definition ist das Ergebnis pareto-effizient.
-\end{definition}
-
-\noindent
-Existiert eine Koalition isoliert, lässt sich diese auch isoliert betrachten:
-\begin{definition}
-  Sei $K \subseteq Agent$ eine beliebige Koalition.
-  \begin{equation}
-    v(K) := \max_{B'\in B(K)} \left(\; v(B') - \varphi_{kosten}(B', K) \;\right)
-  \end{equation}
-\end{definition}
-
-\noindent
-Insbesondere gilt dann auch für zwei allein agierende Koalitionen $K, S \subseteq Agent$:
-\begin{equation}
-  v(K\cup S) = \max_{B'\in B(K\cup S)} \left(\; v(B')-\varphi_{kosten}(B', K) \;\right)
-\end{equation}
-
-\noindent
+% Zur weiteren Vereinfachung definieren wir noch eine Bewertungsfunktion für eine Menge von Baustellen:
+%
+% \begin{definition}[Wert einer Baustelle]
+%   Sei $B\subseteq Baustelle$ beliebig. Dann ist der \textit{Wert} von $B$ definiert als
+%   \begin{equation}
+%     v(B):=\sum_{b \in B} \; budget(b)
+%   \end{equation}
+% \end{definition}
+%
+% \begin{definition}[erzielbarer Wert zweier Koalitionen]
+%   Seien $K, S \subseteq Agent$ beliebige Koalitionen. Der \textit{erzielbare Wert zweier Koalitionen} $K$ und $S$ ist nun definiert als
+% \begin{align}
+%   v(K) + v(S) := \max_{(B_K, B_S)\in Outcome(K,S)} \;(\;
+%   &v(B_K) - \varphi_{kosten}(K, B_K) \;+ \\ &v(B_S) - \varphi_{kosten}(S, B_S) \qquad)
+% \end{align}
+%
+% \noindent
+% Die Baustellen, die von einer Koalition gebaut werden, können nicht mehr von einer anderen Koalition gebaut werden. Deshalb müssen wir diese zeitgleich betrachten.
+% $\varphi_{kosten}(B,K)$ ist dabei diejenige Funktion, die basierend auf der vorhandenen Kostenfunktion, der Koalition und den Baustellen die Kosten der Koalition für die Bereitstellung aller notwendigen Skills berechnet, um die Baustellen fertig zu stellen.
+% \textbf{Bemerkung}: Nach Definition ist das Ergebnis pareto-effizient.
+% \end{definition}
+%
+% \noindent
+% Existiert eine Koalition isoliert, lässt sich diese auch isoliert betrachten:
+% \begin{definition}
+%   Sei $K \subseteq Agent$ eine beliebige Koalition.
+%   \begin{equation}
+%     v(K) := \max_{B'\in B(K)} \left(\; v(B') - \varphi_{kosten}(B', K) \;\right)
+%   \end{equation}
+% \end{definition}
+%
+% \noindent
+% Insbesondere gilt dann auch für zwei allein agierende Koalitionen $K, S \subseteq Agent$:
+% \begin{equation}
+%   v(K\cup S) = \max_{B'\in B(K\cup S)} \left(\; v(B')-\varphi_{kosten}(B', K) \;\right)
+% \end{equation}
+%
+% \noindent
 Beachte auch das für einen Outcome zweier Koalitionen eine mögliche Baustellenmenge der potentiellen Baustellen der Vereinigung der Koalitionen existiert die alle Baustellen des separaten Outcomes beinhaltet:
 \begin{equation}
   \forall (B_K, B_S)\in Outcome(K,S),\; \exists B'\in B(K\cup S):\; B_K\cup B_S\subseteq B'
@@ -182,20 +184,39 @@ Hieraus können wir die Superadditivität des Spiels schließen:
 \begin{equation}
   v(K\cup S) \geq v(K) + v(S)
 \end{equation}
+\begin{flushright}
+  \qed
+\end{flushright}
 
-\noindent
-Insbesondere ist das Spiel Konvex.
-Nach einem Theorem (TODO) ist bei einem konvexen Spiel das Shapley Value im Core enthalten, sodass die beste Lösung dieses Spiels die große Koalition ist und eine stabile und faire Lösung immer existiert.
+\subsubsection{instabilität der Großen Koalition}
+\label{instabil}
+
+\begin{lemma}[instabilitiät der Großen Koalition]
+  Im allgemeinen Fall ist die große Koalition $K=Agenten$ ist instabil.
+\end{lemma}
+
+Beweis durch ein Beispiel:
+\begin{figure}
+  \includegraphics[width=0.5\textwidth]{example-exchangeable-agents.png}
+  \caption{Szenario mit einer instabilen großen Koalition.}
+  \label{szenario1}
+\end{figure}
+
+Im Szenario in Abbildung (\ref{szenario1}) machen die Koalitionen $K_1 = \{A0, A1, A2\}$ sowie $K_2 = \{A0, A2\}$ den gleichen Gewinn, jedoch bekommen die Agenten in $K_2$ Anteilig mehr vom Gewinn. Demnach lohnt es sich für sie die große Koalition zu verlassen.
+\begin{flushright}
+  $\qed$
+\end{flushright}
 
 \subsubsection{NP-härte des Problems}
+\label{np}
 Im folgenden möchten wir die NP-härte eines gewünschten mechanismusses Zeigen. Hierfür reduzieren wir das Rucksackproblem, ein allgemein bekanntes NP-vollständiges Problem, auf ein CSG.
 Das Rucksackproblem ist folgendermaßen definiert:
 
 \begin{lemma}
-Sei $m:CSGS\rightarrow CSG$ ein Mechanismus, der ein optimales Matching berechnet, dann ist m NP-hart.
+Sei $m:M_{CSGS}\rightarrow M_{OCSG}$ ein Mechanismus, der ein optimales Matching berechnet, dann ist $m$ NP-hart.
 \end{lemma}
 
-\begin{definition}[Rucksackproblem]
+\begin{definition}[KNAPSACK]
 Sei $U$ eine Menge von Objekten, w eine Gewichtsfunktion und v eine Nutzenfunktion:
 \begin{align}
   w: U\rightarrow \mathbb{R} \\
@@ -215,10 +236,26 @@ Sei $K=\{U,w,v\}\in KNAPSACK$ ein beliebiges Rucksackproblem. Wir geben eine üb
   supply(a, t) \mapsto B \\
   Baustelle = U \\
   demand(u, t) \mapsto w(u) \\
+  budget(x) \mapsto v(x) \\
   kosten(t, n, x, y) \mapsto 0
 \end{align}
-\TODO{In worten beschreiben was hier passiert.}
+Dabei wird das KNAPSACK problem als ein Spiel mit nur einem Agenten mit einem Skilltyp auf. Die maximale Kapazität des Rucksacks $B$ ist dabei die quantität des Skilltypes des Agenden. Die Menge der Objekte wird als Menge an Bauaufträgen interpretiert, das Gewicht eines Objektes $w(u)$ als die zur fertigstellung geforterten Ressourcen und dessen Wert $v(u)$ das Budget einer Baustelle.
 
-Intuitiv sorgt die Bedingung \ref{bed1} dafür, dass der Agent seine resourcen nicht überschreitet, sowie die Bedingung \ref{bed2}, dass der Agent sein profiet maximiert. Beides sind ebenfalls Anforderungen, die von einem Mechanismus erfüllt werden müssen der ein optimales CSG berechnet.
-\TODO{referenz zum abschnit über den mechanismus}
-Angenommen es gäbe ein $m\in P$ der aus einem CSGS ein CSG mit einem optimalem matching berechnet, dann währe auch $KNAPSACK\in P$. Dieses ist jedoch ein wiederspruch zur annahme $KNAPSACK\in NP$.
+Intuitiv sorgt die Bedingung \ref{bed1} dafür, dass der Agent seine Resourcen nicht überschreitet, sowie die Bedingung \ref{bed2}, dass der Agent sein profiet maximiert. Beides sind ebenfalls Anforderungen, die von einem Mechanismus erfüllt werden müssen der ein optimales CSG berechnet.
+Angenommen es gäbe ein $m\in P$ der aus einem CSGS ein CSG mit einem optimalem Matching berechnet, dann währe auch $KNAPSACK\in P$. Dieses ist jedoch ein wiederspruch zur annahme $KNAPSACK\in NP$.
+\begin{flushright}
+  $\qed$
+\end{flushright}
+
+\subsubsection*{Stabilisierung}
+\label{stabilisierung}
+Wie wir in Abschnit (\ref{instabil}) gesehen haben ist die große Koalition instabil. Im folgenden möchten wir ein Vorschlag zeigen, wie ein Koalitionsbildungsmechanismus funktionieren könnte, der eine stabile große Koalition produziert:
+Eine Koalition garantiert ihren Koalitionsteilnehmern beim Beitritt einen individuellen Gewinn in der höhe des Shapley Values und verlangt dafür einen hinreichenden Beitritsdepot $x$. Dieser Kolleteralbetrag wird von einer unabhängigen Instanz verwaltet und Sichert die Agenten vor dem "rauswurf" aus der Großen Koalition ab indem er diese in der gleichen höhe auszahlt, wie auch ihr Gewinn in der Großen Koalition währe. Am Schluss wird der Koleteralbetrag wieder anteilig an die Agenten zurück verteilt. Durch wird die große Koalition Stabilisiert, da es für Teilkoalitionen nicht mehr lohnt auszusteigen, da der Koleteralbetrag um genau den gleichen wert schrumpfen Würde wie die auszahlung der zurückgelassenen Agenten. Der Beitritsdepot für jeden Agenten für die Große Koalition ist $x=\frac{\sum_{b\in Baustellen} budget(b)}{2*|Agenten|}$ (ohne Beweis)
+
+\subsubsection*{Mechanismus}
+In Abschnit (\ref{supadd}) sowie (\ref{stabilisierung}) haben wir gezeigt dass der Beitrit zur großen Koalition die rationall richtige entscheidung ist, was die Offenlegung aller Agentenressourcen zur folge hat.
+% Da wir aus Abschnit (\ref{np}) wissen das das Berechnen eines optimalen Matchings NP hart ist, können wir entweder, wie im praktischen Teil beschrieben, auf ein Approximationsalgorithmus zurückgreifen oder nach der suche des maximums, alle Möglichen Matchings ausprobieren
+Das berechnen eines optimalen Matchings ist entscheidbar, jedoch wie wir aus Abschnit (\ref{np}) wissen, NP-hart.
+Das Berechnen des Shapley-Values ist ebenfalls entscheidbar, jedoch ebenfalls NP-hard.
+Jedoch haben wir in diesem Kapitel gezeigt, dass es ein NP-harten Mechanismus gibt der gegeben einem Setting ein Faires und Optimales Ergebniss berechnet, welches allen Anforderungen der Aufgabenstellung gerecht wird.
+\TODO{referenz auf kritärien der Aufgabenstellung}
