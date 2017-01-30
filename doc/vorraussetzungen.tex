@@ -2,14 +2,13 @@
 \label{task}
 Das gegebene Szenario lässt sich wie folgt zusammenfassen: Es existieren eine Menge an Baustellen und Baufirmen, im Folgenden Agenten genannt. Agenten verfügen über ein Bestand an Skillkapazitäten -- eine Anzahl an Einheiten verschiedener Skills -- und Baustellen wiederum benötigen Skillkapazitäten für ihre Fertigstellung. Wird die Baustelle fertiggestellt, wird eine vorher definierte Summe -- der Erlös -- ausgeschüttet.
 
-Diese Arbeit modelliert dieses Szenario (Kapitel \ref{mod}) und untersucht Mechanismen (Kapitel \ref{ergebnisse}), die mit Hilfe von Koalitionsbildung eine Zuordnung von Bestand und Bedarf an Skillkapazitäten bestimmen. Die Mechanismen werden bezüglich der Maximierung der sozialen Wohlfahrt, Stabilität und Fairness der Gewinnausschüttung, sowie auch ihrer absoluten Performance untersucht.
+Diese Arbeit modelliert dieses Szenario (Kapitel \ref{mod}) und untersucht Mechanismen (Kapitel \ref{ergebnisse}), die mit Hilfe von Koalitionsbildung eine Zuordnung von Bestand und Bedarf an Skillkapazitäten bestimmen. Die Mechanismen werden bezüglich der Maximierung der sozialen Wohlfahrt, Stabilität der gebildeten Koalitionen und Fairness der Gewinnausschüttung, sowie auch ihrer absoluten Performance untersucht.
 
-Unter \textbf{sozialer Wohlfahrt} verstehen wir die Summe der  Gewinne aller Agenten. Der Gewinn eines Agenten $a$ ist dabei die Differenz zwischen dem Teil des Erlöses, den $a$ aus dem Gesamterlös erhält, und den Kosten, die für $a$ im Spiel für die Bereitstellung seiner tatsächlich Skillkapazitäten anfallen.
+Unter \textbf{sozialer Wohlfahrt} verstehen wir die Summe der Gewinne aller Agenten. Der Gewinn eines Agenten $a$ ist dabei die Differenz zwischen dem Teil des Erlöses, den $a$ aus dem Gesamterlös erhält, und den Kosten, die für $a$ im Spiel für die Bereitstellung seiner tatsächlich Skillkapazitäten anfallen.
 
-Ein Mechanismus ist in unserem Verständnis bezüglich seiner Gewinnausschüttung \textbf{fair}, wenn dessen Gewinnausschüttung für jeden Agenten $a$ dem \textit{Shapley Value} für den Agenten $a$ entspricht. Wir folgen hiermit also dem normativen Verständnis des Shapley Values.
-\TODO{Def. Shapley Value hier?}
+Ein Mechanismus ist in unserem Verständnis bezüglich seiner Gewinnausschüttung \textbf{fair}, wenn dessen Gewinnausschüttung für jeden Agenten $a$ dem \textit{Shapley Value} des Agenten $a$ entspricht. Wir folgen mit unserem Fairness-Begriff also dem normativen Verständnis des Shapley Values.\footnote{Auf eine formale Definition sei an dieser Stelle verzichtet und unter anderem auf \cite{Moretti2008} verwiesen. Hier wird der Shapley Value und seine vielfältigen Anwendungen vorgestellt.}
 
-Der Mechanismus ist weitergehend auch bezüglich seiner Gewinnausschüttung \textbf{stabil}, wenn 
+Der Mechanismus soll weiterhin bezüglich seiner Koalitionsbildung \textbf{stabil} sein. Das heißt, dass kein Agent einer gebildeten Koalition einen Anreiz hat, diese Koalition zu verlassen, um seinen Gewinn alleine oder durch die Bildung einer neue Koalition zu maximieren. Diese Koalitionen befindet sich im \textit{Core}.
 
 \subsubsection*{Prämissen}
 Des Weiteren gehen wir von folgenden Grundannahmen bei der Bearbeitung der Aufgabenstellung aus:
