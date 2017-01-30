@@ -1,13 +1,13 @@
 \subsubsection{Superadditivität}
 
 \label{supadd}
-Im folgenden zeigen wir die Superadditivität das CSG. Intuitiv zeigen wir, das ein Spieler immer nur positiven Wert in die Koalition mit einbringt.
+Im Folgenden zeigen wir die Superadditivität das CSG. Intuitiv zeigen wir, dass ein Spieler immer nur einen positiven Wert in eine Koalition einbringt.
 
 \begin{lemma}[Superadditivität]
 Das CSG ist superadditiv.
 \end{lemma}
 
-Bevor wird die Superadditivität des CSG zeigen, füren wir zunächst zwei weitere ''simple'' Signaturen mit dazugehörigen Modellklassen ein und zeigen, dass Ergebnisse auf ihnen direkt auf CSG übertragen werden können. Außerdem führen wir die Begriffe \textit{potentielle Matches} einer Koalition, die Menge der \textit{gleichzeitig möglichen Baustellen einer Koalition}, \textit{Outcome-Menge} von zwei Koalitionen und den \textit{Wert} einer Baustelle ein:
+Bevor wird die Superadditivität des CSG zeigen, führen wir zunächst zwei weitere ''simple'' Signaturen mit dazugehörigen Modellklassen ein und zeigen, dass Ergebnisse auf ihnen direkt auf das CSG übertragen werden können. Außerdem führen wir die Begriffe \textit{potentielle Matches} einer Koalition, die Menge der \textit{gleichzeitig möglichen Baustellen einer Koalition}, die \textit{Outcome-Menge} von zwei Koalitionen und den \textit{Wert} einer Baustelle ein.
 
 \begin{enumerate}
   \item \textbf{SCSGS} - Simple Coalition Skill Game Setting
@@ -20,20 +20,20 @@ Wir zeigen im folgenden, dass sich jedes Setting bzw. Game zu einem Setting bzw.
 \begin{definition}[SCSGS]
   Eine \textsc{Simple Coalition Skill Game Setting}-Signatur sei definiert als
   \begin{align*}
-    &\sigma_{SCSGS}:= \\
-    &\{gentOwner_{2}, Agent_{/1}, Baustelle_{/1}, supply_{/2}, demand_{/2}, budget_{/1}, kosten_{/4} \}
+    \sigma_{SCSGS}:= &\{gentOwner_{2}, Agent_{/1}, Baustelle_{/1}, supply_{/2}, \\
+    &demand_{/2}, budget_{/1}, kosten_{/4} \}
   \end{align*}
   \noindent
   \textbf{Intuition} \\
     \begin{tabular}{lrl}
-    $AgentOwner(a, x)$&$:\Leftrightarrow$& Agent $x$ gehört zu dem ursprüngl. Agenten $a$ \\
+    $AgentOwner(a, x)$&$:\Leftrightarrow$& Agent $x$ gehört zu dem Agenten $a$ \\
     $Agent(x)$&$:\Leftrightarrow$& $x$ ist ein Agent (Baufirma) \\
     $Baustelle(x) $&$:\Leftrightarrow$& $x$ ist eine Baustelle \\
     $type(x)\mapsto t $&$:\Leftrightarrow$& Agent $x$ ist vom Skilltyp $t$ \\
-    $demand(x, t)\mapsto n $&$:\Leftrightarrow$& Baustelle $x$ benötigt $n$ Einheiten vom Skilltyp $t$ \\
+    $demand(x, t)\mapsto n $&$:\Leftrightarrow$& Baustelle $x$ benötigt $n$ Einheiten \\&& vom Skilltyp $t$ \\
     $budget(x)\mapsto n $&$:\Leftrightarrow$&
-    Baustelle $x$ ist bereit einen Gewinn von \\&&maximal $n$ bei Fertigstellung auszuzahlen\\
-    $kosten(t, n, a, y)\mapsto n$&$:\Leftrightarrow$& Kosten für den zugehörigen ursprüngl. Agenten $a$ \\&& für den Transport von $n$ Einheiten des Skilltyp $t$ \\&& an die Baustelle $y$.
+    Baustelle $x$ zahlt einen Gewinn $n$ \\&& bei Fertigstellung aus\\
+    $kosten(t, n, a, y)\mapsto n$&$:\Leftrightarrow$& Kosten für zugehörigen  Agenten $a$ \\&& für die Bereitstellung von $n$ Einheiten \\&& des Skilltyps $t$ an Baustelle $y$
     \end{tabular}
 \end{definition}
 
@@ -48,7 +48,7 @@ Wir bezeichnen eine $\sigma_{SCSGS}$-Struktur $\mathcal{SS}$ als \textit{Simple 
   \noindent
   \textbf{Intuition} \\
     \begin{tabular}{lrl}
-    $m(x, t, y)$&$:\Leftrightarrow$& Agent $x$ sendet eine Einheiten des Skilltyps $t$ an \\&&die Baustelle $y$ \\
+    $m(x, t, y)$&$:\Leftrightarrow$& Agent $x$ sendet eine Einheiten des Skilltyps $t$ \\&& an die Baustelle $y$ \\
     $v(x,y)\mapsto n$&$:\Leftrightarrow$& Agent $x$ erhält von Baustelle $y$ die Vergütung $n$
     \end{tabular}
 \end{definition}
@@ -86,7 +86,7 @@ Dabei müssen folgende Eigenschaften gelten:
 \noindent
 Weiter werden wir nur Mechanismen betrachten die, am Setting keine Änderungen vornehmen, sondern nur Matchings und die Vergütungsverteilung bestimmen. Auf eine ausführliche Definition der gesuchten Funktionen wird hier ebenfalls verzichtet,  stattdessen wird eine Intuition gegeben: Ein Setting bzw. Game lässt sich in ein Simple Setting bzw. Simple Game überführen, indem jede Einheit eines Skilltyps eines Agenten als eigenständiger Agent betrachtet wird.
 
-Dabei wird die Zugehörigkeit von Agenten zum Skill in der $AgentOwner$ Relation gesichert. Die Kostenfunktion bleibt bestehen und wird lediglich auf den $AgentOwner$ übertragen. Bei den Matches und Vergütungen wird ähnlich verfahren. Hierdurch gehen keine Informationen verloren und alle Betrachtungen können auf den vereinfachten Modellen durchgeführt werden.
+Dabei wird die Zugehörigkeit von Agenten zum Skill in der $Agent\-Owner$ Relation gesichert. Die Kostenfunktion bleibt bestehen und wird lediglich auf den $AgentOwner$ übertragen. Bei den Matches und Vergütungen wird ähnlich verfahren. Hierdurch gehen keine Informationen verloren und alle Betrachtungen können auf den vereinfachten Modellen durchgeführt werden.
 
 
 

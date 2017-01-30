@@ -1883,9 +1883,9 @@ Computing Machinery]
     \fancyhead[LO]{\ACM@linecount\@headfootfont\shorttitle}%
     \fancyhead[RE]{\@headfootfont\@shortauthors}%
     % \fancyhead[LE]{\ACM@linecount\@headfootfont\acmConference@shortname,
-      % \acmConference@date, \acmConference@venue}%
-    \fancyhead[RO]{\@headfootfont\acmConference@shortname,
-      \acmConference@date, \acmConference@venue}%
+    %  \acmConference@date, \acmConference@venue}%
+    %\fancyhead[RO]{\@headfootfont\acmConference@shortname,
+    %  \acmConference@date, \acmConference@venue}%
   \fi
   \if@ACM@sigchiamode
      \fancyheadoffset[L]{\dimexpr(\marginparsep+\marginparwidth)}%

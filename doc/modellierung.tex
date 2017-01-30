@@ -16,15 +16,15 @@ Wir führen nun zwei verschiedene Signaturen mit den dazugehörigen Modellklasse
     \begin{tabular}{lrl}
     $Agent(x)$&$:\Leftrightarrow$& $x$ ist ein Agent (Baufirma) \\
     $Baustelle(x) $&$:\Leftrightarrow$& $x$ ist eine Baustelle \\
-    $supply(x, t)\mapsto n $&$:\Leftrightarrow$& Agent $x$ besitzt $n$ Einheiten vom Skilltyp $t$ \\
-    $demand(x, t)\mapsto n $&$:\Leftrightarrow$& Baustelle $x$ benötigt $n$ Einheiten vom Skilltyp $t$ \\
+    $supply(x, t)\mapsto n $&$:\Leftrightarrow$& Agent $x$ besitzt $n$ Einheiten \\&& vom Skilltyp $t$ \\
+    $demand(x, t)\mapsto n $&$:\Leftrightarrow$& Baustelle $x$ benötigt $n$ Einheiten \\&& vom Skilltyp $t$ \\
     $budget(x)\mapsto n $&$:\Leftrightarrow$&
-    Baustelle $x$ ist bereit einen Gewinn von \\&&maximal $n$ bei Fertigstellung auszuzahlen\\
-    $kosten(t, n, x, y)\mapsto n$&$:\Leftrightarrow$& Kosten für Agenten $x$ für den Transport von \\&&$n$ Einheiten des Skilltyp $t$ an die Baustelle $y$.
+    Baustelle $x$ zahlt einen Gewinn $n$ \\&& bei Fertigstellung aus\\
+    $kosten(t, n, x, y)\mapsto n$&$:\Leftrightarrow$& Kosten für Agenten $x$ für die \\&& Bereitstellung von $n$ Einheiten des \\&& Skilltyp $t$ an Baustelle $y$.
     \end{tabular}
 \end{definition}
 
-Im folgenden werden wir die $\sigma_{CSGS}$-Struktur $\mathcal{S}$ als ein Setting bezeichnen. Die Modellklasse $M_{CSGS}$ steht für die Gesamtheit an validen Settings die zudem folgende Bedingungen erfüllt:
+Im folgenden werden wir die $\sigma_{CSGS}$-Struktur $\mathcal{S}$ als ein Setting bezeichnen. Die Modellklasse $M_{CSGS}$ steht für die Gesamtheit an validen Settings, die zudem die folgende Bedingung erfüllt:
 \begin{align}
   Agent\cap Baustelle = \emptyset
 \end{align}
@@ -51,8 +51,8 @@ Im folgenden werden wir die $\sigma_{CSGS}$-Struktur $\mathcal{S}$ als ein Setti
   \end{align*}
   \textbf{Intuition} \\
     \begin{tabular}{lrl}
-    $m(x, t, y)\mapsto n$&$:\Leftrightarrow$& Agent $x$ sendet $n$ Einheiten des Skilltyps $t$ an \\&&die Baustelle $y$ \\
-    $v(x,y)\mapsto n$&$:\Leftrightarrow$& Agent $x$ erhält von Baustelle $y$ die Vergütung $n$
+    $m(x, t, y)\mapsto n$&$:\Leftrightarrow$& Agent $x$ sendet $n$ Einheiten des Skilltyps $t$ \\&& an die Baustelle $y$ \\
+    $v(x,y)\mapsto n$&$:\Leftrightarrow$& Agent $x$ erhält von Baustelle $y$ \\&& die Vergütung $n$
     \end{tabular}
 \end{definition}
 
