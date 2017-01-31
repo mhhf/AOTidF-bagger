@@ -1,4 +1,5 @@
 \subsubsection{Superadditivität}
+
 \label{supadd}
 Im Folgenden zeigen wir die Superadditivität das CSG. Intuitiv zeigen wir, dass ein Spieler immer nur einen positiven Wert in eine Koalition einbringt.
 
@@ -246,6 +247,7 @@ Angenommen es gäbe ein $m\in P$ der aus einem CSGS ein CSG mit einem optimalem 
 
 \subsubsection*{Stabilisierung}
 \label{stabilisierung}
+<<<<<<< HEAD
 Wie wir in Abschnitt (\ref{instabil}) gesehen haben, ist die große Koalition instabil. Im Folgenden möchten wir in einem Vorschlag zeigen, wie ein Mechanismus zu Koalitionsbildung funktionieren könnte, der eine stabile große Koalition erzeugt:
 Eine Koalition garantiert ihren Koalitionsteilnehmern beim Beitritt einen individuellen Gewinn in Höhe des Shapley Values und verlangt dafür einen hinreichenden Beitrittsdepot $x$. Dieser Kollateralbetrag wird von einer unabhängigen Instanz verwaltet und sichert jeden Agenten $a$ vor dem "Rauswurf" aus der großen Koalition ab, indem diese Instanz $a$ in der gleichen Höhe auszahlt, wie auch ihr Gewinn in der großen Koalition wäre.
 Am Schluss wird der Kollateralbetrag wieder anteilig an die Agenten zurück verteilt. Durch wird die große Koalition stabilisiert, da es für Teilkoalitionen nicht mehr lohnt auszusteigen: Der Kollateralbetrag würde um genau den gleichen Wert schrumpfen, wie die Auszahlung der zurückgelassenen Agenten. Der Beitrittsdepot für jeden Agenten für die Große Koalition ist (ohne Beweis)
@@ -255,6 +257,14 @@ Am Schluss wird der Kollateralbetrag wieder anteilig an die Agenten zurück vert
 
 \subsubsection*{Mechanismus}
 In Abschnitt (\ref{supadd}) sowie (\ref{stabilisierung}) haben wir gezeigt, dass der Beitritt zur großen Koalition die rational richtige Entscheidung für einen Agenten ist, was die Offenlegung aller Skillkapazitäten zur Folge hat.
+=======
+Wie wir in Abschnit (\ref{instabil}) gesehen haben ist die große Koalition instabil. Im folgenden möchten wir ein Vorschlag zeigen, wie ein Koalitionsbildungsmechanismus funktionieren könnte, der eine stabile große Koalition produziert:
+Eine Koalition garantiert ihren Koalitionsteilnehmern beim Beitritt einen individuellen Gewinn in der höhe des Shapley Values und verlangt dafür einen hinreichenden Beitritsdepot $x$. Dieser Kolleteralbetrag wird von einer unabhängigen Instanz verwaltet und Sichert die Agenten vor dem ''rauswurf'' aus der Großen Koalition ab, indem er diese in der gleichen Höhe auszahlt, wie auch ihr Gewinn in der hroßen Koalition währe. Am Schluss wird der Koleteralbetrag wieder anteilig an die Agenten zurück verteilt. Durch wird die große Koalition Stabilisiert, da es für Teilkoalitionen nicht mehr lohnt auszusteigen, da der Koleteralbetrag um genau den gleichen Wert schrumpfen Würde wie die Auszahlung der zurückgelassenen Agenten. Der Beitritsdepot für jeden Agenten für die Große Koalition ist $x=\frac{\sum_{b\in Baustellen} budget(b)}{2*|Agenten|}$ (ohne Beweis)
+
+\subsubsection{Mechanismus}
+\label{thmechanism}
+In Abschnit (\ref{supadd}) sowie (\ref{stabilisierung}) haben wir gezeigt dass der Beitrit zur großen Koalition die rationall richtige entscheidung ist, was die Offenlegung aller Agentenressourcen zur folge hat.
+>>>>>>> bc4943e23f238dc0406c965e64756ece45b78bee
 % Da wir aus Abschnit (\ref{np}) wissen das das Berechnen eines optimalen Matchings NP hart ist, können wir entweder, wie im praktischen Teil beschrieben, auf ein Approximationsalgorithmus zurückgreifen oder nach der suche des maximums, alle Möglichen Matchings ausprobieren
 Die Berechnung eines optimalen Matchings ist entscheidbar, jedoch wie wir aus Abschnitt (\ref{np}) wissen, NP-hart.
 Das Berechnen des Shapley-Values ist ebenfalls entscheidbar, jedoch ebenfalls NP-hart\footnote{Für eine Untersuchung der Komplexität der Berechnung des Shapley Values sei auf \cite{conitzer2004computing} verwiesen.}.
