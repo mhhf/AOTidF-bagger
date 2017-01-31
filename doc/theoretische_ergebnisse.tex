@@ -59,8 +59,7 @@ Wir bezeichnen eine $\sigma_{SCSG}$-Struktur $\mathcal{SG}$ als \textit{Simple G
 \subsection{Beziehungen zwischen den Modellklassen}
 \label{bez}
 
-Die nachfolgenden Betrachtungen wollen wir jedoch auf einer vereinfachten Strukturen anstellen: Bei  dieser besitzt jeder Agent nur eine Einheit eines Skilltyps. Um dennoch Aussagen über das CSG machen zu können, zeigen wir, dass sich jedes Setting bzw. Game zu einem Simple Setting bzw. Simple Game überführen lässt. Das erlaubt uns die Ergebnisse von  theoretische Betrachtungen von Mechanismen, die bei einem Simple Setting ein Simple Game berechnen, auf das CSG zu beziehen.
-
+Die nachfolgenden Betrachtungen wollen wir jedoch auf der vereinfachten Strukturen anstellen: Bei  dieser besitzt jeder Agent nur eine Einheit eines Skilltyps. Um dennoch Aussagen über das CSG machen zu können, zeigen wir, dass sich jedes Setting bzw. Game zu einem Simple Setting bzw. Simple Game überführen lässt. Das erlaubt uns die Ergebnisse von theoretische Betrachtungen von Mechanismen, die bei einem Simple Setting ein Simple Game berechnen, auf das CSG zu übetragen.
 
 \noindent
 Formal:
@@ -83,18 +82,15 @@ Dabei müssen folgende Eigenschaften gelten:
 \end{eqnarray}
 
 \noindent
-Weiter werden wir nur Mechanismen betrachten die, am Setting keine Änderungen vornehmen, sondern nur Matchings und die Vergütungsverteilung bestimmen. Auf eine ausführliche Definition der gesuchten Funktionen wird hier ebenfalls verzichtet,  stattdessen wird eine Intuition gegeben: Ein Setting bzw. Game lässt sich in ein Simple Setting bzw. Simple Game überführen, indem jede Einheit eines Skilltyps eines Agenten als eigenständiger Agent betrachtet wird.
+Weiter werden wir nur Mechanismen betrachten, die am Setting keine Änderungen vornehmen, sondern nur Matchings und die Vergütungsverteilung bestimmen. Auf eine ausführliche Definition der gesuchten Funktionen wird hier ebenfalls verzichtet,  stattdessen wird eine Intuition gegeben: Ein Setting bzw. Game lässt sich in ein Simple Setting bzw. Simple Game überführen, indem jede Einheit eines Skilltyps eines Agenten als eigenständiger Agent betrachtet wird.
 
-Dabei wird die Zugehörigkeit von Agenten zum Skill in der $Agent\-Owner$ Relation gesichert. Die Kostenfunktion bleibt bestehen und wird lediglich auf den $AgentOwner$ übertragen. Bei den Matches und Vergütungen wird ähnlich verfahren. Hierdurch gehen keine Informationen verloren und alle Betrachtungen können auf den vereinfachten Modellen durchgeführt werden.
-
-
+Dabei wird die Zugehörigkeit von Agenten zum Skill in der $Agent\-Owner$ Relation gesichert. Die Kostenfunktion bleibt bestehen und wird lediglich auf den $AgentOwner$ übertragen. Bei den Matches und Vergütungen wird analog verfahren.
 
 \begin{definition}[Potentielle Matches einer Koalition]
-  Sei $K\subseteq Agent$ eine beliebige Koalition. Für $K$ definieren wir die \textit{Menge der potentiellen Matches} $PM(K)$ als
+  Sei $K\subseteq Agent$ eine beliebige Koalition. Für $K$ definieren wir die \textit{Menge der potentiellen Matches} $PM(K)$ als:
 
   \begin{eqnarray}
-    PM(K) := \{ &\\
-    & m: Agent \times Skilltyp \times Baustelle \rightarrow \mathbb{N}\ |\\
+    PM(K) := \{ & m: Agent \times Skilltyp \times Baustelle \rightarrow \mathbb{N}\ |\\
     & \phi_{Match}(m) \land \\
     & \quad \quad \forall x\;\forall t\;\forall y: m(x,t, y) > 0 \rightarrow x\in K \quad \quad\} \label{matchown}
   \end{eqnarray}
@@ -107,7 +103,7 @@ Dabei wird die Zugehörigkeit von Agenten zum Skill in der $Agent\-Owner$ Relati
 \end{definition}
 
 \begin{definition}[Gleichzeitig mögliche Baustellen einer Koalition]
-  Sei $K\subseteq Agent$ eine beliebige Koalition. Die Menge der möglichen Baustellen, die von $K$ gleichzeitig gebaut werden können -- $B(K)$ -- ist definiert als
+  Sei $K\subseteq Agent$ eine beliebige Koalition. Die Menge der möglichen Baustellen, die von $K$ gleichzeitig gebaut werden können, $B(K)$, ist definiert als:
 
   \begin{align}
      B(K) := \{\quad &B_k \subseteq Baustelle\ | \\
@@ -131,7 +127,7 @@ Hieraus folgt, dass eine Baustelle in einem Spiel nur von einer Koalition gebaut
 \begin{align}
   Outcome(K,S) := \{ \; \;
   &(B_K,B_S)\subseteq Baustelle\times Baustelle\ | \\
-  &B_K\in B(K) \land B_S\in B(S)\land B_K\cap B_S =\emptyset \;\;\}
+  B_K &\in B(K) \land B_S\in B(S)\land B_K\cap B_S =\emptyset \;\;\}
 \end{align}
 \end{definition}
 
@@ -188,28 +184,29 @@ Hieraus können wir die Superadditivität des Spiels schließen:
   \qed
 \end{flushright}
 
-\subsubsection{instabilität der Großen Koalition}
+\subsubsection{Instabilität der großen Koalition}
 \label{instabil}
 
-\begin{lemma}[instabilitiät der Großen Koalition]
-  Im allgemeinen Fall ist die große Koalition $K=Agenten$ ist instabil.
+\begin{lemma}[Instabilität der großen Koalition]
+  Im allgemeinen Fall ist die große Koalition $K=Agenten$ instabil.
 \end{lemma}
 
-Beweis durch ein Beispiel:
+Beweis durch Beispiel:
 \begin{figure}
+  \centering
   \includegraphics[width=0.5\textwidth]{example-exchangeable-agents.png}
   \caption{Szenario mit einer instabilen großen Koalition.}
   \label{szenario1}
 \end{figure}
 
-Im Szenario in Abbildung (\ref{szenario1}) machen die Koalitionen $K_1 = \{A0, A1, A2\}$ sowie $K_2 = \{A0, A2\}$ den gleichen Gewinn, jedoch bekommen die Agenten in $K_2$ Anteilig mehr vom Gewinn. Demnach lohnt es sich für sie die große Koalition zu verlassen.
+Im Szenario in der Abbildung (\ref{szenario1}) ist der Gewinn der Koalitionen $K_1 = \{A0, A1, A2\}$ und $K_2 = \{A0, A2\}$ gleich, jedoch erhält die Agenten $A0$ in $K_2$ anteilig mehr vom Gewinn. Demnach lohnt es sich für ihn die große Koalition zu verlassen.
 \begin{flushright}
   $\qed$
 \end{flushright}
 
-\subsubsection{NP-härte des Problems}
+\subsubsection{NP-Härte des Problems}
 \label{np}
-Im folgenden möchten wir die NP-härte eines gewünschten mechanismusses Zeigen. Hierfür reduzieren wir das Rucksackproblem, ein allgemein bekanntes NP-vollständiges Problem, auf ein CSG.
+Im folgenden zeigen wir die NP-Härte eines gewünschten Mechanismus. Hierfür reduzieren wir das Rucksackproblem, ein allgemein bekanntes NP-vollständiges Problem \cite{Karp1972}, auf ein CSG.
 Das Rucksackproblem ist folgendermaßen definiert:
 
 \begin{lemma}
@@ -217,7 +214,7 @@ Sei $m:M_{CSGS}\rightarrow M_{OCSG}$ ein Mechanismus, der ein optimales Matching
 \end{lemma}
 
 \begin{definition}[KNAPSACK]
-Sei $U$ eine Menge von Objekten, w eine Gewichtsfunktion und v eine Nutzenfunktion:
+Sei $U$ eine Menge von Objekten, $w$ eine Gewichtsfunktion und $v$ eine Nutzenfunktion:
 \begin{align}
   w: U\rightarrow \mathbb{R} \\
   v: U\rightarrow \mathbb{R}
@@ -230,7 +227,7 @@ Gesucht ist eine Teilmenge $K\subseteq U$, die folgende Bedingungen erfüllt:
 \end{align}
 \end{definition}
 
-Sei $K=\{U,w,v\}\in KNAPSACK$ ein beliebiges Rucksackproblem. Wir geben eine übersetzung in eine CSGS-Signatur an:
+Sei $K=\{U,w,v\}\in KNAPSACK$ ein beliebiges Rucksackproblem. Wir geben eine Übersetzung in eine CSGS-Signatur an:
 \begin{align}
   Agent = \{a\} \\
   supply(a, t) \mapsto B \\
@@ -239,23 +236,26 @@ Sei $K=\{U,w,v\}\in KNAPSACK$ ein beliebiges Rucksackproblem. Wir geben eine üb
   budget(x) \mapsto v(x) \\
   kosten(t, n, x, y) \mapsto 0
 \end{align}
-Dabei wird das KNAPSACK problem als ein Spiel mit nur einem Agenten mit einem Skilltyp auf. Die maximale Kapazität des Rucksacks $B$ ist dabei die quantität des Skilltypes des Agenden. Die Menge der Objekte wird als Menge an Bauaufträgen interpretiert, das Gewicht eines Objektes $w(u)$ als die zur fertigstellung geforterten Ressourcen und dessen Wert $v(u)$ das Budget einer Baustelle.
+Dabei wird das KNAPSACK-Problem als ein Spiel mit nur einem Agenten und einem Skilltyp verstanden. Die maximale Kapazität des Rucksacks $B$ ist die Quantität dieses Skilltypes des Agenden. Die Menge der Objekte wird als Menge an Bauaufträgen interpretiert, das Gewicht eines Objektes $w(u)$ als die zur Fertigstellung geforderten Ressourcen und dessen Wert $v(u)$ das Auszahlungsbetrages einer Baustelle bei Fertigstellung.
 
-Intuitiv sorgt die Bedingung \ref{bed1} dafür, dass der Agent seine Resourcen nicht überschreitet, sowie die Bedingung \ref{bed2}, dass der Agent sein profiet maximiert. Beides sind ebenfalls Anforderungen, die von einem Mechanismus erfüllt werden müssen der ein optimales CSG berechnet.
-Angenommen es gäbe ein $m\in P$ der aus einem CSGS ein CSG mit einem optimalem Matching berechnet, dann währe auch $KNAPSACK\in P$. Dieses ist jedoch ein wiederspruch zur annahme $KNAPSACK\in NP$.
+Intuitiv sorgt die Bedingung \ref{bed1} dafür, dass der Agent seine Ressourcen nicht überschreitet, sowie die Bedingung \ref{bed2}, dass der Agent sein Gewinn maximiert. Beides sind ebenfalls Anforderungen, die von einem Mechanismus erfüllt werden muss, der ein optimales CSG berechnet.
+Angenommen es gäbe ein $m\in P$ der aus einem CSGS ein CSG mit einem optimalem Matching berechnet, dann wäre auch $KNAPSACK \in P$. Dieses ist jedoch ein Widerspruch zur Annahme $KNAPSACK \in NP$.
 \begin{flushright}
   $\qed$
 \end{flushright}
 
 \subsubsection*{Stabilisierung}
 \label{stabilisierung}
-Wie wir in Abschnit (\ref{instabil}) gesehen haben ist die große Koalition instabil. Im folgenden möchten wir ein Vorschlag zeigen, wie ein Koalitionsbildungsmechanismus funktionieren könnte, der eine stabile große Koalition produziert:
-Eine Koalition garantiert ihren Koalitionsteilnehmern beim Beitritt einen individuellen Gewinn in der höhe des Shapley Values und verlangt dafür einen hinreichenden Beitritsdepot $x$. Dieser Kolleteralbetrag wird von einer unabhängigen Instanz verwaltet und Sichert die Agenten vor dem "rauswurf" aus der Großen Koalition ab indem er diese in der gleichen höhe auszahlt, wie auch ihr Gewinn in der Großen Koalition währe. Am Schluss wird der Koleteralbetrag wieder anteilig an die Agenten zurück verteilt. Durch wird die große Koalition Stabilisiert, da es für Teilkoalitionen nicht mehr lohnt auszusteigen, da der Koleteralbetrag um genau den gleichen wert schrumpfen Würde wie die auszahlung der zurückgelassenen Agenten. Der Beitritsdepot für jeden Agenten für die Große Koalition ist $x=\frac{\sum_{b\in Baustellen} budget(b)}{2*|Agenten|}$ (ohne Beweis)
+Wie wir in Abschnitt (\ref{instabil}) gesehen haben, ist die große Koalition instabil. Im Folgenden möchten wir in einem Vorschlag zeigen, wie ein Mechanismus zu Koalitionsbildung funktionieren könnte, der eine stabile große Koalition erzeugt:
+Eine Koalition garantiert ihren Koalitionsteilnehmern beim Beitritt einen individuellen Gewinn in Höhe des Shapley Values und verlangt dafür einen hinreichenden Beitrittsdepot $x$. Dieser Kollateralbetrag wird von einer unabhängigen Instanz verwaltet und sichert jeden Agenten $a$ vor dem "Rauswurf" aus der großen Koalition ab, indem diese Instanz $a$ in der gleichen Höhe auszahlt, wie auch ihr Gewinn in der großen Koalition wäre.
+Am Schluss wird der Kollateralbetrag wieder anteilig an die Agenten zurück verteilt. Durch wird die große Koalition stabilisiert, da es für Teilkoalitionen nicht mehr lohnt auszusteigen: Der Kollateralbetrag würde um genau den gleichen Wert schrumpfen, wie die Auszahlung der zurückgelassenen Agenten. Der Beitrittsdepot für jeden Agenten für die Große Koalition ist (ohne Beweis)
+\begin{align}
+  x=\frac{\sum_{b\in Baustellen} budget(b)}{2*|Agenten|}.
+\end{align}
 
 \subsubsection*{Mechanismus}
-In Abschnit (\ref{supadd}) sowie (\ref{stabilisierung}) haben wir gezeigt dass der Beitrit zur großen Koalition die rationall richtige entscheidung ist, was die Offenlegung aller Agentenressourcen zur folge hat.
+In Abschnitt (\ref{supadd}) sowie (\ref{stabilisierung}) haben wir gezeigt, dass der Beitritt zur großen Koalition die rational richtige Entscheidung für einen Agenten ist, was die Offenlegung aller Skillkapazitäten zur Folge hat.
 % Da wir aus Abschnit (\ref{np}) wissen das das Berechnen eines optimalen Matchings NP hart ist, können wir entweder, wie im praktischen Teil beschrieben, auf ein Approximationsalgorithmus zurückgreifen oder nach der suche des maximums, alle Möglichen Matchings ausprobieren
-Das berechnen eines optimalen Matchings ist entscheidbar, jedoch wie wir aus Abschnit (\ref{np}) wissen, NP-hart.
-Das Berechnen des Shapley-Values ist ebenfalls entscheidbar, jedoch ebenfalls NP-hard.
-Jedoch haben wir in diesem Kapitel gezeigt, dass es ein NP-harten Mechanismus gibt der gegeben einem Setting ein Faires und Optimales Ergebniss berechnet, welches allen Anforderungen der Aufgabenstellung gerecht wird.
-\TODO{referenz auf kritärien der Aufgabenstellung}
+Die Berechnung eines optimalen Matchings ist entscheidbar, jedoch wie wir aus Abschnitt (\ref{np}) wissen, NP-hart.
+Das Berechnen des Shapley-Values ist ebenfalls entscheidbar, jedoch ebenfalls NP-hart\footnote{Für eine Untersuchung der Komplexität der Berechnung des Shapley Values sei auf \cite{conitzer2004computing} verwiesen.}.
+So haben wir in diesem Kapitel gezeigt, dass es ein NP-harten Mechanismus gibt, der bei einem gegebenen Setting ein faires und optimales Ergebnis berechnet, welches den Anforderungen der Aufgabenstellung (\ref{task}) gerecht wird.

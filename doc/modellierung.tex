@@ -56,12 +56,12 @@ Im folgenden werden wir die $\sigma_{CSGS}$-Struktur $\mathcal{S}$ als ein Setti
     \end{tabular}
 \end{definition}
 
-Wir bezeichnen eine $\sigma_{CSG}$-Struktur als ein Game $\mathcal{G}$. Intuitiv ist ein Game ein valides Setting mit einer möglichen validen Lösung: eine mögliche Verteilung der verfügbaren Skills der Baufirmen mit entsprechender Vergütungen der Baustellen.
+Wir bezeichnen eine $\sigma_{CSG}$-Struktur als ein Game $\mathcal{G}$. Ein Game ist also ein valides Setting mit einer validen Lösung: eine mögliche Zuordnung verfügbarer Skills von Baufirmen zu Baustellen, die zu einer definierten Erlösausschüttung der Baustellen führt.
 
-$M_{CSG}$ bezeichnen wir als Klasse aller valider Games, die folgende (informelle) Eigenschaften erfüllen:
+$M_{CSG}$ bezeichnen wir als Klasse aller valider Games, die folgende (informale) Eigenschaften erfüllen:
 \begin{enumerate}
   \item Ein Agent kann nicht mehr Einheiten eines Skills ausgeben als er besitzt.
-  \item Eine Baustelle gibt genau dann all ihr Geld aus, wenn sie vollständig mit den benötigten Skills versorgt wird.
+  \item Eine Baustelle schüttet genau dann ihr Geld aus, wenn sie vollständig mit den benötigten Skills versorgt wird.
 \end{enumerate}
 
 % \begin{bsp}
@@ -76,32 +76,29 @@ $M_{CSG}$ bezeichnen wir als Klasse aller valider Games, die folgende (informell
 %   \\
 %   \TODO{vergütung und veranschaulichung}
 % \end{bsp}
-
+%
 Sei $M_{OCSG} \subset M_{CSG}$ eine Modellklasse die zusätzlich ''optimal'' ist:
-\begin{enumerate}
-  \item Es exestiert kein Matching, so dass der summierte Gewinn für alle Agenten größer währe.
-\end{enumerate}
+Es existiert kein Matching, bei dem der summierte Gewinn über alle Agenten größer ist. Sie enthält so alle Zuordnungen, die die soziale Wohlfahrt maximieren.
 
-Sei $M_{FOCSG}\subset M_{OCSG}$ eine Modellklasse, die zusätzlich ''fair'' ist:
+Sei $M_{FOCSG}\subset M_{OCSG}$ eine Modellklasse, die zusätzlich ''fair'' ist: Die Erlösverteilung an die Agenten entspricht damit in unserem Verständnis dem Shapley-Value: Jeder Agent erhält den Durchschnitt seiner marginalen Beiträge zu jeder möglichen Permutation der Reihenfolge der Spieler. Der marginale Beitrag eines Spielers $a$ zu einer Reihenfolge (betrachtet als Koalition\footnote{näher definiert im nächsten Abschnitt}) ist definiert als Differenz des Gewinns zwischen der Koalition aus allen Agenten vor $a$ in der Reihenfolge und der Koalition aus allen Agenten vor $a$ und mit $a$ in der Reihenfolge.
 
-\TODO{verweis für Kritärien für ''fearheit''}
-Insbesondere interessieren wir uns hier für die Frage, ob eine faire verteilung exestiert: $M_{FOCSG} =^? \emptyset$
+Insbesondere interessieren wir uns hier für die Frage, ob eine faire Verteilung existiert: $M_{FOCSG} =^? \emptyset$
 
 \subsection{Terminologie}
 \label{sigmod}
 
 \begin{definition}[Koalition]
-  Eine \textbf{Koalition} ist ein Zusammenschluss an Agenten die vollständige Informationen über alle Koalitionsteilnehmer besitzen und die Verteilung gemeinsamer Ressourcen auf Bauaufträge beabsichtigen. Ebenfalls haben sie einen gemeinsamen Mechanismus welches den Erlös auf die Koalitionsteilnehmer aufteilt. Formal: $K\subseteq Agenten$ mit folgenden Eigenschaften:
+  Eine \textbf{Koalition} ist ein Zusammenschluss von Agenten, die vollständige Informationen über alle Koalitionsteilnehmer besitzen und die Verteilung gemeinsamer Ressourcen auf Bauaufträge beabsichtigen. Ebenfalls haben sie einen gemeinsamen Mechanismus, welcher den Erlös auf die Koalitionsteilnehmer aufteilt. Formal: $K\subseteq Agenten$ mit folgenden Eigenschaften:
   \begin{align}
-    \exists x\exists t\exists y. m(x,t,y) > 0 \land K(x)\rightarrow (\forall x'\forall t' m(x',t',y) > 0\Rightarrow K(x')) \label{onebaustelle} \\
-    \exists x\exists y v(x,y) > 0 \land K(x) \rightarrow (\forall x'.v(x', y) > 0 \rightarrow K(x')) \label{oneprofit}
+    \exists x\exists t\exists y. m(x,t,y) > 0 \land K(x)&\rightarrow (\forall x'\forall t' m(x',t',y) > 0\Rightarrow K(x')) \label{onebaustelle} \\
+    \exists x\exists y v(x,y) > 0 \land K(x) &\rightarrow (\forall x'.v(x', y) > 0 \rightarrow K(x')) \label{oneprofit}
   \end{align}
-  Dabei sagt Bedingung \ref{onebaustelle} aus, dass eine Baustelle nur von einer Koalition gebaut werden kann, sowie Bedingung \ref{oneprofit}, dass eine Baustelle nur geld an eine Koalition senden kann.
+  Dabei sagt Bedingung (\ref{onebaustelle}) aus, dass eine Baustelle nur von einer Koalition gebaut werden kann und Bedingung \ref{oneprofit}, dass eine Baustelle nur Geld an eine Koalition senden kann.
 \end{definition}
 
 \begin{definition}[Matching]
-  Ein \textbf{Matching} ist eine Konkrete zuordnung von Skillkapazitäten zu Bauaufträgen.
-  Formal das Prädikat $m\in\sigma_{CSG}$
+  Ein \textbf{Matching} ist eine konkrete Zuordnung von Skillkapazitäten zu Bauaufträgen.
+  Formal das Prädikat $m\in\sigma_{CSG}$.
 \end{definition}
 
 % \begin{definition}[Gewinnverteilung]
@@ -110,13 +107,11 @@ Insbesondere interessieren wir uns hier für die Frage, ob eine faire verteilung
 
 
 \subsection{Mechanismen}
-
-
-\TODO{Mechanismuskritätien}
-\TODO{phasen}
+\TODO{Mechanismuskriterien}
+\TODO{Phasen}
 \TODO{überarbeiten}
 
-Bei der gegebenen Aufgabenstellung interessieren wir uns für ein Mechanismus, der bei einem gegebenen Setting ein optimales Game mit einer fairen verteilung dezentral hervorbringt. Formal gesehen:
+Bei der gegebenen Aufgabenstellung interessieren wir uns für ein Mechanismus, der bei einem gegebenen Setting ein optimales Game mit einer fairen Verteilung dezentral hervorbringt. Formal gesehen:
 
 \begin{equation}
   m: M_{CSGS} \rightarrow M_{FOCSG}
