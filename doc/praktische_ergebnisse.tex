@@ -1,21 +1,30 @@
 \subsubsection{Auktionsverfahren}
-Unser Auktionsverfahren ist eine sequentielle Rückwärtsauktion: Nacheinander findet für alle Baustellen eine Auktion statt, bei der die Skilltypen einer Baustelle einzeln ausgeschrieben werden. Sollte es auf ein Gesuch eines Skilltyps keine Gebote geben, wird in einer zweiten Runde versucht, jeden einzelnen Skill des Skilltyps zu versteigern. Sollte nicht für alle Skills ein liefernder Agent gefunden worden sein, so ist die Auktion gescheitert und die Baustelle wird nicht gebaut. Das niedrigste Gebot in der Versteigerung eines Skills entscheidet darüber, welcher Agent den Skill an die Baustelle liefert.
+In dieser Arbeit betrachten wir eine sequentielle Rückwärtsauktion: Nacheinander findet für jede Baustellen eine Auktion statt, bei der die Skilltypen einer Baustelle einzeln in ihrer benötigten Menge ausgeschrieben werden. Nun bieten nacheinander die Agenten auf die  von der Baustelle gesuchten Skilltypen in festgelegter Menge. Sollte es auf ein einzelnes Gesuch keine Gebote geben, so ist die Auktion gescheitert und die Baustelle wird nicht fertiggestellt und keine Skills werden an sie verkauft. In der Auktion gewinnt das niedrigste Gebot: Der Agent mit dem niedrigsten Gebot beliefert die Baustelle mit der Menge des Skilltyps.
 
-Die Verteilung des Erlöses der Baustelle über die beliefernden Agenten orientiert sich an ihrem Gebot: Zunächst erhält jeder beliefernde Agent sein Gebot ausgezahlt. Der darüber hinaus verbleibende Erlöses der Baustelle wird anteilig an die beliefernden Agenten verteilt: Jeder Agent bekommt den relativen Teil des verbliebenden Erlöse entsprechend dem Anteil ihres Gebotes an der Summe aller erfolgreichen Gebote für die Baustelle. Sollte der Erlös nicht ausreichen, um allen Agenten zumindestens ihr Gebot auszubezahlen, so ist die Auktion gescheitert\footnote{Der Erlöse einer Baustelle ist öffentlich}.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{example-srg.png}
+  \caption{Ergebnis des Auktionsverfahrens.}
+  \label{example-srg}
+\end{figure}
+
+Die Verteilung des Erlöses der Baustelle über die beliefernden Agenten orientiert sich an ihrem Gebot: Zunächst wird jedem Agent Gebot ausgezahlt. Das Gebot setzt sich zusammen aus den Kosten des Agenten für die Bereitstellung der Menge an Skilltypen und einen eigenen vorher festgelegten Gewinn. Der darüber hinaus verbleibende Erlöses der Baustelle wird anteilig an die beliefernden Agenten verteilt: Jeder Agent bekommt einen Teil des verbliebenden Erlöses der Baustelle: Dieser Anteil entspricht dem Anteil ihres Gebotes an der Summe aller erfolgreichen Gebote für die Baustelle. In Abbildung \ref{example-srg} ist beispielhaft das Ergebnis für ein Szenario dargestellt.
 
 \subsubsection{Ergebnisse}
-Um eine vergleichende Untersuchung der Er\-lös\-ver\-tei\-lung zwischen Auktion und Shapley Value durchzuführen, generieren wir zunächst alle möglichen Szenarien mit der folgenden Charakteristik: Es existieren zwei Skills, zwei Baustellen und zwei Agenten. Das Auszahlungssumme der Baustellen ist immer $90000$ und die Kostenfunktion für alle Agenten und Skills ist abhängig von der Anzahl an Skills und der Distanz zwischen Agent und Baustelle: $f(Anzahl, \-Distanz)\- = (Anzahl/2+1)\-*Distanz\-+20*Anzahl$.
+Um eine vergleichende Untersuchung der Er\-lös\-ver\-tei\-lung zwischen Auktion und Shapley Value durchzuführen, generieren wir zunächst alle möglichen Szenarien mit der folgenden Charakteristik\footnote{Der Szenariengenerator ist Teil des für das Spiel implementierten GameFrameworks \cite{gitGame}}:
 
-Die Agenten und Baustellen besitzen bzw. benötigen in den generierten Szenarien alle möglichen Kombinationen von diesen beiden Skills in der Quantität $1$ und $2$ bei den Skillkapazitäten und $3$ und $4$ bei den Skillgesuchen. Wir erzeugen so $4096$ Szenarien. 
+ Es existieren zwei Skills, zwei Baustellen und zwei Agenten. Das Auszahlungssumme der Baustellen ist immer $90000$ und die Kostenfunktion für alle Agenten und Skills ist abhängig von der Anzahl an Skills und der Distanz zwischen Agent und Baustelle: $f(Anzahl, \-Distanz)\- = (Anzahl/2+1)\-*Distanz\-+20*Anzahl$.
+
+Die Agenten und Baustellen besitzen bzw. benötigen in den generierten Szenarien alle möglichen Kombinationen von diesen beiden Skills in der Quantität $1$ und $2$ bei den Skillkapazitäten und $1$ und $3$ bei den Skillgesuchen. Wir erzeugen so $4096$ Szenarien. 
 
 \begin{figure}
   \centering
   \includegraphics[width=0.5\textwidth]{example-shapley-value.png}
-  \caption{Matching der großen Koalition und Gewinnverteilung.}
+  \caption{Matching und Gewinnverteilung.}
   \label{example-shapley-value}
 \end{figure}
 
-Für diese wird zunächst die Erlösverteilung nach dem Shapley Value und das dazugehörige Matching berechnet. In Abbildung \ref{example-shapley-value} ist dazu das Ergebnis zu einem Beispielszenario zu sehen. Im zweiten Schritt wird die Auktion für alle Szenarien durchgeführt.
+Für diese wird zunächst die Erlösverteilung nach dem Shapley Value und das dazugehörige Matching berechnet. In Abbildung \ref{example-shapley-value} ist dazu das Ergebnis zu einem Beispielszenario zu sehen \cite{gitShapley}. Im zweiten Schritt wird die Auktion für alle Szenarien durchgeführt.
 
 \TODO{Grafik einbinden}
 
