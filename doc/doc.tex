@@ -52,11 +52,11 @@
 \maketitle
 
 \section{Gliederung}
-\TODO{gliederung}
+Das Paper ist in drei Abschnitte gegliedert: Im ersten Kapitel (\ref{vorraus}) werden wir unser Verständnis der Aufgabenstellung wiedergeben und die von uns für die Bearbeitung getroffenen Annahmen darstellen. Im zweiten Kapitel (\ref{mod}) stellen wir unsere mathematische Modellierung der Aufgabenstellung vor, auf deren Grundlage wir in Kapitel drei (\ref{ergebnisse}) zunächst theoretische Ergebnisse unserer Untersuchungen präsentieren: Die Superadditivität, Instabilität und NP-Härte des Problems. Anschließend stellen wir ein Auktionsverfahren vergleichend als praktischen Aspekt der Arbeit vor. 
 
 \section{Voraussetzungen}
+\label{vorraus}
 In diesem Kapitel geben wir in Abschnitt (\ref{task}) einen Gesamtüberblick über die Aufgabenstellung und formulieren Prämissen für die weitere Bearbeitung. Im Abschnitt (\ref{basics}) werden notwendige theoretische Grundlagen zusammengefasst, die für das weitere Verständnis der Arbeit notwendig sind.
-
 \input{vorraussetzungen}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -65,7 +65,6 @@ In diesem Kapitel geben wir in Abschnitt (\ref{task}) einen Gesamtüberblick üb
 \section{Modellierung}
 \label{mod}
 In diesem Kapitel verfolgen wir das Ziel, durch eine Formalisierung der Aufgabenstellung eine geeignete Grundlage zu für die Formulierung von Mechanismen und die Beantwortung zentraler Fragestellungen zu schaffen. Zunächst werden wir in Abschnitt (\ref{sigmod}) grundlegende Definitionen vorstellen sowie in Abschnit (\ref{sigandmod}) zwei Signaturen sowie die dazugehörigen Modellklassen einführen.
-
 \input{modellierung}
 
 
@@ -80,7 +79,7 @@ In diesem Kapitel zeigen wir dass es ein NP-harten Mechanismus gibt, welcher der
 
 
 \subsection{Praktische Ergebnisse}
-Im vorgehenden Kapitel haben wir gezeigt, dass ein Mechanismus zur Koalitionsbildung für das beschriebene Zuordnungsproblem existiert, der die soziale Wohlfahrt maximiert, die Gewinne fair verteilt und stabile Koalitionen erzeugt. Da dieser Mechanismus aber NP-hart sein muss, wollen wir im praktischen Teil einen approximativen Mechanismus in Form einer Auktion vorstellen, die in einer niedrigeren Komplexitätsklasse einzuordnen ist. Um die Approximationsleistung messen zu können, vergleichen wir die Auszahlungsergebnisse der Agenten der Auktion mit der des Shapley Values über eine Vielzahl generierter Szenarien.
+Im vorgehenden Kapitel haben wir gezeigt, dass ein Mechanismus zur Koalitionsbildung für das beschriebene Zuordnungsproblem existiert, der die soziale Wohlfahrt maximiert, die Gewinne fair verteilt und stabile Koalitionen erzeugt. Da dieser Mechanismus aber NP-hart sein muss, wollen wir im praktischen Teil einen approximativen Mechanismus in Form einer Auktion vorstellen, die in einer niedrigeren Komplexitätsklasse einzuordnen ist. Um die Approximationsleistung messen zu können, vergleichen wir die Auszahlungsergebnisse der Agenten der Auktion mit der des Shapley Values für die große Koalition über eine Vielzahl generierter Szenarien. \footnote{Alle hier dargestellten Ergebnisse sind programmiert und simuliert in der Programmiersprache Python unter Verwendung von IPythen-Notebook \cite{PER-GRA:2007}. Die IPythen-Notebooks können im öffentlichen Git-Repository \cite{git} gefunden und betrachtet werden.}
 \input{praktische_ergebnisse}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

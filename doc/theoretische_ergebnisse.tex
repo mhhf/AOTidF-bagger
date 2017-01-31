@@ -57,7 +57,7 @@ Wir bezeichnen eine $\sigma_{SCSGS}$-Struktur $\mathcal{SS}$ als \textit{Simple 
 Wir bezeichnen eine $\sigma_{SCSG}$-Struktur $\mathcal{SG}$ als \textit{Simple Game} mit der dazugehörigen validen Modelklasse $M_{SCSG}$. Validitätskriterien sing analog zu $M_{CSG}$.
 
 
-\subsubsection{Beziehungen zwischen den Modellklassen}
+\subsection{Beziehungen zwischen den Modellklassen}
 \label{bez}
 
 Die nachfolgenden Betrachtungen wollen wir jedoch auf der vereinfachten Strukturen anstellen: Bei  dieser besitzt jeder Agent nur eine Einheit eines Skilltyps. Um dennoch Aussagen über das CSG machen zu können, zeigen wir, dass sich jedes Setting bzw. Game zu einem Simple Setting bzw. Simple Game überführen lässt. Das erlaubt uns die Ergebnisse von theoretische Betrachtungen von Mechanismen, die bei einem Simple Setting ein Simple Game berechnen, auf das CSG zu übetragen.
@@ -250,9 +250,9 @@ Angenommen es gäbe ein $m\in P$ der aus einem CSGS ein CSG mit einem optimalem 
 Wie wir in Abschnitt (\ref{instabil}) gesehen haben, ist die große Koalition instabil. Im Folgenden möchten wir in einem Vorschlag zeigen, wie ein Mechanismus zu Koalitionsbildung funktionieren könnte, der eine stabile große Koalition erzeugt:
 Eine Koalition garantiert ihren Koalitionsteilnehmern beim Beitritt einen individuellen Gewinn in Höhe des Shapley Values und verlangt dafür einen hinreichenden Beitrittsdepot $x$. Dieser Kollateralbetrag wird von einer unabhängigen Instanz verwaltet und sichert jeden Agenten $a$ vor dem "Rauswurf" aus der großen Koalition ab, indem diese Instanz $a$ in der gleichen Höhe auszahlt, wie auch ihr Gewinn in der großen Koalition wäre.
 Am Schluss wird der Kollateralbetrag wieder anteilig an die Agenten zurück verteilt. Durch wird die große Koalition stabilisiert, da es für Teilkoalitionen nicht mehr lohnt auszusteigen: Der Kollateralbetrag würde um genau den gleichen Wert schrumpfen, wie die Auszahlung der zurückgelassenen Agenten. Der Beitrittsdepot für jeden Agenten für die Große Koalition ist (ohne Beweis)
-\begin{align}
-  x=\frac{\sum_{b\in Baustellen} budget(b)}{2*|Agenten|}.
-\end{align}
+\begin{equation}
+   x=\frac{\sum\limits_{b \in Baustellen} budget(b)} {2*|Agenten|}. 
+\end{equation}
 
 \subsubsection*{Mechanismus}
 In Abschnitt (\ref{supadd}) sowie (\ref{stabilisierung}) haben wir gezeigt, dass der Beitritt zur großen Koalition die rational richtige Entscheidung für einen Agenten ist, was die Offenlegung aller Skillkapazitäten zur Folge hat.
