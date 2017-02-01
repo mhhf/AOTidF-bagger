@@ -1,5 +1,5 @@
 \subsubsection{Auktionsverfahren}
-In dieser Arbeit betrachten wir eine sequentielle Rückwärtsauktion: Nacheinander findet für jede Baustellen eine Auktion statt, bei der die Skilltypen einer Baustelle einzeln in ihrer benötigten Menge ausgeschrieben werden. Nun bieten nacheinander die Agenten auf die  von der Baustelle gesuchten Skilltypen in festgelegter Menge. Sollte es auf ein einzelnes Gesuch keine Gebote geben, so ist die Auktion gescheitert und die Baustelle wird nicht fertiggestellt und keine Skills werden an sie verkauft. In der Auktion gewinnt das niedrigste Gebot: Der Agent mit dem niedrigsten Gebot beliefert die Baustelle mit der Menge des Skilltyps.
+In dieser Arbeit betrachten wir eine sequentielle Rückwärtsauktion: Nacheinander findet für jede Baustellen eine Auktion statt, bei der die gesuchten Skilltypen einer Baustelle einzeln in ihrer benötigten Menge ausgeschrieben werden. Nun bieten die Agenten nacheinander auf die in gesuchten Skills. Sollte es auf ein einzelnes Gesuch keine Gebote geben, so ist die Auktion gescheitert, die Baustelle wird nicht fertiggestellt und ihr Erlös wird nicht ausgezahlt. In den Auktionen erhält das niedrigste Gebot den Zuschlag.
 
 \begin{figure}
   \centering
@@ -8,7 +8,7 @@ In dieser Arbeit betrachten wir eine sequentielle Rückwärtsauktion: Nacheinand
   \label{example-srg}
 \end{figure}
 
-Die Verteilung des Erlöses der Baustelle über die beliefernden Agenten orientiert sich an ihrem Gebot: Zunächst wird jedem Agent Gebot ausgezahlt. Das Gebot setzt sich zusammen aus den Kosten des Agenten für die Bereitstellung der Menge an Skilltypen und einen eigenen vorher festgelegten Gewinn. Der darüber hinaus verbleibende Erlöses der Baustelle wird anteilig an die beliefernden Agenten verteilt: Jeder Agent bekommt einen Teil des verbliebenden Erlöses der Baustelle: Dieser Anteil entspricht dem Anteil ihres Gebotes an der Summe aller erfolgreichen Gebote für die Baustelle. In Abbildung \ref{example-srg} ist beispielhaft das Ergebnis für ein Szenario dargestellt.
+Die Verteilung des Erlöses der Baustelle über die beliefernden Agenten orientiert sich an ihren Geboten: Zunächst wird jedem Agent der Gegenwert seines Gebotes ausgezahlt. Der darüber hinaus verbleibende Erlös der Baustelle wird auf die beliefernden Agenten aufgeteilt: Der Anteil eines Agenten entspricht dem Anteil ihres Gebotes an der Summe aller erfolgreichen Gebote für die Baustelle. In Abbildung \ref{example-srg} ist beispielhaft das Ergebnis für ein Szenario dargestellt.
 
 \subsubsection{Ergebnisse}
 Um eine vergleichende Untersuchung der Er\-lös\-ver\-tei\-lung zwischen Auktion und Shapley Value durchzuführen, generieren wir zunächst alle möglichen Szenarien mit der folgenden Charakteristik\footnote{Der Szenariengenerator ist Teil des für das Spiel implementierten GameFrameworks \cite{gitGame}}:
@@ -26,7 +26,7 @@ Die Agenten und Baustellen besitzen bzw. benötigen in den generierten Szenarien
 
 Für diese Szenarien werden zunächst die Erlösverteilung nach dem Shapley Value und das dazugehörige Matching bestimmt \cite{gitShapley}. In Abbildung \ref{example-shapley-value} ist dazu das Ergebnis zu einem Beispielszenario zu sehen. Im zweiten Schritt wird die Auszahlung und die Zuordnung der Skills für alle Szenarien durch die Auktion bestimmt \cite{gitAuction}.
 
-Die Ergebnisse der Simulationen sind wie sie zu erwarten sind und deshalb nur kurz angedeutet: Die Zuweisungen des Auktionsverfahrens verläuft dank der niedrigeren Komplexitätsklasse deutlich schneller, die soziale Wohlfahrt (Summe der Gewinne aller Agenten) und damit auch die Anzahl der fertiggestellten Baustellen ist bei der Zuteilung über die große Koalition höher und der Unterschied zwischen dem Gewinn des Agenten im Szenario mit dem niedrigsten Gewinn zu dem mit dem größten Gewinn ist beim Auktionsverfahren größer (weniger Fair).
+Die Ergebnisse der Simulationen weisen keine Überraschungen auf und werden deshalb nur kurz angedeutet: Die Zuweisungen des Auktionsverfahrens verläuft dank der niedrigeren Komplexitätsklasse deutlich schneller, die soziale Wohlfahrt (Summe der Gewinne aller Agenten) und damit auch die Anzahl der fertiggestellten Baustellen ist bei der Zuteilung über die große Koalition höher und der Unterschied zwischen dem Gewinn des Agenten mit dem niedrigsten Gewinn zu dem mit dem größten Gewinn ist beim Auktionsverfahren größer (Zuteilung weniger fair).
 
 In der Abbildung \ref{results} sind diese Unterschiede in der Gewinnzuteilung zwischen Shapley Value und dem Auktionsverfahren dargestellt: Die jeweils über alle generierten Szenarien summierte soziale Wohlfahrt und der jeweilige summierte Gewinn des Agenten mit dem niedrigsten Gewinn und höchsten Gewinn im Szenario.
 
