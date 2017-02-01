@@ -3,7 +3,7 @@ In dieser Arbeit betrachten wir eine sequentielle Rückwärtsauktion: Nacheinand
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\textwidth]{example-srg.png}
+  \includegraphics[width=0.45\textwidth]{example-srg.png}
   \caption{Ergebnis des Auktionsverfahrens.}
   \label{example-srg}
 \end{figure}
@@ -13,24 +13,26 @@ Die Verteilung des Erlöses der Baustelle über die beliefernden Agenten orienti
 \subsubsection{Ergebnisse}
 Um eine vergleichende Untersuchung der Er\-lös\-ver\-tei\-lung zwischen Auktion und Shapley Value durchzuführen, generieren wir zunächst alle möglichen Szenarien mit der folgenden Charakteristik\footnote{Der Szenariengenerator ist Teil des für das Spiel implementierten GameFrameworks \cite{gitGame}}:
 
- Es existieren zwei Skills, zwei Baustellen und zwei Agenten. Das Auszahlungssumme der Baustellen ist immer $90000$ und die Kostenfunktion für alle Agenten und Skills ist abhängig von der Anzahl an Skills und der Distanz zwischen Agent und Baustelle: $f(Anzahl, \-Distanz)\- = (Anzahl/2+1)\-*Distanz\-+20*Anzahl$.
+ Es existieren zwei Skills, zwei Baustellen und zwei Agenten. Die Auszahlungssumme der Baustellen ist immer $90000$ und die Kostenfunktion für alle Agenten und Skills ist abhängig von der Anzahl an Skills und der Distanz zwischen Agent und Baustelle: $f(Anzahl, \-Distanz)\- = (Anzahl/2+1)\-*Distanz\-+20*Anzahl$.
 
 Die Agenten und Baustellen besitzen bzw. benötigen in den generierten Szenarien alle möglichen Kombinationen von diesen beiden Skills in der Quantität $1$ und $2$ bei den Skillkapazitäten und $1$ und $3$ bei den Skillgesuchen. Wir erzeugen so $4096$ Szenarien. 
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\textwidth]{example-shapley-value.png}
+  \includegraphics[width=0.45\textwidth]{example-shapley-value.png}
   \caption{Matching und Gewinnverteilung.}
   \label{example-shapley-value}
 \end{figure}
 
-Für diese wird zunächst die Erlösverteilung nach dem Shapley Value und das dazugehörige Matching berechnet. In Abbildung \ref{example-shapley-value} ist dazu das Ergebnis zu einem Beispielszenario zu sehen \cite{gitShapley}. Im zweiten Schritt wird die Auktion für alle Szenarien durchgeführt.
+Für diese Szenarien werden zunächst die Erlösverteilung nach dem Shapley Value und das dazugehörige Matching bestimmt \cite{gitShapley}. In Abbildung \ref{example-shapley-value} ist dazu das Ergebnis zu einem Beispielszenario zu sehen. Im zweiten Schritt wird die Auszahlung und die Zuordnung der Skills für alle Szenarien durch die Auktion bestimmt \cite{gitAuction}.
 
-Die Ergebnisse der Simulationen sind wie zu erwarten war: Die Zuweisungen des Auktionsverfahrens verläuft dank der niedrigeren Komplexitätsklasse viel schneller, der Umsatz und damit die Anzahl der fertiggestellten Baustellen ist bei der Zuteilung über die große Koalition höher und die Unterschiede im Gewinn der einzelnen Agenten ist beim Auktionsverfahren deutlicher (weniger Fair). Die Unterschiede, aggregierten über alle generierten Szenarien, lassen sich in der Abbildung \ref{results} ablesen.
+Die Ergebnisse der Simulationen sind wie sie zu erwarten sind und deshalb nur kurz angedeutet: Die Zuweisungen des Auktionsverfahrens verläuft dank der niedrigeren Komplexitätsklasse deutlich schneller, die soziale Wohlfahrt (Summe der Gewinne aller Agenten) und damit auch die Anzahl der fertiggestellten Baustellen ist bei der Zuteilung über die große Koalition höher und der Unterschied zwischen dem Gewinn des Agenten im Szenario mit dem niedrigsten Gewinn zu dem mit dem größten Gewinn ist beim Auktionsverfahren größer (weniger Fair).
+
+In der Abbildung \ref{results} sind diese Unterschiede in der Gewinnzuteilung zwischen Shapley Value und dem Auktionsverfahren dargestellt: Die jeweils über alle generierten Szenarien summierte soziale Wohlfahrt und der jeweilige summierte Gewinn des Agenten mit dem niedrigsten Gewinn und höchsten Gewinn im Szenario.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\textwidth]{results.png}
+  \includegraphics[width=0.4\textwidth]{results.png}
   \caption{Über alle simulierten Szenarien aggregierte Indikatoren.}
   \label{results}
 \end{figure} 
