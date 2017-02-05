@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[c]{beamer}
 \usepackage{lmodern}% http://ctan.org/pkg/lm
 \usepackage{amssymb}
 \usepackage[utf8]{inputenc}
@@ -6,6 +6,10 @@
 \usepackage{amsthm}
 \usepackage{prftree}
 \usepackage{graphicx}
+
+% -- todo ------
+\newcommand\todo[1]{\colorbox{blue!15}{\textbf{todo: }#1}\newline}
+%\renewcommand\todo[1]{} % deactivate todos
 
 \addtobeamertemplate{frametitle}{
    \let\insertframetitle\insertsectionhead}{}
@@ -19,60 +23,109 @@
   {\newline}{}%
 \theoremstyle{break}
 
-\title[] % (optional, only for long titles)
-{Coalitional Skill Games}
-\author[Denis Erfurt, Tobias Behrens, Abdallah Kadour] % (optional, for multiple authors)
-{Denis Erfurt, Tobias Behrens, Abdallah Kadour}
+\title[] {AOTidF Bagger Game}
+\author[Denis Erfurt, Tobias Behrens] % (optional, for multiple authors)
+{Denis Erfurt, Tobias Behrens}
 
 \begin{document}
-  \frame{\titlepage}
 
-  \section*{Introduction}
-  \subsection*{Aurgabenstellung}
-
-  \begin{frame}[t]{title}
+  \frame{\titlepage} % Folie 1
+  
+  \section*{Agenda}
+  \begin{frame}{title} % Folie 2
+    \begin{enumerate}
+      \item Einführung
+      \begin{itemize}
+        \item Aufgabenstellung
+        \item Prämissen
+        \item Forschungshypothesen
+      \end{itemize}
+      \item theoretische Ergebnisse
+      \begin{itemize}
+        \item Superadditivität
+        \item NP-Härte
+        \item Stabilisierung der großen Koalition
+      \end{itemize}
+      \item praktische Ergebnisse
+      \begin{itemize}
+        \item lineares Auktionsverfahren
+        \item Ergebnisvergleich zum Shapley Value
+      \end{itemize}
+    \end{enumerate}
+  \end{frame}
+  
+  
+  \section*{Einführung}
+  \subsection*{Aufgabenstellung}
+  \begin{frame}{title} % Folie 3
+    \todo{Aufgabenstellung}
     Aufteilung mit folgenden Eigenschaften:
     \begin{enumerate}
       \item soziale Wohlfahrt maximieren
       \item stabil
       \item fair
     \end{enumerate}
-
     Forschungshypothese mit Coalition Formation-Bezug
   \end{frame}
 
-  \subsection*{Prämissen}
-  \begin{frame}[t]{title}
+
+  \subsection*{Prämissen} 
+  \begin{frame}{title} % Folie 4
+    \todo{Prämissen}
     \begin{enumerate}
       \item unvollständige Information - Agenten haben keine Information über die Ressourcen anderer Agenten.
       \item rationale agenten arbeiten für ihr eigenes Interesse
     \end{enumerate}
   \end{frame}
-
-  \subsection*{Forschungshypothese}
-  \begin{frame}[t]{title}
-    Es esistiert ein Mechanismus der für ein beliebiges Coalition Skill Game, eine Stabile und faire zuordnung berechnet, die pareto effizient ist.
+  
+  
+  \subsection*{Allgemeine Forschungshypothesen}
+  \begin{frame}{title} % Folie 5
+    \begin{itemize}
+    \item Das in der Aufgabenstellung beschriebene Zuordnungsproblem ist superadditiv  und erfordert einen NP-harten Mechanismus.
+    \item Die große Koalition als Lösungsstrategie mit Shapley Value als  Auszahlungsvorschrift ist instabil. Wir können eine Erweiterung vorschlagen, um eine stabile große Koalition zu erhalten.
+    \item Es existiert ein lineares Auktionsverfahren, das eine Zuordnung untern den Vorgaben approximiert.
+    \end{itemize}
   \end{frame}
 
-  \begin{frame}[t]{title}
+
+  \section*{theoretische Ergebnisse}
+  \subsection*{Superadditivität}
+  \begin{frame}{title} % Folie 6
+    \todo{Superadditivität}
     \begin{lemma}[Superadditivität von CSG]
       Das CSG ist Superadditiv.
     \end{lemma}
   \end{frame}
-
-  \begin{frame}[t]{title}
-    \begin{lemma}[Instabilität]
-      Die große Koalition ist instabil.
+  
+  
+  \subsection*{NP-Härte}
+  \begin{frame}{title} % Folie 8
+    \todo{NP-Härte}
+    \begin{lemma}[NP-Härte des Problems]
+    
     \end{lemma}
-    Betrachte Baustele B {A:1, B:1} sowie Agenden A1: {A:1}, A2 {B:1}, A3 {B:1}
-    Für die Koalition {A1, A2} lohnt es sich aus der großen Koalition auszusteigen, da anteilig ihr gewinn wechst.
+  \end{frame}
+  
+  
+  \subsection*{Stabilisierung der großen Koalition}
+  \begin{frame}{title} % Folie 9
+    \todo{Stabilisierung der großen Koalition}
+    \begin{lemma}[Instabilität]
+
+    \end{lemma}
+  \end{frame}
+
+  \section*{praktische Ergebnisse}
+  \subsection*{lineares Auktionsverfahren}
+  \begin{frame}{title} % Folie 9
+    \todo{lineares Auktionsverfahren}
+  \end{frame}
+  
+  \subsection*{Ergebnisvergleich zum Shapley Value}
+  \begin{frame}{title} % Folie 9
+    \todo{Vergleich zum Shapley Value}
   \end{frame}
 
 
-
-
-
-
-% etc
 \end{document}
-
