@@ -30,7 +30,7 @@
 \begin{document}
 
   \frame{\titlepage} % Folie 1
-  
+
   \section*{Agenda}
   \begin{frame}{title} % Folie 2
     \begin{enumerate}
@@ -42,8 +42,8 @@
       \end{itemize}
       \item \textbf{theoretische Ergebnisse}
       \begin{itemize}
-        \item Superadditivität
         \item NP-Härte
+        \item Superadditivität
         \item Stabilisierung der großen Koalition
       \end{itemize}
       \item \textbf{praktische Ergebnisse}
@@ -53,22 +53,21 @@
       \end{itemize}
     \end{enumerate}
   \end{frame}
-  
-  
+
+
   \section*{Einführung}
   \subsection*{Aufgabenstellung}
   \begin{frame}{title} % Folie 3
-    \todo{Aufgabenstellung}
     Aufteilung mit folgenden Eigenschaften:
     \begin{enumerate}
-      \item soziale Wohlfahrt maximieren
+      \item optimal
       \item stabil
       \item fair
     \end{enumerate}
   \end{frame}
 
 
-  \subsection*{Prämissen} 
+  \subsection*{Prämissen}
   \begin{frame}{title} % Folie 4
     \begin{enumerate}
       \item Rationalität
@@ -79,8 +78,8 @@
       \item Zeitagnostisch
     \end{enumerate}
   \end{frame}
-  
-  
+
+
   \subsection*{Allgemeine Forschungshypothesen}
   \begin{frame}{title} % Folie 5
     \begin{itemize}
@@ -92,28 +91,78 @@
 
 
   \section*{theoretische Ergebnisse}
-  \subsection*{Superadditivität}
+  \subsection*{Modellierung}
   \begin{frame}{title} % Folie 6
-    \todo{Superadditivität}
-    \begin{lemma}[Superadditivität von CSG]
-      Das CSG ist Superadditiv.
-    \end{lemma}
+    \textbf{Coalition Skill Game Setting (CSGS):}
+    \begin{tabular}{lrl}
+    $Agent(x)$&$:\Leftrightarrow$& $x$ ist ein Agent (Baufirma) \\
+    $Baustelle(x) $&$:\Leftrightarrow$& $x$ ist eine Baustelle \\
+    $supply(x, t)\mapsto n $&$:\Leftrightarrow$& Agent $x$ besitzt $n$ Einheiten \\&& vom Skilltyp $t$ \\
+    $demand(x, t)\mapsto n $&$:\Leftrightarrow$& Baustelle $x$ benötigt $n$ Einheiten \\&& vom Skilltyp $t$ \\
+    $budget(x)\mapsto n $&$:\Leftrightarrow$&
+    Baustelle $x$ zahlt einen Gewinn $n$ \\&& bei Fertigstellung aus\\
+    $kosten(t, n, x, y)\mapsto n$&$:\Leftrightarrow$& Kosten für Agenten $x$ für die \\&& Bereitstellung von $n$ Einheiten des \\&& Skilltyp $t$ an Baustelle $y$.
+    \end{tabular}
   \end{frame}
-  
-  
+
+  \begin{frame}{title}
+    \textbf{Coalition Skill Game (CSG)}
+    \begin{tabular}{lrl}
+      &\vdots\\
+    $m(x, t, y)\mapsto n$&$:\Leftrightarrow$& Agent $x$ sendet $n$ Einheiten des Skilltyps $t$ \\&& an die Baustelle $y$ \\
+    $v(x,y)\mapsto n$&$:\Leftrightarrow$& Agent $x$ erhält von Baustelle $y$ \\&& die Vergütung $n$
+    \end{tabular}
+  \end{frame}
+
   \subsection*{NP-Härte}
   \begin{frame}{title} % Folie 8
-    \todo{NP-Härte}
     \begin{lemma}[NP-Härte des Problems]
-    
+      Das Coalition Skill Game ist NP hart.
     \end{lemma}
   \end{frame}
-  
-  
+
+  \begin{frame}{title} % Folie 8
+    \textbf{Knapsack:}
+    \begin{figure}
+      \centering
+      \includegraphics[width=0.6\textwidth]{Knapsack.png}
+    \end{figure}
+  \end{frame}
+
+  \begin{frame}{title}
+    \begin{align}
+      Agent &= \{a\} \\
+      supply(a, t) &\mapsto B \\
+      Baustelle &= U \\
+      demand(u, t) &\mapsto w(u) \\
+      budget(x) &\mapsto v(x) \\
+      kosten(t, n, x, y) &\mapsto 0
+    \end{align}
+  \end{frame}
+
+  \subsection*{Superadditivität}
+  \begin{frame}{title} % Folie 6
+    \begin{definition}[Superadditivität]
+      \[ K\cap S =\emptyset \Rightarrow v(K\cup S) \geq v(K) + v(S) \]
+    \end{definition}
+    \begin{lemma}[Superadditivität von CSG]
+      Das CSG ist Superadditiv. \\
+    \end{lemma}
+  \end{frame}
+
+  \begin{frame}{title}
+    \begin{figure}
+      \centering
+      \includegraphics[width=0.6\textwidth]{bez.png}
+    \end{figure}
+  \end{frame}
+
+
+
   \subsection*{Stabilisierung der großen Koalition}
   \begin{frame}{title} % Folie 9
     \begin{lemma}[Instabilität]
-      Im allgemeinen Fall ist die große Koalition $K=Agenten$ instabil.  
+      Im allgemeinen Fall ist die große Koalition $K=Agenten$ instabil.
     \end{lemma}
 
       \begin{figure}
@@ -125,9 +174,9 @@
   % Der Gewinn der Koalitionen $K_1 = \{A0, A1, A2\}$ und $K_2 = \{A0, A2\}$ ist gleich, jedoch erhält die Agenten $A0$ in $K_2$ anteilig mehr vom Gewinn. Demnach lohnt es sich für ihn die große Koalition zu verlassen.
   \end{frame}
   \begin{frame}{title} % Folie 10
-    \todo{Stabilisierung der großen Koalition}
+    Stabilität durch Austrittsversicherung.
   \end{frame}
-  
+
 
   \section*{praktische Ergebnisse}
   \subsection*{lineares Auktionsverfahren}
@@ -138,14 +187,14 @@
       \item alle Agenten können auf einen oder mehrere Skilltypen bieten
       \item das niedrigste Gebot erhält den Zuschlag \\[2em]
     \end{enumerate}
-    
+
     Die Auszahlung an gewinnende Agenten anhand ihres Gebotes:
     \begin{itemize}
       \item Auszahlung des Gebotes
       \item verbliebener Erlös der Baustelle in Abhängigkeit zu dem Anteil eines Gebotes an der Gesamtgebotsumme
     \end{itemize}
   \end{frame}
-  
+
   \subsection*{Ergebnisvergleich zum Shapley Value}
   \begin{frame}{title}
     \textbf{Vorgehen}
@@ -156,7 +205,7 @@
       \item Vergleich der Auszahlungsergebnisse im Hinblick auf den Gewinn der Agenten
     \end{enumerate}
   \end{frame}
-  
+
   \begin{frame}{title}
     \textbf{Ergebnisse}
     \begin{figure}
