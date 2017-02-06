@@ -24,8 +24,7 @@
 \theoremstyle{break}
 
 \title[] {AOTidF Bagger Game}
-\author[Denis Erfurt, Tobias Behrens] % (optional, for multiple authors)
-{Denis Erfurt, Tobias Behrens}
+\author[Denis Erfurt, Tobias Behrens, Abdallah Kadour]{Denis Erfurt, Tobias Behrens, Abdallah Kadour}
 
 \begin{document}
 
@@ -83,12 +82,13 @@
   \subsection*{Allgemeine Forschungshypothesen}
   \begin{frame}{title} % Folie 5
     \begin{itemize}
-      \item Das in der Aufgabenstellung beschriebene Zuordnungsproblem ist superadditiv  und erfordert einen NP-harten Mechanismus.
-      \item Die große Koalition als Lösungsstrategie mit Shapley Value als  Auszahlungsvorschrift ist instabil. Wir können eine Erweiterung vorschlagen, um eine stabile große Koalition zu erhalten.
-      \item Es existiert ein lineares Auktionsverfahren, das eine Zuordnung untern den Vorgaben approximiert.
+      \item Zuordnungsproblem ist superadditiv
+      \item erfordert NP-harten Mechanismus
+      \item große Koalition als Lösungsstrategie mit Shapley Value als  Auszahlungsvorschrift ist instabil
+      \item Erweiterung: stabile große Koalition durch Kündigungs-Versicherung
+      \item lineares Auktionsverfahren: Approximation einer hinreichend guten Zuordnung mit geeigneter Auszahlung
     \end{itemize}
   \end{frame}
-
 
   \section*{theoretische Ergebnisse}
   \subsection*{Modellierung}
@@ -174,7 +174,7 @@
   % Der Gewinn der Koalitionen $K_1 = \{A0, A1, A2\}$ und $K_2 = \{A0, A2\}$ ist gleich, jedoch erhält die Agenten $A0$ in $K_2$ anteilig mehr vom Gewinn. Demnach lohnt es sich für ihn die große Koalition zu verlassen.
   \end{frame}
   \begin{frame}{title} % Folie 10
-    Stabilität durch Kündigungs-Versicherrung.
+    Stabilität durch Kündigungs-Versicherung.
   \end{frame}
 
 
@@ -205,14 +205,50 @@
       \item Vergleich der Auszahlungsergebnisse im Hinblick auf den Gewinn der Agenten
     \end{enumerate}
   \end{frame}
+  
 
   \begin{frame}{title}
-    \textbf{Ergebnisse}
+    \textbf{Ergebnisse} abgeschlossene Baustellen
+    \begin{figure}
+      \centering
+      \includegraphics[width=0.8\textwidth]{results3.png}
+    \end{figure}
+  \end{frame}
+
+
+  \begin{frame}{title}
+    \textbf{Ergebnisse} soziale Wohlfahrt
     \begin{figure}
       \centering
       \includegraphics[width=0.8\textwidth]{results.png}
     \end{figure}
-    \todo{weitere Auswertungen}
+  \end{frame}
+
+  
+  \begin{frame}{title}
+    \textbf{Ergebnisse} per Agent
+    \begin{figure}
+      \centering
+      \includegraphics[width=0.8\textwidth]{results2.png}
+    \end{figure}
+  \end{frame}
+
+
+  \section*{Backup}
+  \subsection*{Beispiel Shapley Value}
+  \begin{frame}{title}
+    \begin{figure}
+      \centering
+      \includegraphics[width=0.6\textwidth]{example-shapley-value.png}
+    \end{figure}
+  \end{frame}
+
+  \subsection*{Beispiel Auction}  
+  \begin{frame}{title}
+    \begin{figure}
+      \centering
+      \includegraphics[width=0.5\textwidth]{example-srg.png}
+    \end{figure}
   \end{frame}
 
 
