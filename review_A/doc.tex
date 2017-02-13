@@ -1,0 +1,118 @@
+% Article template for Mathematics Magazine
+% Revised 7/2002  Thanks for Greg St. George
+% \documentclass[sigconf]{acmart}
+\documentclass[sigconf]{acmart}
+% \documentclass[manuscript]{acmart}
+\usepackage{amssymb}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{dot2texi}
+\usetikzlibrary{shapes,arrows}
+\renewcommand{\baselinestretch}{1.2}
+%This is the command that spaces the manuscript for easy reading
+
+\setlength\parindent{0pt}
+
+%todo
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
+\newcommandx{\QUESTION}[2][1=]{\todo[linecolor=none,backgroundcolor=blue!15,bordercolor=none,#1]{\textbf{QUESTION: }#2}}
+\newcommandx{\TODO}[2][1=]{\todo[inline,linecolor=none,backgroundcolor=blue!15,bordercolor=none,#1]{\textbf{TODO: }#2}}
+
+\newtheoremstyle{break}
+  {\topsep} {\topsep}%
+  {}{}%
+  {\bfseries}{:}%
+  {\newline}{}%
+\theoremstyle{break}
+\newtheorem{zeige}{Zeige}
+% \newtheorem{definition}{Definition}
+\newtheorem{bsp}{Beispiel}
+\newtheorem{thm}{Theorem}
+\newtheorem{deff}{Definition}
+
+\setcopyright{none}
+
+\begin{document}
+%\thispagestyle{empty}
+\title{Review Gruppe A}
+\author{Denis Erfurt, Tobias Behrens, Abdallah Kadour}
+\maketitle
+
+Dieses Review ist folgendermaßen Gegliedert: in Abschnitt (\ref{sec:sfg}) wird die Struktur und formale Gestaltung des Papers betrachtet. In Abschnitt (\ref{sec:ik}) wird der Inhalt des Papers kritisiert und anschließend in Abschnitt (\ref{sec:fazit}) ein allgemeines Fazit gegeben.
+
+\section{Struktur und formale Gestaltung}
+\label{sec:sfg}
+
+\subsection{Struktur}
+\label{strukt}
+Bis auf die hier aufgeführten Auffälligkeiten ist das Paper gut strukturiert und erlaubt es nach einmaligem Lesen eine schnelle Navigation. Leider wird die Gesammtstruktur in der Einleitung zusammengefasst und begründet, was was einmalige Lesen erforderlich macht. Auch fehlt es teilweise an Zusammenfassungen und Begründungen an Kapietelanfängen.
+Der Text ist durch eine einfache schreibweise gut lesbar und bietet ausßer den in Abschnit (\ref{strukt}) bemängelt wünschenswerten Einleitungen einen guten Lesefluss. Auch besitzt die Arbeit ein gut strukturiertes und ausführliches Literaturverzeichnis auf welches heufig im Text verwiesen wird. Die lesbarkeit des Textes wird von zahlreichen Abbildungen unterstützt die mit einem Titel versehen sind und im Text richtig Referenziert werden, welches eine gute Anschaung beim Lesen bietet.
+Leider fehlen Seitenzahlen die das Zitieren erschwehren.
+
+% \subsubsection*{Abstract}
+Allgemein dient der Abstract dazu, sich einen Überblick über ds Paper zu verschaffen indem dieser die generelle Vorgehensweise
+sowie die wichtigsten Ergäbnisse präsentiert. Während im Paper das Vorgehen und die zentrale Fragestellung klar erläutert sind, fehlt das zusammenfassende Ergebnis der Fragestellung.
+
+% \subsubsection*{Konzepte}
+Die Punkte ''3.4 Coalition Formation'' sowie ''3.6 Koalitionsbildung'' überschneiden sich Thematisch und deren Trennung ist nicht klar.
+
+% \subsubsection*{Zusammenfasung}
+Der Abschnitt ''6.1 Abgrenzung'' formuliert vereinfachende Annahmen auf die das eigentliche Vorgehen der Authoren aufbaut und sollte noch vor der Ausführung des Vorgehens plaziert werden.
+
+% \subsection*{Lesbarkeit}
+
+\subsection*{Begriffe}
+Die Autoren Beschreiben wesentliche, genutzten Konzepte In Abschnitt 3. Leider werden viele Begriffe unpräziese eingeführt und im weiteren Verlauf der Arbeit benutzt.
+So exestiert kein einheitlicher Formalismus welches jedoch wünschenswert währe um quantitative aussagen treffen zu Können.
+Zwar versucht eine mathematische Definition einer Utilitaristischen Wohlfahrt zu geben,
+jedoch wird dies aufbauend auf undefinierte Konzepte
+wie ''Präferenzordnungen'' oder ''gesellschaftlichen Allokationen'' gemacht.
+Auch wird im weiteren Verlauf der arbeit weder auf die darunterliegenden Konzepte, noch auf die definition der utilitaristischen Wohlfahrt zurückgegriffen.
+Es wird sehr heufig über die Optimalität gesprochen, eines der Zentralen ziele der Arbeit, ohne jemals ein eindeutiges Kritärium für optimalität zu geben,
+zumal die Autoren von einem nicht trivialen Optimalitätskritärium ausgehen, welches mehrere unabhängige Variablen einbezieht.
+Allgemein ist der Schreibsteal sehr subjektiv und willkührlich: e.g. Wortwendungen wie ''relativ schnell'' (S. 6) sollten immer in einem Kontext stehen aus dem der Relativitätsbezug klar wird.
+Der Algorithmus ist sehr informell umschrieben. Hier würde sich Psoudocode für den generellen Ablauf gut anbieten. Jedoch wird dieser gut durch verschiedene Beispielszenarien veranschaulicht.
+
+
+
+% Es wird z.b. über optimalität gesprochen ohne eine definition des darunterliegenen
+
+
+
+
+\section{Inhaltliche Kritik}
+\label{sec:ik}
+
+Die Einleitung gibt ein kurzen Über das Feld der Agententechnologien sowie einen kurzen Überblick über die Aufgabenstellung welches eine Grundmotivation bietet. Demnach folgt die Hypothese die jedoch Aussageschwach und mehrdeutig ist. Insbesondere die Formulierung ''liefert in verschiedenen Szenarien zu jeder Zeit ein Ergebnis''
+ist mangelhaft, da die Bedeutung von ''Szenarien'' und ''Ergebnis'' offen gelassen werden. Insbesondere wird im Verlauf der weiteren Arbeit nur impliziert klar, was mit einem Ergebnis gemeint ist (die Zuordnung von Agentenressourcen zu Bauaufträgen und deren Vergütung). Unter dieser Bedeutung lässt diese Formulierung auch das ''leere'' Ergebnis zu,
+in dem keine Ressourcen und Vergütungen verteilt werden. Damit handelt es sich bei dieser Aussage um eine Tautologie die unabhängig von der nachfolgenden Arbeit wahr ist.
+Besser währe ein Anspruch an das Ergebnis zu haben wie z.b. nach einer konstanten Zeit ein Ergebnis zu liefern, das min. 50\% des globalen Optimums erreicht oder mit einer bestimmten definierten Geschwindigkeit asymptotisch dem Optimum annährt.
+
+Auch die nachfolgende Aussage der Hypothese beinhaltet undefinierte modalitäten wie ''frühzeitig'' oder ''annähernd optimales Ergebnis'' die ohne formale Definition dieser Modalitäten nicht als Hypothese benutzt werden kann.
+
+
+Im weiteren Verlauf der Arbeit fehlt ebenfalls eine präziese definition der sozialen Wohlfahrt und darauf aufbauend eines ''optimalen'' Ergebnisses. Insbesondere wird die Wohlfahrt mehrdeutig und wiedersprüchlich benutzt. Einerseits (A) als ein Ergebniss,
+''welche die Gesamtverluste durch Transport- und Personalkosten minimieren (Utilitaristische Wohlfahrt)'' (S. 3)
+andererseits (B) als die Summe der Gesammtgewine der Agenten: ''sinkt die Wohlfahrt sehr schnell ab, da sich die Unternehmen gegenseitig unterbieten und die Preise somit näher an die tatsächliche Wertschätzung treiben.'' (S. 5). Eine präziese definition der Soialen Wohlfahrt ist hier notwendig, zumal deren optimierung das primäre Ziel der Arbeit ist.
+
+Der präsentierte Algorithmus versucht in den ersten beiden Phasen ein Ergäbnis zu approximieren, welches zumindest ''besser'' relativ zum gewählten Optimalitätsbegriff ist, als eine naive (''leere'' oder zufällige) Lösung, die dritte Phase versucht durch ein brutforce Verfahren aus allen Möglichen Ergebnissen, die bestimmten Bedingungen entsprechen, das Optimalste zu finden.
+Das vorgehen in der dritten Phase 3 wird nun als Begründung genommen, dass der angegebene Algorithmus wie in der Hypothese behauptet, ein optimales Ergebniss berechnet:
+''Unter den gegebenen Voraussetzungen, dass alle Aufträge zu Beginn des Verfahrens bekannt sind, wird am Ende die Lösung gefunden, die die Verluste auf den minimalen Wert optimiert.'' (S. 6)
+Jedoch trift dieses nach beiden Auffassungen von soz. Wohlfahrt nicht zu, da nach (A) die Gesammtverluste nur bei einem ''leeren'' Ergebnis 0 und somit optimal sind. Nach der auffassung von (B) wird auch nicht das optimale Ergebnis gefunden, da die Agenten die Auktion in Phase 2 durch eine Kooperation verindert hätten können. Demnach wird die Hypothese ''Eine Kombination aus Auktions- und Verhandlungsverfahren [...] führt zu einer optimierten Lösung'' (S. 1) nicht bestätigt.
+
+% \TODO{Die Motivation für die verschiedenen Phasen des Algorithmus ist unzureichend - warum muss die Auktion optimiert werden wenn am schluss sowieso das optimale Ergebniss durch brute-force berechnet wird?}
+
+\section{Fazit}
+\label{sec:fazit}
+Zusammenfassend würden die Authoren davon profitieren einen Formalismus zu verwenden mit dem grundlegende Begriffe interpretationsfrei formuliert werden. Alle weiteren Begründungen und Resultate sollten auf diese Aufbauen. Allgemein entsteht der Eindruck, dass durch fehlen klarer Begriffe die Authoren selbst kein klares Verständniss vom beschriebenen Problem hatten und von einer ungenauen Hypothese über einen unnötig komplizierten Algorithmus auf eine falsches Ergebnis schließen.
+Positiv anzumerken ist die gute Strukturierung, lesefluss und Anschaung des Papers. Besonders die ausführlichen Beispiele helfen beim Verständniss des Algorithmus.
+
+
+
+\end{document}
