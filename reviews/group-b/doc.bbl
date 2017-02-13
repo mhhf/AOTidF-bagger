@@ -1,0 +1,138 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{00}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{{\tt DOI:}\penalty0{#1}\ }
+  \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       #1{#1}          \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[\protect\citeauthoryear{Conitzer and Sandholm}{Conitzer and
+  Sandholm}{2004}]%
+        {conitzer2004computing}
+\bibfield{author}{\bibinfo{person}{Vincent Conitzer} {and}
+  \bibinfo{person}{Tuomas Sandholm}.} \bibinfo{year}{2004}\natexlab{}.
+\newblock \showarticletitle{Computing shapley values, manipulating value
+  division schemes, and checking core membership in multi-issue domains}. In
+  \bibinfo{booktitle}{{\em Proceedings of the 19th national conference on
+  Artifical intelligence}}. AAAI Press, \bibinfo{pages}{219--225}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Denis~Erfurt}{Denis~Erfurt}{2017a}]%
+        {git}
+\bibfield{author}{\bibinfo{person}{Abdallah~Kadour Denis~Erfurt,
+  Tobias~Behrens}.} \bibinfo{year}{2017}\natexlab{a}.
+\newblock \bibinfo{title}{AOTidf Bagger Game}.
+\newblock \bibinfo{howpublished}{\url{https://github.com/mhhf/AOTidF-bagger}}.
+   (\bibinfo{year}{2017}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Denis~Erfurt}{Denis~Erfurt}{2017b}]%
+        {gitGame}
+\bibfield{author}{\bibinfo{person}{Abdallah~Kadour Denis~Erfurt,
+  Tobias~Behrens}.} \bibinfo{year}{2017}\natexlab{b}.
+\newblock \bibinfo{title}{GameFramework}.
+\newblock
+  \bibinfo{howpublished}{\url{https://github.com/mhhf/AOTidF-bagger/blob/master/GameFramework.ipynb}}.
+    (\bibinfo{year}{2017}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Denis~Erfurt}{Denis~Erfurt}{2017c}]%
+        {gitShapley}
+\bibfield{author}{\bibinfo{person}{Abdallah~Kadour Denis~Erfurt,
+  Tobias~Behrens}.} \bibinfo{year}{2017}\natexlab{c}.
+\newblock \bibinfo{title}{Shapley Value}.
+\newblock
+  \bibinfo{howpublished}{\url{https://github.com/mhhf/AOTidF-bagger/blob/master/Shapley.ipynb}}.
+    (\bibinfo{year}{2017}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Gillies}{Gillies}{2016}]%
+        {gillies2016solutions}
+\bibfield{author}{\bibinfo{person}{Donald~B Gillies}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{SOLUTIONS TO GENERAL NON-ZERO-SUM GAMES1}.
+\newblock \bibinfo{journal}{{\em Contributions to the Theory of Games
+  (AM-40)\/}}  \bibinfo{volume}{4} (\bibinfo{year}{2016}), \bibinfo{pages}{47}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Karp}{Karp}{1972}]%
+        {Karp1972}
+\bibfield{author}{\bibinfo{person}{Richard~M. Karp}.}
+  \bibinfo{year}{1972}\natexlab{}.
+\newblock \bibinfo{booktitle}{{\em Reducibility among Combinatorial Problems}}.
+\newblock \bibinfo{publisher}{Springer US}, \bibinfo{address}{Boston, MA},
+  \bibinfo{pages}{85--103}.
+\newblock
+\showISBNx{978-1-4684-2001-2}
+\showDOI{%
+\url{http://dx.doi.org/10.1007/978-1-4684-2001-2_9}}
+
+
+\bibitem[\protect\citeauthoryear{Moretti and Patrone}{Moretti and
+  Patrone}{2008}]%
+        {Moretti2008}
+\bibfield{author}{\bibinfo{person}{Stefano Moretti} {and}
+  \bibinfo{person}{Fioravante Patrone}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Transversality of the Shapley value}.
+\newblock \bibinfo{journal}{{\em TOP\/}} \bibinfo{volume}{16},
+  \bibinfo{number}{1} (\bibinfo{year}{2008}), \bibinfo{pages}{1}.
+\newblock
+\showISSN{1863-8279}
+\showDOI{%
+\url{http://dx.doi.org/10.1007/s11750-008-0044-5}}
+
+
+\bibitem[\protect\citeauthoryear{P\'erez and Granger}{P\'erez and
+  Granger}{2007}]%
+        {PER-GRA:2007}
+\bibfield{author}{\bibinfo{person}{Fernando P\'erez} {and}
+  \bibinfo{person}{Brian~E. Granger}.} \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{{IP}ython: a System for Interactive Scientific
+  Computing}.
+\newblock \bibinfo{journal}{{\em Computing in Science and Engineering\/}}
+  \bibinfo{volume}{9}, \bibinfo{number}{3} (\bibinfo{date}{May}
+  \bibinfo{year}{2007}), \bibinfo{pages}{21--29}.
+\newblock
+\showISSN{1521-9615}
+\showDOI{%
+\url{http://dx.doi.org/10.1109/MCSE.2007.53}}
+
+
+\end{thebibliography}

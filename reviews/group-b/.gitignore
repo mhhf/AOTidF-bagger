@@ -1,0 +1,8 @@
+*.dot
+
+*dot2tex*.tex
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.gz
